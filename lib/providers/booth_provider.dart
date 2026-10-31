@@ -8,7 +8,6 @@ import 'package:uuid/uuid.dart';
 import '../models/booth_project.dart';
 import '../services/analysis.dart';
 import '../services/errors.dart';
-import '../services/model_store.dart';
 import '../services/photo.dart';
 import '../services/plan_builder.dart';
 import '../services/worker.dart';
@@ -161,8 +160,6 @@ class DraftNotifier extends Notifier<BoothDraft> {
       );
       state = BoothDraft(photo: photo, analysis: analysis);
       return true;
-    } on ModelException catch (e) {
-      state = BoothDraft(error: e.message);
     } catch (e) {
       state = BoothDraft(error: analysisErrorText(e));
     }

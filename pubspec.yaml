@@ -17,7 +17,6 @@ dependencies:
   image_picker: ^1.2.4
   image: ^4.5.0
   http: ^1.6.0
-  crypto: ^3.0.6
   path_provider: ^2.1.6
   gal: ^2.3.3
   share_plus: ^13.3.1
@@ -36,3 +35,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/strip_font.zip
+    - assets/models/

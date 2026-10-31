@@ -1,5 +1,5 @@
 // The ONNX face parser, all of it: swapping the runtime or following the spike
-// (`MangaPrompts/tools/ondevice`) touches this file and `model_store.dart`.
+// (`MangaPrompts/tools/ondevice`) touches this file and `make models`.
 //
 // Path, exactly as `tools/ondevice/README.md` measured it: 8-bit RGB after EXIF
 // → Pillow BILINEAR to 512×512, no ratio, no pad → v/255, ImageNet normalise →
@@ -20,7 +20,12 @@ import 'package:image/image.dart' as img;
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 import 'face_parser.dart';
-import 'model_store.dart';
+
+// fp16 for both, never int8: under the CoreML EP its output is wrong
+// (`MangaPrompts/docs/ondevice-parity.md`). A new export is a new digest in the
+// name; the names are in `Makefile` too, with the full sha256.
+const kFaceModelAsset = 'assets/models/face_b5.fp16.46e77905.onnx';
+const kClothesModelAsset = 'assets/models/clothes_b2.fp16.bd5f9568.onnx';
 
 const kParserSize = 512;
 const kFaceClasses = 19;
@@ -230,24 +235,16 @@ class _Logits {
 /// Parsing is CPU work around a native call: Dart isolates on both sides, and
 /// the plugin runs the session on its own background queue.
 class OnnxFaceParser implements FaceParser {
-  OnnxFaceParser(this._models);
-
-  final ModelStore _models;
   Future<(OrtSession, OrtSession)>? _sessions;
 
   Future<(OrtSession, OrtSession)> _load() async {
-    await _models.ensure();
+    // The plugin unpacks each asset into the cache dir once, atomically, and
+    // unpacks it again if the OS evicts it or the file does not load.
     final options = OrtSessionOptions(providers: _providers);
     final ort = OnnxRuntime();
     return (
-      await ort.createSession(
-        await _models.pathOf(kFaceModel),
-        options: options,
-      ),
-      await ort.createSession(
-        await _models.pathOf(kClothesModel),
-        options: options,
-      ),
+      await ort.createSessionFromAsset(kFaceModelAsset, options: options),
+      await ort.createSessionFromAsset(kClothesModelAsset, options: options),
     );
   }
 

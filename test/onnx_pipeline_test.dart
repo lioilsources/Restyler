@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:restyler/services/onnx_face_parser.dart';
 
 // ignore: avoid_relative_lib_imports
-import '../../MangaPrompts-restyler/tools/ondevice/dart_resize/lib/parser_preprocess.dart'
+import 'support/parser_preprocess.dart'
     as spike;
 
 /// The Dart half of the parser. The session itself needs a device and a model.

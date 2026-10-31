@@ -8,9 +8,9 @@ import 'package:restyler/data/mixes.dart';
 import 'package:restyler/models/booth_project.dart';
 import 'package:restyler/providers/core_providers.dart';
 import 'package:restyler/screens/booth_screen.dart';
+import 'package:restyler/services/analysis.dart';
 import 'package:restyler/services/errors.dart';
 import 'package:restyler/services/face_parser.dart';
-import 'package:restyler/services/model_store.dart';
 import 'package:restyler/services/photo_source.dart';
 
 import 'support/helpers.dart';
@@ -24,18 +24,10 @@ class _Photo implements PhotoSource {
   Future<Uint8List?> pick(SelfieSource source) async => bytes;
 }
 
-class _ReadyModels extends ModelNotifier {
-  @override
-  ModelState build() => const ModelState(ModelStage.ready);
-
-  @override
-  Future<void> ensure() async {}
-}
-
-class _OfflineParser implements FaceParser {
+class _BrokenParser implements FaceParser {
   @override
   Future<Never> parse(Uint8List bytes) async =>
-      throw const ModelException(kModelOfflineText);
+      throw StateError('model did not load');
 }
 
 Future<void> _pumps(WidgetTester t, [int n = 30]) async {
@@ -82,7 +74,6 @@ void main() {
             parser: parser ?? FakeFaceParser(c.parse()),
           ).cast(),
           photoSourceProvider.overrideWithValue(_Photo(c.photoBytes())),
-          modelProvider.overrideWith(_ReadyModels.new),
         ],
         child: const RestylerApp(),
       ),
@@ -179,11 +170,11 @@ void main() {
     expect(find.text('Brýle'), findsOneWidget);
   });
 
-  testWidgets('offline with no model: clear message on the selfie step', (t) async {
-    await boot(t, catalog: const BoothCatalog(), parser: _OfflineParser());
+  testWidgets('a parser that fails: clear message on the selfie step', (t) async {
+    await boot(t, catalog: const BoothCatalog(), parser: _BrokenParser());
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
-    expect(find.text(kModelOfflineText), findsOneWidget);
+    expect(find.text(analysisErrorText(StateError('model did not load'))), findsOneWidget);
     expect(find.text('Vlasy'), findsNothing);
   });
 

@@ -5,7 +5,6 @@ import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
 import '../services/errors.dart';
 import '../services/photo_source.dart';
-import '../widgets/model_banner.dart';
 import 'wizard.dart';
 
 class SelfieStep extends ConsumerWidget {
@@ -25,10 +24,8 @@ class SelfieStep extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final draft = ref.watch(draftProvider);
-    final model = ref.watch(modelProvider);
     final catalog = ref.watch(catalogProvider);
     final scheme = Theme.of(context).colorScheme;
-    final ready = model.stage == ModelStage.ready;
     final a = draft.analysis;
     return Scaffold(
       appBar: AppBar(title: const Text('Selfie')),
@@ -43,7 +40,6 @@ class SelfieStep extends ConsumerWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
-              const ModelBanner(),
               const Spacer(),
               if (draft.analysing)
                 const Padding(
@@ -70,7 +66,7 @@ class SelfieStep extends ConsumerWidget {
                 Text(maskErrorText(a!.glassesIssue!, MaskStep.glasses)),
               const Spacer(),
               FilledButton.icon(
-                onPressed: ready && !draft.analysing
+                onPressed: !draft.analysing
                     ? () => _take(context, ref, SelfieSource.camera)
                     : null,
                 icon: const Icon(Icons.photo_camera),
@@ -78,7 +74,7 @@ class SelfieStep extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               TextButton(
-                onPressed: ready && !draft.analysing
+                onPressed: !draft.analysing
                     ? () => _take(context, ref, SelfieSource.gallery)
                     : null,
                 child: const Text('Vybrat z galerie'),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/booth_provider.dart';
-import 'providers/core_providers.dart';
 import 'screens/home_screen.dart';
 import 'theme.dart';
 
@@ -23,7 +22,6 @@ class _RestylerAppState extends ConsumerState<RestylerApp>
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(ref.read(boothProvider.notifier).resumeAll());
-      unawaited(ref.read(modelProvider.notifier).ensure());
     });
   }
 

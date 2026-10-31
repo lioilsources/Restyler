@@ -46,3 +46,6 @@ app.*.map.json
 
 # Secrets for --dart-define (Makefile)
 .env.local
+
+# Parser weights: bundled at build time, too large for git (make models)
+/assets/models/*.onnx

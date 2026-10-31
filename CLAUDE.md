@@ -12,8 +12,7 @@ fotka a masky. Výstupy se stáhnou do souboru hned, jak krok doběhne, a dál �
 offline.
 
 Jediný endpoint je `POST /api/render` (`tsumiki_shared`: `BackendClient`), kolem něj
-poll, stažení kroku a `/api/me`. Jedinou výjimkou je jednorázové stažení modelů z
-`/models/`.
+poll, stažení kroku a `/api/me`. Modely jsou zapečené v appce, ze serveru se nestahují.
 
 ## Pravidla, která se nesmí obejít
 
@@ -41,10 +40,11 @@ SegFormer ve fp16, nikdy int8 (pod CoreML EP dává špatný výstup):
 | `face_b5.fp16.<sha8>.onnx` | 170.5 MB | `logits` 1×19×128×128 |
 | `clothes_b2.fp16.<sha8>.onnx` | 95.2 MB | `logits` 1×18×128×128 |
 
-Zdroj a export: `MangaPrompts/tools/ondevice/`. `ModelStore` je stahuje při prvním
-startu z `restyler-api.ol1n.com/models/` s CF hlavičkami, ověří sha256 a uloží do
-Application Support, vyňaté ze zálohy. Otisky jsou v `lib/services/model_store.dart`
-(`kFaceModel`, `kClothesModel`); nový export znamená nový otisk i jméno.
+Zdroj a export: `MangaPrompts/tools/ondevice/`. Váhy jsou assety v `assets/models/`,
+do gitu se nevejdou (`.gitignore`), takže čistý clone je musí dostat zvenčí. `make models`
+ověří sha256 a každý build přes Makefile ho volá. Při běhu je rozbaluje plugin
+(`createSessionFromAsset`) do cache a po vymazání je rozbalí znovu. Nový export znamená
+nový otisk i jméno v `lib/services/onnx_face_parser.dart` a v `Makefile`.
 
 Runtime `flutter_onnxruntime` 1.9.0 si vynucuje iOS 16, statické pody
 (`use_frameworks! :linkage => :static`) a `enable-swift-package-manager: false`.
