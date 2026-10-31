@@ -1,0 +1,38 @@
+name: restyler
+description: "Selfie, nový vzhled a styly do fotobuňky. Logika běží v telefonu."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  tsumiki_shared:
+    path: packages/tsumiki_shared
+  flutter_onnxruntime: 1.9.0
+  flutter_riverpod: ^3.4.3
+  hive_flutter: ^1.1.0
+  image_picker: ^1.2.4
+  image: ^4.5.0
+  http: ^1.6.0
+  crypto: ^3.0.6
+  path_provider: ^2.1.6
+  gal: ^2.3.3
+  share_plus: ^13.3.1
+  uuid: ^4.6.0
+  video_player: ^2.14.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  config:
+    # SwiftPM resolve of flutter_onnxruntime failed (tools/ondevice/README.md).
+    enable-swift-package-manager: false
+  uses-material-design: true
+  assets:
+    - assets/fonts/strip_font.zip
