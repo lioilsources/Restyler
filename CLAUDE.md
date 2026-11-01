@@ -40,11 +40,14 @@ SegFormer ve fp16, nikdy int8 (pod CoreML EP dává špatný výstup):
 | `face_b5.fp16.<sha8>.onnx` | 170.5 MB | `logits` 1×19×128×128 |
 | `clothes_b2.fp16.<sha8>.onnx` | 95.2 MB | `logits` 1×18×128×128 |
 
-Zdroj a export: `MangaPrompts/tools/ondevice/`. Váhy jsou assety v `assets/models/`,
-do gitu se nevejdou (`.gitignore`), takže čistý clone je musí dostat zvenčí. `make models`
-ověří sha256 a každý build přes Makefile ho volá. Při běhu je rozbaluje plugin
-(`createSessionFromAsset`) do cache a po vymazání je rozbalí znovu. Nový export znamená
-nový otisk i jméno v `lib/services/onnx_face_parser.dart` a v `Makefile`.
+Zdroj a export: `MangaPrompts/tools/ondevice/`; export s jeho připnutými verzemi je
+reprodukovatelný na bajt. Váhy jsou assety v `assets/models/`, do gitu nepatří
+(`.gitignore`, repo je veřejné a licence vah není jasná), kanonická kopie leží na
+SPARKu v `~/deploy/restyler-models/`. `make models` chybějící soubory stáhne, ověří
+sha256 a každý build přes Makefile ho volá. Při běhu je plugin
+(`createSessionFromAsset`) přes `rootBundle` rozbalí do tmp a po vymazání je rozbalí
+znovu, takže na disku jsou dvakrát. Nový export znamená nový otisk i jméno
+v `lib/services/onnx_face_parser.dart`, v `Makefile` a nový soubor na SPARKu.
 
 Runtime `flutter_onnxruntime` 1.9.0 si vynucuje iOS 16, statické pody
 (`use_frameworks! :linkage => :static`) a `enable-swift-package-manager: false`.
@@ -60,6 +63,7 @@ se sem musí přenést ručně i s novými fixturami.
 
 ```sh
 cp .env.local.example .env.local   # CF_ACCESS_*, RESTYLER_APP_TOKEN, RESTYLER_USER
+make device-gate DEVICE=<id>   # parser na telefonu, bez serveru (čas, paměť, shoda)
 make run            # release; make debug vezme i RESTYLER_API_URL pro LAN
 make build-ios      # ios/ExportOptions.plist doplnit o team a profil
 make build-android

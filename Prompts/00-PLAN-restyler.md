@@ -339,9 +339,8 @@ Výstup `docs/pipeline-matrix.md`.
    soukromá appka nepotřebuje.
 8. **Tři kopie masek** (Python, balíček, Ol1nLLM) do Fáze 2 — souborové
    fixtury ve všech třech testech; Ol1nLLM přejde na balíček.
-9. **Velikost appky**: dva ONNX modely (desítky až stovky MB). Nad 50 MB se
-   stahují při prvním startu z `restyler-api.ol1n.com/models/` (statické,
-   za Access) — jediná výjimka z „jen render", a jen jednou.
+9. **Velikost appky**: dva ONNX modely (265 MB) jsou zapečené v appce, ze
+   serveru se nestahují (rozhodnutí 2026-11-01, přepisuje limit 50 MB z §1.3).
 
 ### 9. Co nedělat (a proč)
 
