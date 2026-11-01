@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Draws the app icon: a photo booth strip with one face and three looks.
+"""Draws the app icon: a red-haired woman with blue eyes, behind the booth curtain.
 
-Colours are BoothColors from lib/theme.dart. Writes every iOS and Android size
-in place; needs Pillow only.
+The background is BoothColors.curtain from lib/theme.dart. Writes every iOS and
+Android size in place; needs Pillow only.
 """
 import json
 from pathlib import Path
@@ -11,7 +11,10 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 CURTAIN, DEEP = (14, 74, 79), (10, 56, 60)
-PAPER, INK, FLASH, HAZE = (255, 255, 255), (30, 34, 36), (255, 200, 61), (191, 216, 214)
+HAIR, HAIR_DARK, HAIR_LIGHT = (214, 84, 28), (168, 56, 18), (240, 128, 52)
+SKIN, BLUSH, FRECKLE = (250, 218, 196), (246, 176, 156), (222, 150, 112)
+IRIS, IRIS_DARK, PUPIL = (46, 134, 222), (24, 84, 164), (24, 26, 36)
+LIPS, WHITE, LASH = (200, 62, 66), (255, 255, 255), (96, 40, 24)
 SS = 4
 SIZE = 1024 * SS
 
@@ -20,44 +23,42 @@ def s(v: float) -> int:
     return round(v * SS)
 
 
-def head(d: ImageDraw.ImageDraw, cx: float, cy: float, r: float, look: str) -> None:
-    """A head of radius r on shoulders; every look has to read at 60 px."""
-    box = lambda x0, y0, x1, y1: [s(cx + x0 * r), s(cy + y0 * r), s(cx + x1 * r), s(cy + y1 * r)]
-    d.ellipse(box(-1.75, 1.05, 1.75, 3.2), fill=INK)  # shoulders
-    if look == "long":
-        d.rounded_rectangle(box(-1.28, -1.25, 1.28, 1.35), radius=s(r * 1.05), fill=FLASH)
-    d.ellipse(box(-0.9, -1.0, 0.9, 1.15), fill=HAZE)  # face
-    if look == "beard":
-        d.chord(box(-0.9, -0.7, 0.9, 1.3), 5, 175, fill=INK)
-        d.pieslice(box(-0.95, -1.12, 0.95, 0.0), 180, 360, fill=INK)
-        d.ellipse(box(-0.28, 0.42, 0.28, 0.62), fill=HAZE)  # mouth
-    if look == "long":
-        d.pieslice(box(-0.95, -1.2, 0.95, 0.35), 180, 360, fill=FLASH)
-    if look == "glasses":
-        d.pieslice(box(-1.0, -1.42, 1.0, 0.6), 180, 360, fill=INK)
-        d.rectangle(box(-0.82, -0.2, 0.82, -0.05), fill=INK)
-        d.ellipse(box(-0.8, -0.42, -0.08, 0.3), fill=FLASH, outline=INK, width=s(r * 0.15))
-        d.ellipse(box(0.08, -0.42, 0.8, 0.3), fill=FLASH, outline=INK, width=s(r * 0.15))
+def box(cx: float, cy: float, rx: float, ry: float) -> list[int]:
+    return [s(cx - rx), s(cy - ry), s(cx + rx), s(cy + ry)]
+
+
+def eye(d: ImageDraw.ImageDraw, cx: float, cy: float) -> None:
+    d.ellipse(box(cx, cy, 92, 62), fill=WHITE)
+    d.ellipse(box(cx, cy, 60, 60), fill=IRIS_DARK)
+    d.ellipse(box(cx, cy, 50, 50), fill=IRIS)
+    d.ellipse(box(cx, cy, 24, 24), fill=PUPIL)
+    d.ellipse(box(cx + 18, cy - 20, 12, 12), fill=WHITE)
+    d.arc(box(cx, cy, 96, 66), 195, 345, fill=LASH, width=s(15))  # upper lid
+    d.arc(box(cx, cy - 92, 102, 44), 200, 340, fill=HAIR_DARK, width=s(15))  # brow
 
 
 def draw() -> Image.Image:
     bg = Image.new("RGB", (SIZE, SIZE), CURTAIN)
     d = ImageDraw.Draw(bg)
-    d.rectangle([0, s(880), SIZE, SIZE], fill=DEEP)  # booth floor
+    d.ellipse(box(512, 1120, 430, 300), fill=DEEP)  # shoulders
 
-    W, H = 470, 940
-    strip = Image.new("RGBA", (s(W), s(H)), (0, 0, 0, 0))
-    p = ImageDraw.Draw(strip)
-    p.rounded_rectangle([0, 0, s(W) - 1, s(H) - 1], radius=s(22), fill=PAPER)
-    frame_h = (H - 4 * 26) / 3
-    for i, look in enumerate(["beard", "glasses", "long"]):
-        y0 = 26 + i * (frame_h + 26)
-        frame = Image.new("RGB", (s(W - 52), s(frame_h)), (36, 120, 124))
-        head(ImageDraw.Draw(frame), (W - 52) / 2, frame_h * 0.46, 72, look)
-        strip.paste(frame, (s(26), s(y0)))
+    d.rounded_rectangle([s(120), s(70), s(904), s(1100)], radius=s(370), fill=HAIR)  # hair behind
+    d.rectangle(box(512, 860, 92, 130), fill=BLUSH)  # neck
+    d.ellipse(box(512, 530, 300, 370), fill=SKIN)  # face
 
-    strip = strip.rotate(-7, expand=True, resample=Image.BICUBIC)
-    bg.paste(strip, ((SIZE - strip.width) // 2, (SIZE - strip.height) // 2), strip)
+    d.pieslice(box(560, 330, 410, 300), 170, 300, fill=HAIR)  # fringe, swept left
+    d.pieslice(box(420, 330, 400, 270), 245, 370, fill=HAIR)
+    d.arc(box(420, 420, 300, 330), 205, 285, fill=HAIR_LIGHT, width=s(24))  # strand of light
+    d.arc(box(180, 660, 54, 340), 110, 250, fill=HAIR_DARK, width=s(18))
+    d.arc(box(844, 660, 54, 340), 290, 70, fill=HAIR_DARK, width=s(18))
+
+    eye(d, 382, 520)
+    eye(d, 642, 520)
+    for x, y in [(330, 640), (372, 668), (290, 664), (694, 640), (652, 668), (734, 664), (470, 626), (554, 626)]:
+        d.ellipse(box(x, y, 9, 9), fill=FRECKLE)  # freckles
+    d.arc(box(512, 628, 34, 22), 20, 160, fill=BLUSH, width=s(10))  # nose
+    d.chord(box(512, 748, 92, 44), 8, 172, fill=LIPS)  # smile
+    d.chord(box(512, 752, 74, 24), 8, 172, fill=WHITE)
     return bg
 
 
