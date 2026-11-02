@@ -35,11 +35,4 @@ class AppConfig {
     cfAccessClientId: cfAccessClientId,
     cfAccessClientSecret: cfAccessClientSecret,
   );
-
-  /// `/models/` sits behind Access but outside the app's API: no app token.
-  Map<String, String> get cfHeaders => {
-    if (cfAccessClientId.isNotEmpty) 'CF-Access-Client-Id': cfAccessClientId,
-    if (cfAccessClientSecret.isNotEmpty)
-      'CF-Access-Client-Secret': cfAccessClientSecret,
-  };
 }

@@ -35,9 +35,9 @@ const kClothesClasses = 18;
 const kParserInputNode = 'pixel_values';
 const kParserOutputNode = 'logits';
 
-/// CPU: phones were not measured (CoreML gave correct fp16 output on the Mac,
-/// what it does on an iPhone is unknown; NNAPI was not tried).
-const _providers = [OrtProvider.CPU];
+/// CPU: on iPhone 12 mini the CoreML EP was no faster and gave identical maps
+/// (`Prompts/04-TEST-telefon.md`). NNAPI was not measured.
+const kParserProviders = [OrtProvider.CPU];
 
 const _mean = [0.485, 0.456, 0.406];
 const _std = [0.229, 0.224, 0.225];
@@ -234,18 +234,27 @@ class _Logits {
 
 /// Parsing is CPU work around a native call: Dart isolates on both sides, and
 /// the plugin runs the session on its own background queue.
+///
+/// One session at a time, closed after its run: a photo is parsed once, and two
+/// live sessions plus the arena went past the 2.2 GB per-process limit of a
+/// 4 GB iPhone (Jetsam, iPhone 12 mini). Hold on to neither.
 class OnnxFaceParser implements FaceParser {
-  Future<(OrtSession, OrtSession)>? _sessions;
+  OnnxFaceParser({this.providers = kParserProviders});
 
-  Future<(OrtSession, OrtSession)> _load() async {
-    // The plugin unpacks each asset into the cache dir once, atomically, and
-    // unpacks it again if the OS evicts it or the file does not load.
-    final options = OrtSessionOptions(providers: _providers);
-    final ort = OnnxRuntime();
-    return (
-      await ort.createSessionFromAsset(kFaceModelAsset, options: options),
-      await ort.createSessionFromAsset(kClothesModelAsset, options: options),
+  final List<OrtProvider> providers;
+
+  /// The plugin unpacks the asset into the temp dir once, atomically, and
+  /// unpacks it again if the OS evicts it or the file does not load.
+  Future<_Logits> _run(String asset, Float32List pixels, int classes) async {
+    final session = await OnnxRuntime().createSessionFromAsset(
+      asset,
+      options: OrtSessionOptions(providers: providers, useArena: false),
     );
+    try {
+      return await _infer(session, pixels, classes);
+    } finally {
+      await session.close();
+    }
   }
 
   Future<_Logits> _infer(
@@ -283,17 +292,13 @@ class OnnxFaceParser implements FaceParser {
 
   @override
   Future<FaceParse> parse(Uint8List bytes) async {
-    final Future<(OrtSession, OrtSession)> pending = _sessions ??= _load();
-    final (OrtSession, OrtSession) sessions;
-    try {
-      sessions = await pending;
-    } catch (_) {
-      _sessions = null; // the next selfie tries again
-      rethrow;
-    }
     final input = await Isolate.run(() => _preprocess(bytes));
-    final face = await _infer(sessions.$1, input.pixels, kFaceClasses);
-    final clothes = await _infer(sessions.$2, input.pixels, kClothesClasses);
+    final face = await _run(kFaceModelAsset, input.pixels, kFaceClasses);
+    final clothes = await _run(
+      kClothesModelAsset,
+      input.pixels,
+      kClothesClasses,
+    );
     return Isolate.run(
       () => FaceParse(
         face: upsampleArgmax(
