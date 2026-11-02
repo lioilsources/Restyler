@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
-import 'package:tsumiki_shared/ui.dart';
 
 import '../data/mixes.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
-import '../providers/core_providers.dart';
 import 'booth_screen.dart';
 
 const kFrameCounts = [4, 6, 8];
@@ -78,7 +76,6 @@ class _StylesStepState extends ConsumerState<StylesStep> {
   Widget build(BuildContext context) {
     final draft = ref.watch(draftProvider);
     final plan = draft.plan;
-    final account = ref.watch(accountProvider).value;
     final text = Theme.of(context).textTheme;
     final matches = kRestyleStyles
         .where((s) => restyleStyleMatchesQuery(s, _query))
@@ -165,23 +162,7 @@ class _StylesStepState extends ConsumerState<StylesStep> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (plan != null)
-                    TextButton(
-                      onPressed: account == null
-                          ? null
-                          : () => QuotaSheet.show(
-                              context,
-                              account,
-                              cost: plan.cost,
-                            ),
-                      child: Text(
-                        account == null
-                            ? 'Stojí ${plan.cost} generací'
-                            : 'Stojí ${plan.cost} generací, zbývá '
-                                  '${account.totalRemaining}',
-                      ),
-                    )
-                  else
+                  if (plan == null)
                     const Padding(
                       padding: EdgeInsets.only(bottom: 8),
                       child: Text(

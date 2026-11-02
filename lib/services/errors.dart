@@ -34,7 +34,6 @@ String maskErrorText(HairMaskException e, [MaskStep step = MaskStep.hair]) {
 const kBusyText =
     'Běží ti jiný render. Dokud nedoběhne, nový nespustíš a nejde ani Oživit. '
     'Klip „vlasy ve větru“ může trvat kolem 20 minut.';
-const kQuotaText = 'Dnešní kvóta je vyčerpaná a nemáš kredity.';
 const kOfflineText =
     'Server není dostupný. Zkontroluj připojení a zkus to znovu.';
 
@@ -43,7 +42,6 @@ String backendErrorText(Object e) {
   if (e is BackendException) {
     return switch (e.statusCode) {
       429 => kBusyText,
-      402 => kQuotaText,
       401 || 403 => 'Server odmítl přístup. Tenhle build má špatný token.',
       404 => 'Server o tomhle renderu už neví. Spusť ho znovu.',
       422 => 'Server plán odmítl. Tahle fotka se nedá poslat.',

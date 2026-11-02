@@ -46,7 +46,6 @@ void main() {
   });
 
   test('other answers and network trouble are Czech too', () {
-    expect(backendErrorText(const BackendException(402, 'x')), kQuotaText);
     expect(backendErrorText(const BackendException(403, 'x')), contains('přístup'));
     expect(backendErrorText(TimeoutException('x')), kOfflineText);
     expect(backendErrorText(http.ClientException('x')), kOfflineText);

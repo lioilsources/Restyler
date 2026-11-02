@@ -51,10 +51,4 @@ class BoothCatalog {
 
 final catalogProvider = Provider<BoothCatalog>((_) => const BoothCatalog());
 
-/// `/api/me`; offline it fails and the screens just leave the quota out.
-final accountProvider = FutureProvider.autoDispose<Account>(
-  (ref) => ref.watch(renderServiceProvider).account(),
-  retry: (_, _) => null,
-);
-
 final photoSourceProvider = Provider<PhotoSource>((_) => PickerPhotoSource());

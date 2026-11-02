@@ -89,8 +89,7 @@ Future<BoothAnalysis> _analyse(
   PreparedPhoto photo,
 ) => worker(() => analyseParse(parse, photo));
 
-/// Selfie → prepared photo + analysis. Nothing here touches the network or the
-/// quota; the errors are shown before anything is sent.
+/// Selfie → prepared photo + analysis. Nothing here touches the network; the errors are shown before anything is sent.
 Future<(PreparedPhoto, BoothAnalysis)> analyseSelfie(
   Uint8List raw,
   FaceParser parser,

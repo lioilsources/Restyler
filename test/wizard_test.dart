@@ -101,7 +101,7 @@ void main() {
     expect(find.text('Styly'), findsOneWidget);
     expect(find.text('Vyber aspoň jednu úpravu nebo styl.'), findsOneWidget);
     await _tap(t, 'Galerie');
-    expect(find.textContaining('Stojí 4 generací'), findsOneWidget);
+    expect(find.text('Vyber aspoň jednu úpravu nebo styl.'), findsNothing);
     await _tap(t, 'Spustit fotobuňku');
     await _pumps(t, 60);
 
@@ -142,8 +142,6 @@ void main() {
     await _tap(t, 'Oživit');
     expect(find.text('Rychlé, během sekund'), findsOneWidget);
     expect(find.text('Pomalé, desítky minut'), findsOneWidget);
-    expect(find.text('Stojí 1'), findsOneWidget);
-    expect(find.text('Stojí 5'), findsOneWidget);
 
     backend.refuseNext = 429;
     await _tap(t, 'Vlasy ve větru');

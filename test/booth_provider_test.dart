@@ -194,12 +194,6 @@ void main() {
     expect(project(id).error, isNull);
   });
 
-  test('402 explains the quota', () async {
-    backend.refuseNext = 402;
-    final id = await c.read(boothProvider.notifier).start(await draft());
-    expect(project(id).error, kQuotaText);
-  });
-
   test('resume at start picks up the saved job id, once', () async {
     backend.nextScript = [
       _job('running', {'hair': stepJson('running')}),

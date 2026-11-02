@@ -32,6 +32,4 @@ class RenderService {
 
   Future<Uint8List> step(String jobId, String stepId) =>
       _client.stepOutput(jobId, stepId);
-
-  Future<Account> account() => _client.account();
 }

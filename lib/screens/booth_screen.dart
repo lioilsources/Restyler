@@ -42,12 +42,10 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
 
   Future<void> _animate(BoothProject project, BoothTile tile) async {
     final catalog = ref.read(catalogProvider);
-    final account = ref.read(accountProvider).value;
     final motion = await MotionSheet.show(
       context,
       catalog.motions,
       project.nextClipId(),
-      remaining: account?.totalRemaining,
     );
     if (motion == null || !mounted) return;
     final error = await ref

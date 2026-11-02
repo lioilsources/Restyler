@@ -364,8 +364,8 @@ class BoothNotifier extends Notifier<BoothState> {
   }
 
   /// The saved plan on the saved source; nothing is recomputed. The old
-  /// outputs go only once the server has taken the job, so a refusal (429, no
-  /// quota) leaves the project as it was.
+  /// outputs go only once the server has taken the job, so a refusal (429)
+  /// leaves the project as it was.
   Future<void> _submit(String projectId, String runId) async {
     try {
       await _post(projectId, runId);
@@ -416,7 +416,6 @@ class BoothNotifier extends Notifier<BoothState> {
             ),
           ),
     );
-    ref.invalidate(accountProvider);
     unawaited(_track(projectId, runId, job.jobId));
   }
 
@@ -463,7 +462,6 @@ class BoothNotifier extends Notifier<BoothState> {
         ],
       ),
     );
-    ref.invalidate(accountProvider);
     unawaited(_track(projectId, clipId, job.jobId));
     return null;
   }
@@ -605,7 +603,6 @@ class BoothNotifier extends Notifier<BoothState> {
         ),
       ),
     );
-    if (ref.mounted) ref.invalidate(accountProvider);
   }
 
   Future<void> _markLost(String projectId, String runId) async {
