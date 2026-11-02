@@ -12,6 +12,7 @@
 // with `FaceParse.resized` after (eyes 0.81–0.95). The parser returns class maps
 // at the size of the photo for that reason.
 
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
 
@@ -38,6 +39,16 @@ const kParserOutputNode = 'logits';
 /// CPU: on iPhone 12 mini the CoreML EP was no faster and gave identical maps
 /// (`Prompts/04-TEST-telefon.md`). NNAPI was not measured.
 const kParserProviders = [OrtProvider.CPU];
+
+/// ORT fuses SegFormer's erf GELU into `com.microsoft.Gelu`, and the Android
+/// CPU EP has that kernel for float only: on fp16 the session does not load
+/// (ORT_NOT_IMPLEMENTED, Pixel 8a). iOS has the kernel and keeps the fusion.
+final Map<String, String>? _sessionConfigs = Platform.isAndroid
+    ? const {
+        'optimization.disable_specified_optimizers':
+            'GeluFusionL1;GeluFusionL2;BiasGeluFusion;FastGeluFusion;QuickGeluFusion',
+      }
+    : null;
 
 const _mean = [0.485, 0.456, 0.406];
 const _std = [0.229, 0.224, 0.225];
@@ -248,7 +259,11 @@ class OnnxFaceParser implements FaceParser {
   Future<_Logits> _run(String asset, Float32List pixels, int classes) async {
     final session = await OnnxRuntime().createSessionFromAsset(
       asset,
-      options: OrtSessionOptions(providers: providers, useArena: false),
+      options: OrtSessionOptions(
+        providers: providers,
+        useArena: false,
+        sessionConfigs: _sessionConfigs,
+      ),
     );
     try {
       return await _infer(session, pixels, classes);

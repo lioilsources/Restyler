@@ -22,7 +22,19 @@ Měřeno 2026-11-01, iPhone 12 mini (4 GB), iOS 27.0.1, profile build, 832×1216
 - Strop plánu 3 s neprošel. Menší model B0 neprošel paritou
   (`MangaPrompts/docs/ondevice-parity.md`), takže brána je teď 8 s: parse běží
   jednou na selfie.
-- Nezměřeno: 13 mini, Android (žádný připojený), rozdělení času mezi načtení a běh.
+Pixel 8a, Android 16 (CP3A.261005.005), profile build, 2026-11-02:
+
+| provider | parse, medián | první běh s rozbalením | shoda face / clothes s PyTorchem | špička RSS |
+|---|---|---|---|---|
+| CPU | 7.9 s | 9.7 s | 0.99965 / 0.99970 | 1130 MB |
+| NNAPI + CPU | 8.7 s | 8.6 s | 0.99965 / 0.99970 | 1130 MB |
+
+- Android ORT 1.28 fúzuje erf GELU do `com.microsoft.Gelu`, který na CPU umí jen
+  float: s fp16 se session nenačte (ORT_NOT_IMPLEMENTED). Na Androidu jsou fúze
+  GELU vypnuté (`optimization.disable_specified_optimizers`).
+- Release build: R8 přejmenoval `ai.onnxruntime` a první chyba ORT shodila appku
+  přes JNI (`java_class == null`). Keep pravidla v `android/app/proguard-rules.pro`.
+- 7.9 s je těsně pod branou 8 s. Nezměřeno: 13 mini, rozdělení času mezi načtení a běh.
 
 ## 2. Selfie v appce, bez serveru
 
