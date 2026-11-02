@@ -1,0 +1,42 @@
+name: CI
+
+# Analyze and unit tests only. The tests need no parser weights, and app
+# builds belong to the release workflows (they need the models and secrets).
+
+on:
+  push:
+    branches: ['**']
+    tags-ignore: ['v*']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  test:
+    name: Tests & Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
+      - name: Test
+        run: flutter test
+
+      - name: Shared package tests
+        working-directory: packages/tsumiki_shared
+        run: |
+          flutter pub get
+          flutter test

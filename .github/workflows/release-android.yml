@@ -1,0 +1,106 @@
+name: Release Android
+
+# From Distribution/workflows/release-android.yml, adapted for Restyler:
+# - the parser weights are not in git: downloaded from the backend, cached;
+# - RESTYLER_APP_TOKEN goes in through --dart-define;
+# - APK only, to Firebase App Distribution; no AAB and no GitHub Release
+#   (the repo is public and the APK carries the app token).
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-android:
+    name: Build Android → Firebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          channel: stable
+          cache: true
+
+      - name: Cache parser models
+        uses: actions/cache@v4
+        with:
+          path: assets/models/*.onnx
+          key: models-${{ hashFiles('Makefile') }}
+
+      - name: Fetch parser models
+        env:
+          RESTYLER_APP_TOKEN: ${{ secrets.RESTYLER_APP_TOKEN }}
+        run: |
+          tools/fetch_models.sh
+          make models
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Set version from tag
+        run: |
+          BASE=$(grep '^version:' pubspec.yaml | sed -E 's/^version: ([0-9.]+).*/\1/')
+          TAG="${GITHUB_REF_NAME#v}"
+          TAG="${TAG%%-*}"
+          if [[ "$GITHUB_REF_TYPE" == "tag" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            BASE="$TAG"
+          fi
+          NEW="${BASE}+${{ github.run_number }}"
+          sed -i -E "s/^version: .*/version: ${NEW}/" pubspec.yaml
+          echo "Build version: ${NEW}"
+
+      - name: Create keystore and key.properties
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo -n "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 --decode --ignore-garbage > android/app/release.keystore
+          printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=release.keystore\n" \
+            "$KEYSTORE_PASSWORD" "$KEY_PASSWORD" "$KEY_ALIAS" > android/key.properties
+
+      - name: Build release APK
+        env:
+          RESTYLER_APP_TOKEN: ${{ secrets.RESTYLER_APP_TOKEN }}
+          RESTYLER_USER: ${{ secrets.RESTYLER_USER }}
+        run: |
+          flutter build apk --release \
+            --dart-define=RESTYLER_APP_TOKEN="$RESTYLER_APP_TOKEN" \
+            --dart-define=RESTYLER_USER="$RESTYLER_USER"
+
+      - name: Verify APK signing certificate
+        run: |
+          APK=build/app/outputs/flutter-apk/app-release.apk
+          ls -lh "$APK"
+          SIGNER=$ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/apksigner
+          "$SIGNER" verify --print-certs "$APK" | tee $RUNNER_TEMP/certs.txt | head -5
+          if grep -q 'CN=Android Debug' $RUNNER_TEMP/certs.txt; then
+            echo "::error::APK is signed with the debug key"
+            exit 1
+          fi
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          groups: Alfa
+          releaseNotes: "Restyler ${{ github.ref_name }} (build ${{ github.run_number }})"
+          file: build/app/outputs/flutter-apk/app-release.apk

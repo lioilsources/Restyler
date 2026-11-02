@@ -67,6 +67,24 @@ make analyze
 make test
 ```
 
+## Release (GitHub Actions)
+
+Tag `v*` spustí `release-ios.yml` (TestFlight) a `release-android.yml` (Firebase App
+Distribution, skupina Alfa); `ci.yml` jen analyze a testy. Workflow vznikly ze šablon
+v `Distribution/workflows`, ale se třemi rozdíly:
+
+- **Modely** stahuje `tools/fetch_models.sh` z `GET /api/models/<jméno>` na backendu
+  (stejný app token), pak `make models` ověří sha256. Na JODA leží v
+  `~/restyler-api/tgbot/models-restyler/`; nový export tam patří taky.
+- **Žádný GitHub Release:** repo je public a IPA/APK nese app token.
+- **iOS manual signing** dopisuje CI do Release konfigurace Runneru až při buildu,
+  v repu zůstává Automatic, aby fungoval `make run`. Android podepisuje `key.properties`,
+  bez něj debug klíčem.
+
+Secrets: ty z `Distribution/scripts/setup-gh-secrets.sh --repo lioilsources/Restyler
+--app Restyler --bundle-id com.ol1n.restyler`, plus `RESTYLER_APP_TOKEN`, `RESTYLER_USER`
+a ručně `APPSTORE_ISSUER_ID` (Bitwarden má prázdný).
+
 Pás fotobuňky kreslí `package:image` bitmapovým fontem `assets/fonts/strip_font.zip`
 (Roboto, Apache 2.0, generuje `tools/make_strip_font.py`), protože vestavěné fonty
 nemají českou diakritiku.
