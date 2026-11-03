@@ -31,24 +31,29 @@ class GlassesStep extends ConsumerWidget {
           ? null
           : () => goToNextStep(context, ref, WizardStep.glasses),
       children: [
-        for (final section in kGlassesSections)
-          if (glasses.any((g) => g.section == section))
-            StyleSection(
-              title: section,
-              children: [
-                for (final g in glasses.where((g) => g.section == section))
-                  StyleCard(
-                    label: g.cs,
-                    preview: g.preview,
-                    fallbackIcon: Icons.visibility,
-                    selected: picked?.id == g.id,
-                    onTap: () => notifier.chooseGlasses(
-                      g,
-                      g.finishes.isEmpty ? null : g.finishes.first,
+        for (final group in kGlassesGroups)
+          for (final section in kGlassesSections)
+            if (glasses.any((g) => g.group == group && g.section == section))
+              StyleSection(
+                title:
+                    '${kGlassesGroupCs[group] ?? group} · '
+                    '${kGlassesSectionCs[section] ?? section}',
+                children: [
+                  for (final g in glasses.where(
+                    (g) => g.group == group && g.section == section,
+                  ))
+                    StyleCard(
+                      label: g.cs,
+                      preview: g.preview,
+                      fallbackIcon: Icons.visibility,
+                      selected: picked?.id == g.id,
+                      onTap: () => notifier.chooseGlasses(
+                        g,
+                        g.finishes.isEmpty ? null : g.finishes.first,
+                      ),
                     ),
-                  ),
-              ],
-            ),
+                ],
+              ),
         if (picked != null && picked.finishes.isNotEmpty)
           StyleSection(
             title: 'Provedení',

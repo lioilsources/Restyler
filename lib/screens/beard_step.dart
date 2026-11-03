@@ -33,7 +33,7 @@ class BeardStep extends ConsumerWidget {
         for (final section in kBeardSections)
           if (beardsIn(section, beards).isNotEmpty)
             StyleSection(
-              title: section,
+              title: kBeardSectionCs[section] ?? section,
               children: [
                 for (final b in beardsIn(section, beards))
                   StyleCard(

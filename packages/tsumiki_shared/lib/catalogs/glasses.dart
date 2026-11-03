@@ -70,6 +70,21 @@ const kGlassesSections = [
   'Remove',
 ];
 
+/// Czech titles of [kGlassesGroups] and [kGlassesSections] for the app.
+const kGlassesGroupCs = {'Eyeglasses': 'Dioptrické', 'Sunglasses': 'Sluneční'};
+const kGlassesSectionCs = {
+  'Round': 'Kulaté',
+  'Rectangular': 'Hranaté',
+  'Cat-eye': 'Kočičí oči',
+  'Browline': 'Browline',
+  'Aviator': 'Pilotky',
+  'Oversized': 'Velké',
+  'Geometric': 'Geometrické',
+  'Rimless': 'Bez obrouček',
+  'Sport': 'Sportovní',
+  'Remove': 'Bez brýlí',
+};
+
 /// `glassesprompt.NO_GLASSES`.
 const kNoGlassesId = 'no-glasses';
 

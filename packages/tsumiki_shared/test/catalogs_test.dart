@@ -27,9 +27,37 @@ void main() {
   });
 
   test('catalogs that wait for the gate are empty', () {
-    expect(kBeards, isEmpty);
-    expect(kGlasses, isEmpty);
     expect(kMotions, isEmpty);
+  });
+
+  test('beards and glasses: unique ids, known sections, bundled previews', () {
+    expect(kBeards, hasLength(21));
+    expect(kGlasses, hasLength(26));
+    for (final b in kBeards) {
+      expect(kBeardSections, contains(b.section), reason: b.id);
+      expect(kBeardSectionCs, contains(b.section), reason: b.id);
+      expect(
+        File(
+          b.previewPath.replaceFirst('packages/tsumiki_shared/', ''),
+        ).existsSync(),
+        isTrue,
+        reason: b.id,
+      );
+    }
+    for (final g in kGlasses) {
+      expect(kGlassesGroups, contains(g.group), reason: g.id);
+      expect(kGlassesSectionCs, contains(g.section), reason: g.id);
+      expect(g.finishes, isNotEmpty, reason: g.id);
+      expect(
+        File(
+          g.preview.replaceFirst('packages/tsumiki_shared/', ''),
+        ).existsSync(),
+        isTrue,
+        reason: g.id,
+      );
+    }
+    expect(kBeards.map((b) => b.id).toSet(), hasLength(kBeards.length));
+    expect(kGlasses.map((g) => g.id).toSet(), hasLength(kGlasses.length));
   });
 
   test('models', () {

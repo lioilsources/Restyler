@@ -30,6 +30,8 @@ poll, stažení kroku a `/api/me`. Modely jsou zapečené v appce, ze serveru se
 - Co jde do `Worker` (isolate), staví top-level funkce; closure nesmí vidět notifier.
 - Prázdné `kBeards`/`kGlasses` schovají svůj krok, prázdné `kMotions` schová Oživit
   (`BoothCatalog`, `wizardSteps`). Katalogy plní bench gate v MangaPrompts, ne tohle repo.
+  Výjimka (11/2026): `kBeards` (21) a `kGlasses` (26) nesou všechny kandidáty z volby
+  uživatele, i ty, co bench poslal k doladění; náhledy vousů jsou referenční portréty.
 
 ## Modely
 

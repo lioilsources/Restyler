@@ -67,6 +67,16 @@ const kBeardSections = [
   'Moustache',
 ];
 
+/// Czech titles of [kBeardSections] for the app.
+const kBeardSectionCs = {
+  'Shave': 'Oholení',
+  'Stubble': 'Strniště',
+  'Short': 'Krátké vousy',
+  'Full': 'Plnovous',
+  'Goatee': 'Bradka',
+  'Moustache': 'Knír',
+};
+
 /// `beardprompt.CLEAN`.
 const kCleanShavenId = 'clean-shaven';
 
