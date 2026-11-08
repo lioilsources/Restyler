@@ -149,6 +149,43 @@ void main() {
     expect(project(id).error, contains('vrácené'));
   });
 
+  test('a full render queue says „zkus později“, not a failure', () async {
+    const busy = {
+      'status': 'error',
+      'kind': 'image',
+      'error': 'busy: the render server is busy, try again in a few minutes',
+    };
+    backend.nextScript = [
+      _job('error', {'hair': busy, 's1': stepJson('skipped')}),
+    ];
+    final n = c.read(draftProvider.notifier);
+    await n.analyse(caseNamed('man-bearded').photoBytes());
+    await n.chooseHair(hairStyle, null);
+    n.setFrames([_anime]);
+    final id = await c.read(boothProvider.notifier).start(c.read(draftProvider));
+    await _settle(() => !project(id).status.active);
+    expect(project(id).status, RunStatus.failed);
+    expect(project(id).status.canRetry, isTrue);
+    expect(project(id).error, kServerBusyText);
+  });
+
+  test('a busy step in a partial run still says „zkus později“', () async {
+    backend.nextScript = [
+      _job('done', {
+        'hair': stepJson('done'),
+        's1': {'status': 'error', 'kind': 'image', 'error': 'busy: later'},
+      }),
+    ];
+    final n = c.read(draftProvider.notifier);
+    await n.analyse(caseNamed('man-bearded').photoBytes());
+    await n.chooseHair(hairStyle, null);
+    n.setFrames([_anime]);
+    final id = await c.read(boothProvider.notifier).start(c.read(draftProvider));
+    await _settle(() => !project(id).status.active);
+    expect(project(id).status, RunStatus.partial);
+    expect(project(id).error, kServerBusyText);
+  });
+
   test('404 on poll: lost, and „Spustit znovu“ sends the same plan and source', () async {
     backend.nextScript = [
       _job('running', {'beard': stepJson('done'), 'hair': stepJson('running')}),

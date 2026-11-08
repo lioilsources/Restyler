@@ -16,6 +16,10 @@ class RenderStepStatus {
   bool get finished =>
       status == 'done' || status == 'error' || status == 'skipped';
 
+  /// The render server's queue was full: nothing rendered, refunded, worth
+  /// trying again in a few minutes (server: `comfy.BUSY_MESSAGE`).
+  bool get busy => status == 'error' && (error?.startsWith('busy:') ?? false);
+
   factory RenderStepStatus.fromJson(Map<String, dynamic> json) =>
       RenderStepStatus(
         status: json['status'] as String,
