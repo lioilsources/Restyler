@@ -100,7 +100,7 @@ Future<(PreparedPhoto, BoothAnalysis)> analyseSelfie(
   return (photo, await _analyse(worker, parse, photo));
 }
 
-/// Czech text of an analysis failure.
+/// Text of an analysis failure, in the device language.
 String analysisErrorText(Object e) => switch (e) {
   HairMaskException() => maskErrorText(e),
   PhotoException() => e.message,

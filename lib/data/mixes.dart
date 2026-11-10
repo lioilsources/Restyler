@@ -1,5 +1,6 @@
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/l10n.dart';
 import '../models/booth_project.dart';
 
 /// A ready set of styles. Eight entries each, so every K (4/6/8) can take the
@@ -17,6 +18,16 @@ const _draw = RestyleMedium.illustration;
 
 BoothFrame _f(String id, [RestyleMedium medium = _draw]) =>
     BoothFrame(styleId: id, medium: medium);
+
+/// Name of a ready mix in the user's language; [StyleMix.label] stays as the Czech fallback.
+String mixName(AppLocalizations l, StyleMix mix) => switch (mix.id) {
+  'galerie' => l.mixGalerie,
+  'komiks' => l.mixKomiks,
+  'epochy' => l.mixEpochy,
+  'asie' => l.mixAsie,
+  'cesko' => l.mixCesko,
+  _ => mix.label,
+};
 
 final kStyleMixes = <StyleMix>[
   StyleMix('galerie', 'Galerie', [

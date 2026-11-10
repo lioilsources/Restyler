@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 import 'package:tsumiki_shared/ui.dart';
 
+import '../l10n/l10n.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
 import '../services/errors.dart';
@@ -19,7 +20,7 @@ class BeardStep extends ConsumerWidget {
     final beards = ref.watch(catalogProvider).beards;
     final issue = draft.analysis?.beardIssue;
     return StepScaffold(
-      title: 'Vousy',
+      title: context.l10n.beardTitle,
       error: draft.error,
       issue: issue == null ? null : maskErrorText(issue, MaskStep.beard),
       onKeep: () async {
@@ -33,11 +34,11 @@ class BeardStep extends ConsumerWidget {
         for (final section in kBeardSections)
           if (beardsIn(section, beards).isNotEmpty)
             StyleSection(
-              title: kBeardSectionCs[section] ?? section,
+              title: catalogName(context, kBeardSectionCs[section] ?? section, section),
               children: [
                 for (final b in beardsIn(section, beards))
                   StyleCard(
-                    label: b.cs,
+                    label: catalogName(context, b.cs, b.label),
                     preview: b.previewPath,
                     selected: draft.beard?.id == b.id,
                     onTap: () => notifier.chooseBeard(b),

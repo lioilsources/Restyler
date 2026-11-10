@@ -18,7 +18,7 @@ void main() {
       HairMaskException.maskTooLarge,
       HairMaskException.noGlassesToRemove,
     ]) {
-      expect(kMaskErrors.containsKey(e.code), isTrue, reason: e.code);
+      expect(maskTextForCode(e.code) != null, isTrue, reason: e.code);
     }
   });
 
@@ -29,7 +29,7 @@ void main() {
     );
     expect(
       maskErrorText(HairMaskException.nothingToChange, MaskStep.beard),
-      kNothingToChange,
+      nothingToChangeText(),
     );
   });
 
@@ -39,7 +39,7 @@ void main() {
 
   test('429 explains the running render and names Oživit', () {
     final text = backendErrorText(const BackendException(429, 'wait'));
-    expect(text, kBusyText);
+    expect(text, busyText());
     expect(text, contains('Oživit'));
     expect(text, contains('20 minut'));
     expect(text, isNot(contains('wait')));
@@ -47,7 +47,7 @@ void main() {
 
   test('other answers and network trouble are Czech too', () {
     expect(backendErrorText(const BackendException(403, 'x')), contains('přístup'));
-    expect(backendErrorText(TimeoutException('x')), kOfflineText);
-    expect(backendErrorText(http.ClientException('x')), kOfflineText);
+    expect(backendErrorText(TimeoutException('x')), offlineText());
+    expect(backendErrorText(http.ClientException('x')), offlineText());
   });
 }

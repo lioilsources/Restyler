@@ -5,6 +5,8 @@ import 'package:gal/gal.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
+import '../l10n/l10n.dart';
+
 /// A finished clip, looping.
 class ClipScreen extends StatefulWidget {
   const ClipScreen({super.key, required this.path, required this.title});
@@ -32,7 +34,7 @@ class _ClipScreenState extends State<ClipScreen> {
           if (mounted) setState(() {});
         })
         .catchError((Object _) {
-          if (mounted) setState(() => _error = 'Klip se nedá přehrát.');
+          if (mounted) setState(() => _error = deviceL10n.clipCantPlay);
         });
   }
 
@@ -46,10 +48,10 @@ class _ClipScreenState extends State<ClipScreen> {
     final messenger = ScaffoldMessenger.of(context);
     try {
       await Gal.putVideo(widget.path);
-      messenger.showSnackBar(const SnackBar(content: Text('Klip je ve Fotkách.')));
+      messenger.showSnackBar(SnackBar(content: Text(deviceL10n.clipSaved)));
     } on GalException {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Klip se nepodařilo uložit do Fotek.')),
+        SnackBar(content: Text(deviceL10n.clipSaveFailed)),
       );
     }
   }
@@ -60,12 +62,12 @@ class _ClipScreenState extends State<ClipScreen> {
       title: Text(widget.title),
       actions: [
         IconButton(
-          tooltip: 'Uložit do Fotek',
+          tooltip: context.l10n.saveToPhotos,
           onPressed: _save,
           icon: const Icon(Icons.download),
         ),
         IconButton(
-          tooltip: 'Sdílet',
+          tooltip: context.l10n.share,
           onPressed: () => SharePlus.instance.share(
             ShareParams(files: [XFile(widget.path)]),
           ),

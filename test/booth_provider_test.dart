@@ -180,7 +180,7 @@ void main() {
     backend.refuseNext = 429;
     await c.read(boothProvider.notifier).retry(id, kMainRun);
     expect(project(id).status, RunStatus.lost);
-    expect(project(id).error, kBusyText);
+    expect(project(id).error, busyText());
     expect(project(id).stepPaths, contains('beard'));
   });
 
@@ -188,7 +188,7 @@ void main() {
     backend.refuseNext = 429;
     final id = await c.read(boothProvider.notifier).start(await draft());
     expect(project(id).status, RunStatus.rejected);
-    expect(project(id).error, kBusyText);
+    expect(project(id).error, busyText());
     await c.read(boothProvider.notifier).retry(id, kMainRun);
     await _settle(() => project(id).status == RunStatus.done);
     expect(project(id).error, isNull);
@@ -277,7 +277,7 @@ void main() {
     final error = await c
         .read(boothProvider.notifier)
         .startClip(id, 's1', testWan);
-    expect(error, kBusyText);
+    expect(error, busyText());
     expect(project(id).clips, isEmpty);
   });
 
@@ -338,7 +338,7 @@ void main() {
     expect(await n.analyse(caseNamed('man-short').photoBytes()), isTrue);
     await n.chooseBeard(testShave);
     final d = fresh.read(draftProvider);
-    expect(d.error, kMaskErrors['no_beard_to_shave']);
+    expect(d.error, maskTextForCode('no_beard_to_shave'));
     expect(d.beardEdit, isNull);
     expect(d.beard, isNull);
   });

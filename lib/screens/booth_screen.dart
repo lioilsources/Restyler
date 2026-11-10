@@ -5,6 +5,7 @@ import 'package:gal/gal.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/l10n.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
@@ -54,13 +55,19 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     if (error != null && mounted) _say(error);
   }
 
+  String _motionName(BoothRun clip) {
+    final m = motionById(clip.motionId);
+    if (m == null) return clip.motionId ?? context.l10n.clipDefaultName;
+    return catalogName(context, m.cs, m.label);
+  }
+
   void _play(BoothRun clip, BoothProject project) {
     final path = project.stepPaths[clip.id]!;
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => ClipScreen(
           path: ref.read(projectFilesProvider).absolute(path),
-          title: motionById(clip.motionId)?.cs ?? 'Klip',
+          title: _motionName(clip),
         ),
       ),
     );
@@ -96,13 +103,14 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     setState(() => _working = true);
     try {
       final path = await _writeStrip(project);
+      if (!mounted) return;
       if (path == null) {
-        _say('Zatím není hotový žádný rámeček.');
+        _say(context.l10n.nothingReady);
       } else {
         await use(path);
       }
     } on GalException {
-      _say('Pás se nepodařilo uložit do Fotek.');
+      if (mounted) _say(context.l10n.stripSaveFailed);
     } finally {
       if (mounted) setState(() => _working = false);
     }
@@ -125,16 +133,17 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     final key = '${project.id}/$kMainRun';
     final scheme = Theme.of(context).colorScheme;
     final tiles = project.tiles();
+    final l = context.l10n;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Fotobuňka')),
+      appBar: AppBar(title: Text(l.boothTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
             if (run.status.active)
               StageBanner(
-                text: stageText(project, booth.live[key]),
+                text: stageText(project, booth.live[key], l),
                 problem: booth.connection[key],
               ),
             if (run.error != null)
@@ -146,7 +155,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  'Některé rámečky se nepovedly. Generace za ně jsou vrácené.',
+                  l.boothSomeFailed,
                   style: TextStyle(color: scheme.error),
                 ),
               ),
@@ -155,9 +164,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                 padding: const EdgeInsets.only(bottom: 16),
                 child: FilledButton(
                   onPressed: () => notifier.retry(project.id, kMainRun),
-                  child: Text(
-                    'Spustit znovu (${RenderPlan.fromJson(run.plan).cost})',
-                  ),
+                  child: Text(l.rerunCost(RenderPlan.fromJson(run.plan).cost)),
                 ),
               ),
             Container(
@@ -177,9 +184,9 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
             ),
             const SizedBox(height: 16),
             SegmentedButton<StripLayout>(
-              segments: const [
-                ButtonSegment(value: StripLayout.grid, label: Text('Mřížka')),
-                ButtonSegment(value: StripLayout.strip, label: Text('Pás')),
+              segments: [
+                ButtonSegment(value: StripLayout.grid, label: Text(l.layoutGrid)),
+                ButtonSegment(value: StripLayout.strip, label: Text(l.layoutStrip)),
               ],
               selected: {_layout},
               onSelectionChanged: (s) => setState(() => _layout = s.first),
@@ -193,9 +200,9 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                         ? null
                         : () => _export(project, (path) async {
                             await Gal.putImage(path);
-                            _say('Pás je ve Fotkách.');
+                            _say(l.stripSaved);
                           }),
-                    child: const Text('Uložit do Fotek'),
+                    child: Text(l.saveToPhotos),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -209,7 +216,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                                 .share(ShareParams(files: [XFile(path)]))
                                 .then((_) {}),
                           ),
-                    child: const Text('Sdílet'),
+                    child: Text(l.share),
                   ),
                 ),
               ],
@@ -248,7 +255,8 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     BoothRun clip,
     BoothState booth,
   ) {
-    final name = motionById(clip.motionId)?.cs ?? clip.motionId ?? 'Klip';
+    final l = context.l10n;
+    final name = _motionName(clip);
     final ready = project.stepPaths.containsKey(clip.id);
     final problem = booth.connection['${project.id}/${clip.id}'];
     return ListTile(
@@ -258,14 +266,14 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
         problem ??
             clip.error ??
             (clip.status.active
-                ? 'Oživuji…'
+                ? l.clipAnimating
                 : ready
-                ? 'Hotovo'
-                : 'Nepovedlo se. Generace jsou vrácené.'),
+                ? l.clipDone
+                : l.clipFailed),
       ),
       trailing: ready
           ? IconButton(
-              tooltip: 'Přehrát klip',
+              tooltip: l.playClip,
               icon: const Icon(Icons.play_arrow),
               onPressed: () => _play(clip, project),
             )
@@ -273,7 +281,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
           ? TextButton(
               onPressed: () =>
                   ref.read(boothProvider.notifier).retry(project.id, clip.id),
-              child: const Text('Spustit znovu'),
+              child: Text(l.rerun),
             )
           : null,
     );

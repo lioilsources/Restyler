@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:image/image.dart' as img;
 
+import '../l10n/l10n.dart';
 import 'onnx_face_parser.dart' show pilBilinearResize;
 
 /// Long side of everything that leaves or analyses the photo.
@@ -41,9 +42,7 @@ img.Image _decode(Uint8List data) {
     image = null;
   }
   if (image == null) {
-    throw const PhotoException(
-      'Fotku se nepodařilo přečíst. Použij JPEG nebo PNG.',
-    );
+    throw PhotoException(deviceL10n.photoUnreadable);
   }
   return image;
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// One wizard step: the choice above, „Nechat“ and the way on below.
+import '../l10n/l10n.dart';
+
+/// One wizard step: the choice above, "Keep" and the way on below.
 class StepScaffold extends StatelessWidget {
   const StepScaffold({
     super.key,
@@ -51,12 +53,12 @@ class StepScaffold extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  TextButton(onPressed: onKeep, child: const Text('Nechat')),
+                  TextButton(onPressed: onKeep, child: Text(context.l10n.stepKeep)),
                   const SizedBox(width: 12),
                   Expanded(
                     child: FilledButton(
                       onPressed: onNext,
-                      child: const Text('Další'),
+                      child: Text(context.l10n.stepNext),
                     ),
                   ),
                 ],

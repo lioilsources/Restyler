@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 import 'package:tsumiki_shared/ui.dart';
 
+import '../l10n/l10n.dart';
 import '../providers/booth_provider.dart';
 import '../widgets/step_scaffold.dart';
 import 'wizard.dart';
@@ -23,8 +24,9 @@ class _HairStepState extends ConsumerState<HairStep> {
     final notifier = ref.read(draftProvider.notifier);
     final style = draft.hair;
     final colour = draft.hairColour;
+    final l = context.l10n;
     return StepScaffold(
-      title: 'Vlasy',
+      title: l.hairTitle,
       error: draft.error,
       onKeep: () async {
         await notifier.chooseHair(null, null);
@@ -35,27 +37,27 @@ class _HairStepState extends ConsumerState<HairStep> {
           : () => goToNextStep(context, ref, WizardStep.hair),
       children: [
         SegmentedButton<String>(
-          segments: const [
-            ButtonSegment(value: kHairGroupWomen, label: Text('Ženy')),
-            ButtonSegment(value: kHairGroupMen, label: Text('Muži')),
+          segments: [
+            ButtonSegment(value: kHairGroupWomen, label: Text(l.hairWomen)),
+            ButtonSegment(value: kHairGroupMen, label: Text(l.hairMen)),
           ],
           selected: {_group},
           onSelectionChanged: (s) => setState(() => _group = s.first),
         ),
         CheckboxListTile(
           contentPadding: EdgeInsets.zero,
-          title: const Text('Nechat účes, změnit jen barvu'),
+          title: Text(l.hairKeepCut),
           value: style?.id == kKeepCutId,
           onChanged: (on) =>
               notifier.chooseHair(on == true ? kKeepCutStyle : null, colour),
         ),
         StyleSection(
           title: draft.analysis?.hairColour == null
-              ? 'Barva'
-              : 'Barva (na fotce ${draft.analysis!.hairColour})',
+              ? l.hairColour
+              : l.hairColourOnPhoto('${draft.analysis!.hairColour}'),
           children: [
             ChoiceChip(
-              label: const Text('Beze změny'),
+              label: Text(l.hairNoChange),
               selected: colour == null,
               onSelected: (_) => notifier.chooseHair(style, null),
             ),
@@ -64,7 +66,7 @@ class _HairStepState extends ConsumerState<HairStep> {
                 avatar: c.swatch == null
                     ? null
                     : CircleAvatar(backgroundColor: Color(c.swatch!)),
-                label: Text(c.cs),
+                label: Text(catalogName(context, c.cs, c.label)),
                 selected: colour?.id == c.id,
                 onSelected: (_) => notifier.chooseHair(style, c),
               ),
@@ -77,7 +79,7 @@ class _HairStepState extends ConsumerState<HairStep> {
               children: [
                 for (final h in hairstylesIn(_group, section))
                   StyleCard(
-                    label: h.cs,
+                    label: catalogName(context, h.cs, h.label),
                     preview: h.preview,
                     selected: style?.id == h.id,
                     onTap: () => notifier.chooseHair(h, colour),

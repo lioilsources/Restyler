@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/l10n.dart';
+
 /// Motion presets, seconds and minutes apart.
 class MotionSheet extends StatelessWidget {
   const MotionSheet({
@@ -26,7 +28,7 @@ class MotionSheet extends StatelessWidget {
   Widget _tile(BuildContext context, Motion m) {
     final slow = m.engine == MotionEngine.wan;
     return ListTile(
-      title: Text(m.cs),
+      title: Text(catalogName(context, m.cs, m.label)),
       subtitle: Text(
         slow
             ? 'Klip ${m.seconds.round()} s, render kolem 20 minut'
@@ -49,14 +51,14 @@ class MotionSheet extends StatelessWidget {
           if (fast.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('Rychlé, během sekund', style: text.titleSmall),
+              child: Text(context.l10n.motionFast, style: text.titleSmall),
             ),
             for (final m in fast) _tile(context, m),
           ],
           if (slow.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: Text('Pomalé, desítky minut', style: text.titleSmall),
+              child: Text(context.l10n.motionSlow, style: text.titleSmall),
             ),
             for (final m in slow) _tile(context, m),
           ],

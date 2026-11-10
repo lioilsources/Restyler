@@ -1,5 +1,7 @@
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/l10n.dart';
+
 /// starting → running → done | partial | failed; rejected = the server refused
 /// the POST; lost = the server no longer knows the job. Rejected, failed and
 /// lost can run again from the saved plan.
@@ -186,7 +188,7 @@ class BoothProject {
   List<BoothTile> tiles() => [
     BoothTile(
       key: frameZeroKey,
-      label: frameZeroKey == kSelfieKey ? 'Selfie' : 'Nový vzhled',
+      label: frameZeroKey == kSelfieKey ? deviceL10n.selfieTitle : deviceL10n.tileNewLook,
     ),
     for (final (i, f) in frames.indexed)
       BoothTile(
