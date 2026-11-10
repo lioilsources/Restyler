@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "自撮りをするために、Restylerはカメラを必要とします。";
+"NSPhotoLibraryUsageDescription" = "ギャラリーからポートレートを選ぶために、Restylerは写真を必要とします。";
+"NSPhotoLibraryAddUsageDescription" = "Restylerは完成したストリップとクリップを写真に保存します。";

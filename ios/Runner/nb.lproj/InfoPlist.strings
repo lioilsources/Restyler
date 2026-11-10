@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler trenger kameraet slik at du kan ta en selfie.";
+"NSPhotoLibraryUsageDescription" = "Restyler trenger bildene dine slik at du kan velge et portrett fra galleriet.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler lagrer ferdige striper og klipp i Bilder.";

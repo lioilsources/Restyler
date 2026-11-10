@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler 需要使用相機，以便你拍攝自拍。";
+"NSPhotoLibraryUsageDescription" = "Restyler 需要存取你的照片，以便你從相簿中選擇人像。";
+"NSPhotoLibraryAddUsageDescription" = "Restyler 會將完成的長條和短片儲存到照片。";

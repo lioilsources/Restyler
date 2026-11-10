@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler потрібна камера, щоб ви могли зробити селфі.";
+"NSPhotoLibraryUsageDescription" = "Restyler потрібен доступ до фото, щоб ви могли вибрати портрет із галереї.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler зберігає готові стрічки та кліпи у «Фото».";

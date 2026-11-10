@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "A Restylernek szüksége van a kamerára, hogy szelfit készíthess.";
+"NSPhotoLibraryUsageDescription" = "A Restylernek szüksége van a fotóidra, hogy portrét választhass a galériából.";
+"NSPhotoLibraryAddUsageDescription" = "A Restyler a kész csíkokat és klipeket a Fotókba menti.";
