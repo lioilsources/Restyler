@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "সেলফি তোলার জন্য Restyler-এর ক্যামেরা প্রয়োজন।";
+"NSPhotoLibraryUsageDescription" = "গ্যালারি থেকে পোর্ট্রেট বেছে নেওয়ার জন্য Restyler-এর আপনার ছবিগুলো প্রয়োজন।";
+"NSPhotoLibraryAddUsageDescription" = "Restyler তৈরি স্ট্রিপ ও ক্লিপ ফটোজে সংরক্ষণ করে।";

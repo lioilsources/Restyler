@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/l10n.dart';
 import '../models/booth_project.dart';
 import '../services/plan_builder.dart';
 
-/// „Upravuji vousy…“ and its siblings, from the last poll.
-String stageText(BoothProject project, RenderJobStatus? status) {
-  if (status == null) return 'Čekám na server…';
+/// "Editing the beard…" and its siblings, from the last poll.
+String stageText(BoothProject project, RenderJobStatus? status, [AppLocalizations? l]) {
+  l ??= deviceL10n;
+  if (status == null) return l.stageWaitingServer;
   String? active;
   for (final e in status.steps.entries) {
     if (e.value.status == 'running') {
@@ -16,17 +18,17 @@ String stageText(BoothProject project, RenderJobStatus? status) {
   }
   switch (active) {
     case kBeardStep:
-      return 'Upravuji vousy…';
+      return l.stageBeard;
     case kGlassesStep:
-      return 'Nasazuji brýle…';
+      return l.stageGlasses;
     case kHairStep:
-      return 'Stříhám…';
+      return l.stageHair;
   }
   final styles = status.steps.keys.where((k) => k.startsWith('s'));
-  if (styles.isEmpty) return 'Čekám ve frontě…';
+  if (styles.isEmpty) return l.stageQueue;
   final done = styles.where((k) => status.steps[k]!.finished).length;
   final total = styles.length;
-  return 'Maluji ${done < total ? done + 1 : total}/$total';
+  return l.stagePainting(done < total ? done + 1 : total, total);
 }
 
 class StageBanner extends StatelessWidget {

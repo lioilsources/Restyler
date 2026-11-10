@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler necesita la cámara para que puedas hacerte un selfie.";
+"NSPhotoLibraryUsageDescription" = "Restyler necesita tus fotos para que puedas elegir un retrato de la galería.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler guarda en Fotos las tiras y los clips terminados.";

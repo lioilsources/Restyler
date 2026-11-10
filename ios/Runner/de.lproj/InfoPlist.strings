@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler benötigt die Kamera, damit du ein Selfie aufnehmen kannst.";
+"NSPhotoLibraryUsageDescription" = "Restyler benötigt Zugriff auf deine Fotos, damit du ein Porträt aus der Galerie wählen kannst.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler sichert fertige Streifen und Clips in Fotos.";

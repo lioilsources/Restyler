@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler ต้องใช้กล้องเพื่อให้คุณถ่ายเซลฟี่ได้";
+"NSPhotoLibraryUsageDescription" = "Restyler ต้องใช้รูปภาพของคุณเพื่อให้คุณเลือกภาพบุคคลจากแกลเลอรีได้";
+"NSPhotoLibraryAddUsageDescription" = "Restyler บันทึกแถบและคลิปที่เสร็จแล้วลงในรูปภาพ";

@@ -3,54 +3,61 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
-/// Czech text per [HairMaskException.code]; these appear before anything is
-/// sent. `mask_too_small` has its own word per step, see [maskErrorText].
-const kMaskErrors = <String, String>{
-  'no_face': 'Tvář jsme nenašli. Použij čelní portrét jednoho člověka.',
-  'face_too_small': 'Tvář je moc malá. Ořízni fotku blíž k hlavě a ramenům.',
-  'mask_too_small': 'Na fotce není dost vlasů, které by šlo přestříhat.',
-  'mouth_not_visible': 'Ústa musí být vidět. Dívej se do objektivu, bez ruky '
-      'před tváří.',
-  'no_beard_to_shave': 'Na fotce nejsou vousy k oholení.',
-  'eyes_not_visible': 'Oči musí být vidět. Dívej se do objektivu, bez ruky a '
-      'vlasů přes oči.',
-  'mask_too_large': 'Tvář je moc blízko. Drž telefon dál.',
-  'no_glasses_to_remove': 'Na fotce nejsou brýle.',
-};
+import '../l10n/l10n.dart';
 
-const kNothingToChange = 'Na téhle fotce není co změnit.';
+/// Text per [HairMaskException.code]; these appear before anything is sent.
+/// `mask_too_small` has its own word per step, see [maskErrorText]. Null for a
+/// code the app does not know.
+String? maskTextForCode(String code, [AppLocalizations? l]) {
+  l ??= deviceL10n;
+  return switch (code) {
+    'no_face' => l.errNoFace,
+    'face_too_small' => l.errFaceTooSmall,
+    'mask_too_small' => l.errMaskTooSmallHair,
+    'mouth_not_visible' => l.errMouthNotVisible,
+    'no_beard_to_shave' => l.errNoBeardToShave,
+    'eyes_not_visible' => l.errEyesNotVisible,
+    'mask_too_large' => l.errMaskTooLarge,
+    'no_glasses_to_remove' => l.errNoGlassesToRemove,
+    _ => null,
+  };
+}
+
+String nothingToChangeText([AppLocalizations? l]) => (l ?? deviceL10n).errNothingToChange;
 
 /// Which mask step raised the error: `mask_too_small` means "no hair" only on
 /// the hair step.
 enum MaskStep { hair, beard, glasses }
 
-String maskErrorText(HairMaskException e, [MaskStep step = MaskStep.hair]) {
+String maskErrorText(
+  HairMaskException e, [
+  MaskStep step = MaskStep.hair,
+  AppLocalizations? l,
+]) {
   if (e.code == 'mask_too_small' && step != MaskStep.hair) {
-    return kNothingToChange;
+    return nothingToChangeText(l);
   }
-  return kMaskErrors[e.code] ?? e.message;
+  return maskTextForCode(e.code, l) ?? e.message;
 }
 
-const kBusyText =
-    'Běží ti jiný render. Dokud nedoběhne, nový nespustíš a nejde ani Oživit. '
-    'Klip „vlasy ve větru“ může trvat kolem 20 minut.';
-const kOfflineText =
-    'Server není dostupný. Zkontroluj připojení a zkus to znovu.';
+String busyText([AppLocalizations? l]) => (l ?? deviceL10n).errBusy;
+String offlineText([AppLocalizations? l]) => (l ?? deviceL10n).errOffline;
 
 /// Text for anything the render backend or the network threw.
-String backendErrorText(Object e) {
+String backendErrorText(Object e, [AppLocalizations? l]) {
+  l ??= deviceL10n;
   if (e is BackendException) {
     return switch (e.statusCode) {
-      429 => kBusyText,
-      401 || 403 => 'Server odmítl přístup. Tenhle build má špatný token.',
-      404 => 'Server o tomhle renderu už neví. Spusť ho znovu.',
-      422 => 'Server plán odmítl. Tahle fotka se nedá poslat.',
-      _ => 'Server selhal (${e.statusCode}). Zkus to za chvíli.',
+      429 => l.errBusy,
+      401 || 403 => l.errAccessDenied,
+      404 => l.errNotFound,
+      422 => l.errPlanRejected,
+      _ => l.errServer(e.statusCode),
     };
   }
-  if (e is TimeoutException || e is http.ClientException) return kOfflineText;
+  if (e is TimeoutException || e is http.ClientException) return l.errOffline;
   if (e is Exception && e.toString().contains('SocketException')) {
-    return kOfflineText;
+    return l.errOffline;
   }
-  return 'Něco se nepovedlo: $e';
+  return l.errGeneric('$e');
 }

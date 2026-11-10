@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../l10n/l10n.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
 import '../services/errors.dart';
@@ -28,7 +29,7 @@ class SelfieStep extends ConsumerWidget {
     final scheme = Theme.of(context).colorScheme;
     final a = draft.analysis;
     return Scaffold(
-      appBar: AppBar(title: const Text('Selfie')),
+      appBar: AppBar(title: Text(context.l10n.selfieTitle)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -36,19 +37,19 @@ class SelfieStep extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Čelní portrét jednoho člověka, obličej dobře vidět.',
+                context.l10n.selfieHint,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               const Spacer(),
               if (draft.analysing)
-                const Padding(
-                  padding: EdgeInsets.all(16),
+                Padding(
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      CircularProgressIndicator(),
-                      SizedBox(height: 12),
-                      Text('Prohlížím fotku…'),
+                      const CircularProgressIndicator(),
+                      const SizedBox(height: 12),
+                      Text(context.l10n.selfieAnalysing),
                     ],
                   ),
                 ),
@@ -70,14 +71,14 @@ class SelfieStep extends ConsumerWidget {
                     ? () => _take(context, ref, SelfieSource.camera)
                     : null,
                 icon: const Icon(Icons.photo_camera),
-                label: const Text('Vyfotit se'),
+                label: Text(context.l10n.takePhoto),
               ),
               const SizedBox(height: 8),
               TextButton(
                 onPressed: !draft.analysing
                     ? () => _take(context, ref, SelfieSource.gallery)
                     : null,
-                child: const Text('Vybrat z galerie'),
+                child: Text(context.l10n.pickGallery),
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
 import '../theme.dart';
 
 enum TileState { waiting, ready, failed }
@@ -67,7 +68,7 @@ class FrameTile extends StatelessWidget {
                 if (hasClip)
                   Center(
                     child: IconButton.filled(
-                      tooltip: 'Přehrát klip',
+                      tooltip: context.l10n.playClip,
                       onPressed: onPlay,
                       icon: const Icon(Icons.play_arrow),
                     ),
@@ -94,7 +95,7 @@ class FrameTile extends StatelessWidget {
                   minimumSize: const Size(0, 32),
                 ),
                 onPressed: onAnimate,
-                child: const Text('Oživit'),
+                child: Text(context.l10n.animate),
               ),
             ),
         ],

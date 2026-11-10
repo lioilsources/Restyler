@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 import 'package:tsumiki_shared/ui.dart';
 
+import '../l10n/l10n.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
 import '../services/errors.dart';
@@ -19,8 +20,9 @@ class GlassesStep extends ConsumerWidget {
     final glasses = ref.watch(catalogProvider).glasses;
     final issue = draft.analysis?.glassesIssue;
     final picked = draft.glasses;
+    final l = context.l10n;
     return StepScaffold(
-      title: 'Brýle',
+      title: l.glassesTitle,
       error: draft.error,
       issue: issue == null ? null : maskErrorText(issue, MaskStep.glasses),
       onKeep: () async {
@@ -36,14 +38,14 @@ class GlassesStep extends ConsumerWidget {
             if (glasses.any((g) => g.group == group && g.section == section))
               StyleSection(
                 title:
-                    '${kGlassesGroupCs[group] ?? group} · '
-                    '${kGlassesSectionCs[section] ?? section}',
+                    '${catalogName(context, kGlassesGroupCs[group] ?? group, group)} · '
+                    '${catalogName(context, kGlassesSectionCs[section] ?? section, section)}',
                 children: [
                   for (final g in glasses.where(
                     (g) => g.group == group && g.section == section,
                   ))
                     StyleCard(
-                      label: g.cs,
+                      label: catalogName(context, g.cs, g.label),
                       preview: g.preview,
                       fallbackIcon: Icons.visibility,
                       selected: picked?.id == g.id,
@@ -56,7 +58,7 @@ class GlassesStep extends ConsumerWidget {
               ),
         if (picked != null && picked.finishes.isNotEmpty)
           StyleSection(
-            title: 'Provedení',
+            title: l.glassesFinish,
             children: [
               for (final f in picked.finishes)
                 ChoiceChip(

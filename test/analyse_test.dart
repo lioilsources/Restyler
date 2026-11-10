@@ -198,7 +198,7 @@ void main() {
       await analyseSelfie(c.photoBytes(), FakeFaceParser(c.parse()), inlineWorker);
       fail('should throw');
     } on Object catch (e) {
-      expect(analysisErrorText(e), kMaskErrors['no_face']);
+      expect(analysisErrorText(e), maskTextForCode('no_face'));
     }
   });
 

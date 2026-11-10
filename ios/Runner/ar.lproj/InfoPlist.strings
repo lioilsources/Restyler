@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "يحتاج Restyler إلى الكاميرا لتتمكن من التقاط صورة سيلفي.";
+"NSPhotoLibraryUsageDescription" = "يحتاج Restyler إلى صورك لتتمكن من اختيار صورة شخصية من المعرض.";
+"NSPhotoLibraryAddUsageDescription" = "يحفظ Restyler الأشرطة والمقاطع الجاهزة في الصور.";

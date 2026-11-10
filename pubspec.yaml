@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
   tsumiki_shared:
     path: packages/tsumiki_shared
   flutter_onnxruntime: 1.9.0
@@ -29,6 +32,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 flutter:
+  generate: true
   config:
     # SwiftPM resolve of flutter_onnxruntime failed (tools/ondevice/README.md).
     enable-swift-package-manager: false

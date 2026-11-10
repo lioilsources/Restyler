@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler tarvitsee kameran, jotta voit ottaa selfien.";
+"NSPhotoLibraryUsageDescription" = "Restyler tarvitsee kuvasi, jotta voit valita muotokuvan galleriasta.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler tallentaa valmiit nauhat ja klipit Kuviin.";

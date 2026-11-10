@@ -61,6 +61,8 @@ void main() {
     FaceParser? parser,
   }) async {
     final c = caseNamed(fixture);
+    t.platformDispatcher.localesTestValue = const [Locale('cs')];
+    addTearDown(t.platformDispatcher.clearLocalesTestValue);
     await t.binding.setSurfaceSize(const Size(420, 1000));
     addTearDown(() => t.binding.setSurfaceSize(null));
     await t.pumpWidget(
@@ -145,7 +147,7 @@ void main() {
 
     backend.refuseNext = 429;
     await _tap(t, 'Vlasy ve větru');
-    expect(find.text(kBusyText), findsOneWidget);
+    expect(find.text(busyText()), findsOneWidget);
     expect(store.saved.values.single.clips, isEmpty);
   });
 
@@ -153,7 +155,7 @@ void main() {
     await boot(t, catalog: const BoothCatalog(), fixture: 'no-face');
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
-    expect(find.text(kMaskErrors['no_face']!), findsOneWidget);
+    expect(find.text(maskTextForCode('no_face')!), findsOneWidget);
     expect(find.text('Vlasy'), findsNothing);
     expect(backend.renders, isEmpty);
   });
@@ -162,7 +164,7 @@ void main() {
     await boot(t, catalog: fullCatalog, fixture: 'mouth-covered');
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
-    expect(find.text(kMaskErrors['mouth_not_visible']!), findsWidgets);
+    expect(find.text(maskTextForCode('mouth_not_visible')!), findsWidgets);
     expect(find.text('plnovous'), findsNothing);
     await _tap(t, 'Nechat');
     expect(find.text('Brýle'), findsOneWidget);
@@ -211,7 +213,7 @@ void main() {
     await _tap(t, 'Galerie');
     await _tap(t, 'Spustit fotobuňku');
     await _pumps(t, 40);
-    expect(find.text(kBusyText), findsOneWidget);
+    expect(find.text(busyText()), findsOneWidget);
     expect(kStyleMixes, isNotEmpty);
   });
 }

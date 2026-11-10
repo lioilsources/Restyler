@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Restyler potrebuje kamero, da lahko posnameš selfi.";
+"NSPhotoLibraryUsageDescription" = "Restyler potrebuje tvoje fotografije, da lahko izbereš portret iz galerije.";
+"NSPhotoLibraryAddUsageDescription" = "Restyler shranjuje dokončane trakove in posnetke v Fotografije.";

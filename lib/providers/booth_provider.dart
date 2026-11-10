@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 import 'package:uuid/uuid.dart';
 
+import '../l10n/l10n.dart';
 import '../models/booth_project.dart';
 import '../services/analysis.dart';
 import '../services/errors.dart';
@@ -424,7 +425,7 @@ class BoothNotifier extends Notifier<BoothState> {
     if (_posting.add(_key(projectId, runId))) await _submit(projectId, runId);
   }
 
-  /// Oživit. Nothing is kept when the server refuses: returns the Czech reason
+  /// Oživit. Nothing is kept when the server refuses: returns the reason in the device language
   /// (the 429 of a running render, typically) and the booth stays as it was.
   Future<String?> startClip(
     String projectId,
@@ -433,7 +434,7 @@ class BoothNotifier extends Notifier<BoothState> {
   ) async {
     final project = state.byId(projectId)!;
     final path = project.pathOf(frameKey);
-    if (path == null) return 'Tenhle rámeček ještě není hotový.';
+    if (path == null) return deviceL10n.frameNotReady;
     final clipId = project.nextClipId();
     final plan = clipPlan(clipId, motion);
     final RenderJob job;
@@ -480,7 +481,7 @@ class BoothNotifier extends Notifier<BoothState> {
             project.withRun(
               run.copyWith(
                 status: RunStatus.rejected,
-                error: 'Render se nepodařilo spustit.',
+                error: deviceL10n.runNotStarted,
               ),
             ),
           );
@@ -598,7 +599,7 @@ class BoothNotifier extends Notifier<BoothState> {
           jobId: null,
           failed: failed,
           error: next == RunStatus.failed
-              ? 'Render se nepovedl. Generace jsou vrácené.'
+              ? deviceL10n.runFailedRefunded
               : null,
         ),
       ),
@@ -615,7 +616,7 @@ class BoothNotifier extends Notifier<BoothState> {
             .copyWith(
               status: RunStatus.lost,
               jobId: null,
-              error: 'Server se mezitím restartoval a render ztratil.',
+              error: deviceL10n.runLost,
             ),
       ),
     );
