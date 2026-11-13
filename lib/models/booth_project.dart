@@ -182,8 +182,10 @@ class BoothProject {
     return last ?? kSelfieKey;
   }
 
-  /// Frame 0, then the styles. A step id `sN` is frame N.
-  List<BoothTile> tiles() => [
+  /// Frame 0, then the styles. A step id `sN` is frame N. [styleName] gives
+  /// a style its shown name (the app's translation); without it the catalog's
+  /// English label.
+  List<BoothTile> tiles({String Function(String styleId)? styleName}) => [
     BoothTile(
       key: frameZeroKey,
       label: frameZeroKey == kSelfieKey ? 'Selfie' : 'Nový vzhled',
@@ -191,13 +193,15 @@ class BoothProject {
     for (final (i, f) in frames.indexed)
       BoothTile(
         key: styleStepId(i + 1),
-        label: restyleStyleById(f.styleId)?.label ?? f.styleId,
+        label:
+            styleName?.call(f.styleId) ??
+            restyleStyleById(f.styleId)?.label ??
+            f.styleId,
       ),
   ];
 
   /// The file of a tile, null until it is here.
-  String? pathOf(String key) =>
-      key == kSelfieKey ? selfiePath : stepPaths[key];
+  String? pathOf(String key) => key == kSelfieKey ? selfiePath : stepPaths[key];
 
   /// Clip step ids are `m1`, `m2`, …; never reused, so an old file stays put.
   String nextClipId() {

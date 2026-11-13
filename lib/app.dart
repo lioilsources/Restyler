@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'l10n/app_localizations.dart';
 import 'providers/booth_provider.dart';
 import 'screens/home_screen.dart';
 import 'theme.dart';
@@ -42,6 +43,8 @@ class _RestylerAppState extends ConsumerState<RestylerApp>
   Widget build(BuildContext context) => MaterialApp(
     title: 'Restyler',
     theme: boothTheme(),
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
     home: const HomeScreen(),
   );
 }

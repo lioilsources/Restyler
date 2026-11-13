@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 import '../data/mixes.dart';
+import '../l10n/app_localizations.dart';
+import '../l10n/style_names.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
 import 'booth_screen.dart';
@@ -77,8 +79,12 @@ class _StylesStepState extends ConsumerState<StylesStep> {
     final draft = ref.watch(draftProvider);
     final plan = draft.plan;
     final text = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     final matches = kRestyleStyles
-        .where((s) => restyleStyleMatchesQuery(s, _query))
+        .where(
+          (s) =>
+              restyleStyleMatchesQuery(s, _query, shown: styleName(l10n, s.id)),
+        )
         .take(_query.isEmpty ? 24 : 96);
     return Scaffold(
       appBar: AppBar(title: const Text('Styly')),
@@ -148,7 +154,7 @@ class _StylesStepState extends ConsumerState<StylesStep> {
                     children: [
                       for (final s in matches)
                         FilterChip(
-                          label: Text(s.label),
+                          label: Text(styleName(l10n, s.id)),
                           selected: draft.frames.any((f) => f.styleId == s.id),
                           onSelected: (_) => _toggle(s),
                         ),

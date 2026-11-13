@@ -51,7 +51,13 @@ img.Image _cropTo(img.Image im, double ratio) {
   );
 }
 
-String _fit(String label, img.BitmapFont font, int width) {
+/// [label] as the strip font can draw it: the font has Latin-1, Latin
+/// Extended-A, – and … (tools/make_strip_font.py), so an em dash from a style
+/// name becomes an en dash instead of a gap.
+String stripText(String label) => label.replaceAll('—', '–');
+
+String _fit(String text, img.BitmapFont font, int width) {
+  final label = stripText(text);
   int measure(String s) =>
       s.split('').fold(0, (n, c) => n + font.characterXAdvance(c));
   if (measure(label) <= width) return label;
@@ -73,7 +79,9 @@ Uint8List composeStrip(
   final font = img.BitmapFont.fromZip(fontZip);
   final images = [
     for (final f in frames)
-      img.decodeImage(f.bytes)!.convert(format: img.Format.uint8, numChannels: 3),
+      img
+          .decodeImage(f.bytes)!
+          .convert(format: img.Format.uint8, numChannels: 3),
   ];
   final ratio = images.first.width / images.first.height;
   final cellW = kStripCellWidth;

@@ -19,14 +19,23 @@ void main() {
     expect(kRestyleStyles.take(24).map((s) => s.id), contains('botticelli'));
   });
 
-  test('search ignores case and diacritics and reads the id', () {
-    final watercolor = restyleStyleById('watercolor-wet')!;
-    expect(watercolor.label, isNot(contains('atercolor')));
-    expect(restyleStyleMatchesQuery(watercolor, 'watercolor'), isTrue);
-    final cave = restyleStyleById('cave-painting')!;
-    expect(restyleStyleMatchesQuery(cave, 'jeskynni'), isTrue);
-    expect(restyleStyleMatchesQuery(cave, 'JESKYNNÍ'), isTrue);
-    expect(restyleStyleMatchesQuery(cave, 'cave painting'), isTrue);
-    expect(restyleStyleMatchesQuery(cave, 'baroko'), isFalse);
+  test('labels are the English names', () {
+    expect(restyleStyleById('cave-painting')!.label, 'Cave painting (Lascaux)');
+    expect(restyleStyleById('comic')!.label, 'Comic book');
   });
+
+  test(
+    'search ignores case and diacritics, reads the id and the shown name',
+    () {
+      final watercolor = restyleStyleById('watercolor-wet')!;
+      expect(restyleStyleMatchesQuery(watercolor, 'watercolor'), isTrue);
+      final cave = restyleStyleById('cave-painting')!;
+      const shown = 'Jeskynní malba (Lascaux)';
+      expect(restyleStyleMatchesQuery(cave, 'jeskynni'), isFalse);
+      expect(restyleStyleMatchesQuery(cave, 'jeskynni', shown: shown), isTrue);
+      expect(restyleStyleMatchesQuery(cave, 'JESKYNNÍ', shown: shown), isTrue);
+      expect(restyleStyleMatchesQuery(cave, 'cave painting'), isTrue);
+      expect(restyleStyleMatchesQuery(cave, 'baroko', shown: shown), isFalse);
+    },
+  );
 }

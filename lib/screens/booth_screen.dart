@@ -5,6 +5,8 @@ import 'package:gal/gal.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
+import '../l10n/app_localizations.dart';
+import '../l10n/style_names.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
@@ -36,9 +38,8 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
   StripLayout _layout = StripLayout.grid;
   bool _working = false;
 
-  void _say(String text) => ScaffoldMessenger.of(
-    context,
-  ).showSnackBar(SnackBar(content: Text(text)));
+  void _say(String text) =>
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
 
   Future<void> _animate(BoothProject project, BoothTile tile) async {
     final catalog = ref.read(catalogProvider);
@@ -69,8 +70,9 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
   /// The sheet of what is here; a frame still rendering or failed stays out.
   Future<String?> _writeStrip(BoothProject project) async {
     final files = ref.read(projectFilesProvider);
+    final l10n = AppLocalizations.of(context);
     final frames = <StripFrame>[];
-    for (final tile in project.tiles()) {
+    for (final tile in project.tiles(styleName: (id) => styleName(l10n, id))) {
       final path = project.pathOf(tile.key);
       if (path != null) {
         frames.add(StripFrame(await files.read(path), tile.label));
@@ -124,7 +126,8 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     final run = project.run;
     final key = '${project.id}/$kMainRun';
     final scheme = Theme.of(context).colorScheme;
-    final tiles = project.tiles();
+    final l10n = AppLocalizations.of(context);
+    final tiles = project.tiles(styleName: (id) => styleName(l10n, id));
 
     return Scaffold(
       appBar: AppBar(title: const Text('Fotobuňka')),
@@ -232,9 +235,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     return FrameTile(
       label: tile.label,
       state: _stateOf(project, tile),
-      file: path == null
-          ? null
-          : ref.read(projectFilesProvider).absolute(path),
+      file: path == null ? null : ref.read(projectFilesProvider).absolute(path),
       onAnimate: catalog.motions.isEmpty || path == null
           ? null
           : () => _animate(project, tile),
@@ -243,11 +244,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     );
   }
 
-  Widget _clipRow(
-    BoothProject project,
-    BoothRun clip,
-    BoothState booth,
-  ) {
+  Widget _clipRow(BoothProject project, BoothRun clip, BoothState booth) {
     final name = motionById(clip.motionId)?.cs ?? clip.motionId ?? 'Klip';
     final ready = project.stepPaths.containsKey(clip.id);
     final problem = booth.connection['${project.id}/${clip.id}'];
