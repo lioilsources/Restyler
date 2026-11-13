@@ -20,6 +20,11 @@ class RenderStepStatus {
   /// trying again in a few minutes (server: `comfy.BUSY_MESSAGE`).
   bool get busy => status == 'error' && (error?.startsWith('busy:') ?? false);
 
+  /// The server's nudity check threw the result away: refunded, never stored
+  /// (server: `nsfw.MESSAGE`).
+  bool get discardedAsNude =>
+      status == 'error' && (error?.startsWith('nsfw:') ?? false);
+
   factory RenderStepStatus.fromJson(Map<String, dynamic> json) =>
       RenderStepStatus(
         status: json['status'] as String,

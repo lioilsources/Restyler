@@ -607,13 +607,16 @@ class BoothNotifier extends Notifier<BoothState> {
         ? RunStatus.done
         : RunStatus.partial;
     final busy = status.steps.values.any((s) => s.busy);
+    final nude = status.steps.values.any((s) => s.discardedAsNude);
     await _put(
       project.withRun(
         run.copyWith(
           status: next,
           jobId: null,
           failed: failed,
-          error: busy
+          error: nude
+              ? kNudeDiscardedText
+              : busy
               ? kServerBusyText
               : next == RunStatus.failed
               ? 'Render se nepovedl. Generace jsou vrácené.'

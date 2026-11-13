@@ -170,6 +170,23 @@ void main() {
     expect(project(id).error, kServerBusyText);
   });
 
+  test('a frame thrown away for nudity says so', () async {
+    backend.nextScript = [
+      _job('done', {
+        'hair': stepJson('done'),
+        's1': {'status': 'error', 'kind': 'image', 'error': 'nsfw: discarded'},
+      }),
+    ];
+    final n = c.read(draftProvider.notifier);
+    await n.analyse(caseNamed('man-bearded').photoBytes());
+    await n.chooseHair(hairStyle, null);
+    n.setFrames([_anime]);
+    final id = await c.read(boothProvider.notifier).start(c.read(draftProvider));
+    await _settle(() => !project(id).status.active);
+    expect(project(id).status, RunStatus.partial);
+    expect(project(id).error, kNudeDiscardedText);
+  });
+
   test('a busy step in a partial run still says „zkus později“', () async {
     backend.nextScript = [
       _job('done', {

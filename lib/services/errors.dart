@@ -37,6 +37,9 @@ const kBusyText =
 const kRetiredStyleText =
     'Některý styl v tomhle projektu jsme z appky odebrali. '
     'Založ nový projekt s jinými styly.';
+const kNudeDiscardedText =
+    'Některý rámeček jsme zahodili, protože na něm vyšla nahota. '
+    'Generace je vrácená, zkus jiný styl.';
 const kServerBusyText =
     'Server je teď vytížený. Zkus to za pár minut, generace jsou vrácené.';
 const kOfflineText =
