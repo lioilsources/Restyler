@@ -92,6 +92,18 @@ const kHairSections = [
   'Updos',
 ];
 
+/// Czech headings for [kHairSections].
+const kHairSectionCs = {
+  'Cuts': 'Střihy',
+  'Bangs': 'Ofiny',
+  'Texture': 'Vlny a kudrliny',
+  'Short': 'Krátké',
+  'Medium': 'Střední',
+  'Long': 'Dlouhé',
+  'Braids': 'Copy',
+  'Updos': 'Drdoly a culíky',
+};
+
 /// A hair colour the bot knows (`tgbot/haircolours.py` holds the prompt
 /// phrase); the app sends only the id. [group] orders the chips.
 class HairColour {

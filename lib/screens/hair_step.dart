@@ -73,7 +73,7 @@ class _HairStepState extends ConsumerState<HairStep> {
         for (final section in kHairSections)
           if (hairstylesIn(_group, section).isNotEmpty)
             StyleSection(
-              title: section,
+              title: kHairSectionCs[section] ?? section,
               children: [
                 for (final h in hairstylesIn(_group, section))
                   StyleCard(
