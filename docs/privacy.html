@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ochrana soukromí — Restyler</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a383c;
+      color: #eef4f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      line-height: 1.7;
+    }
+    h1 { font-size: 2rem; color: #ffc83d; margin-bottom: 8px; }
+    .updated { color: #8fb3b0; font-size: 0.9rem; margin-bottom: 40px; }
+    h2 { font-size: 1.1rem; color: #ffc83d; margin: 32px 0 10px; }
+    p, li { color: #d3e6e4; margin-bottom: 12px; }
+    ul { padding-left: 20px; }
+    a { color: #bfd8d6; }
+    hr { border: 0; border-top: 1px solid #1c5459; margin: 56px 0; }
+    .contact-box { background: #0e4a4f; border: 1px solid #1c5459; border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #1c5459; }
+    footer a { color: #8fb3b0; text-decoration: none; margin-right: 16px; }
+    footer a:hover { color: #ffc83d; }
+  </style>
+</head>
+<body>
+  <h1>Ochrana soukromí</h1>
+  <p class="updated">Aktualizováno 13. listopadu 2026 · <a href="#en">English below</a></p>
+
+  <h2>O čem to je</h2>
+  <p>
+    Tyto zásady platí pro appku <em>Restyler</em> (<code>com.ol1n.restyler</code>)
+    pro iOS a Android. Provozovatelem je Oldřich Vořechovský (ol1n). Restyler nemá
+    účty, reklamy, analytiku ani platby.
+  </p>
+
+  <h2>Co zůstává v telefonu</h2>
+  <p>
+    Rozpoznání tváře, vlasů, očí a vousů, masky, odhad barvy vlasů, prompty
+    a skládání pásu fotobuňky běží přímo v telefonu. Projekty, selfie a hotové
+    rámečky jsou uložené jen v úložišti appky. Smazáním projektu nebo appky
+    zmizí z telefonu.
+  </p>
+
+  <h2>Co se posílá na server</h2>
+  <p>Když spustíš render, appka pošle na náš render server:</p>
+  <ul>
+    <li>jednu fotku, zmenšenou nejvýš na 1536 px a bez metadat (EXIF, poloha),</li>
+    <li>masky oblastí, které se mají změnit (vlasy, vousy, brýle),</li>
+    <li>popis kroků: zvolené styly a texty promptů.</li>
+  </ul>
+  <p>
+    U funkce Oživit se posílá jeden hotový rámeček a zvolený pohyb. Appka
+    neposílá jméno, e-mail, telefonní číslo, polohu ani identifikátor zařízení.
+    Každá kopie appky se serveru hlásí stejným tokenem, takže server
+    jednotlivé uživatele nerozlišuje.
+  </p>
+
+  <h2>Co se na serveru děje a jak dlouho to tam je</h2>
+  <p>
+    Render běží na vlastním GPU serveru provozovatele, ne v cizím cloudu
+    s umělou inteligencí. Spojení vede přes Cloudflare, který chrání přístup
+    k serveru. Hotové obrázky a klipy si appka stáhne do telefonu.
+  </p>
+  <p>
+    Nahraná fotka, masky a hotové výstupy zůstávají uložené na API serveru i na
+    GPU serveru, který render počítá. Ani jeden je zatím automaticky nemaže. Pokud chceš svá data smazat, napiš nám na adresu
+    níže a pošli přibližný čas renderu. Data nepoužíváme k trénování modelů,
+    neprodáváme je a nepředáváme dalším stranám. Provozní log serveru obsahuje
+    čas, číslo úlohy, počet kroků a případné chyby, ne fotky.
+  </p>
+
+  <h2>Oprávnění</h2>
+  <ul>
+    <li><strong>Fotoaparát</strong>: k pořízení selfie.</li>
+    <li><strong>Fotky</strong>: k výběru fotky a k uložení hotového pásu, jen když o to požádáš.</li>
+  </ul>
+
+  <h2>Děti</h2>
+  <p>
+    Restyler není určený dětem do 13 let. Neposílej prosím fotky jiných lidí bez
+    jejich souhlasu.
+  </p>
+
+  <h2>Změny</h2>
+  <p>Když se zásady změní, aktualizujeme tuto stránku i datum nahoře.</p>
+
+  <h2>Kontakt</h2>
+  <div class="contact-box">
+    <p>Oldřich Vořechovský (ol1n)<br>
+    <a href="mailto:business@olin.now">business@olin.now</a></p>
+  </div>
+
+  <hr>
+
+  <h1 id="en">Privacy Policy</h1>
+  <p class="updated">Last updated: November 13, 2026</p>
+
+  <h2>Overview</h2>
+  <p>
+    This policy covers <em>Restyler</em> (<code>com.ol1n.restyler</code>) for iOS
+    and Android, operated by Oldřich Vořechovský (ol1n). Restyler has no
+    accounts, no ads, no analytics and no payments.
+  </p>
+
+  <h2>What stays on your phone</h2>
+  <p>
+    Face, hair, eye and beard parsing, the masks, the hair colour estimate,
+    the prompts and the photo strip all run on the phone. Projects, selfies and
+    finished frames are stored only in the app's storage; deleting a project or
+    the app removes them from the phone.
+  </p>
+
+  <h2>What is sent to the server</h2>
+  <p>When you start a render, the app sends our render server:</p>
+  <ul>
+    <li>one photo, downscaled to at most 1536 px, with no metadata (EXIF, location);</li>
+    <li>masks of the areas to change (hair, beard, glasses);</li>
+    <li>the steps: the chosen styles and prompt texts.</li>
+  </ul>
+  <p>
+    “Animate” sends one finished frame and the chosen motion. The app sends no
+    name, email, phone number, location or device identifier. Every copy of the
+    app uses the same token, so the server does not tell users apart.
+  </p>
+
+  <h2>What happens on the server, and for how long</h2>
+  <p>
+    Rendering runs on the operator's own GPU server, not in a third-party AI
+    cloud. The connection goes through Cloudflare, which guards access to the
+    server. The app downloads the finished images and clips to the phone.
+  </p>
+  <p>
+    The uploaded photo, the masks and the results stay stored on the API server
+    and on the GPU server that renders them; neither deletes them
+    automatically yet. To have yours deleted, write to
+    the address below with the approximate time of the render. We do not use
+    the data to train models, sell it or share it with anyone. The server's
+    log holds the time, the job number, the number of steps and any errors,
+    not photos.
+  </p>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><strong>Camera</strong>: to take the selfie.</li>
+    <li><strong>Photos</strong>: to pick a photo and to save the finished strip, only when you ask.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>
+    Restyler is not meant for children under 13. Please do not send photos of
+    other people without their consent.
+  </p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, we update this page and the date above.</p>
+
+  <h2>Contact</h2>
+  <div class="contact-box">
+    <p>Oldřich Vořechovský (ol1n)<br>
+    <a href="mailto:business@olin.now">business@olin.now</a></p>
+  </div>
+
+  <footer>
+    <a href="index.html">Restyler</a>
+    <a href="support.html">Podpora / Support</a>
+    <a href="https://olin.now/restyler">olin.now</a>
+  </footer>
+</body>
+</html>

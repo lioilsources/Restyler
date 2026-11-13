@@ -3,8 +3,11 @@ name: Release Android
 # From Distribution/workflows/release-android.yml, adapted for Restyler:
 # - the parser weights are not in git: downloaded from the backend, cached;
 # - RESTYLER_APP_TOKEN goes in through --dart-define;
-# - APK only, to Firebase App Distribution; no AAB and no GitHub Release
-#   (the repo is public and the APK carries the app token).
+# - APK only, no AAB: to Firebase App Distribution and, as restyler-<tag>.apk,
+#   to the GitHub Release the olin.now download button links to. The APK
+#   carries the app token, so anyone can pull it out; the owner chose that
+#   (2026-11-13). The IPA stays off the release: App Store signed, nobody
+#   could install it, and it would carry the token too.
 
 on:
   push:
@@ -13,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-android:
@@ -95,6 +98,19 @@ jobs:
             echo "::error::APK is signed with the debug key"
             exit 1
           fi
+
+      - name: Name the APK after the tag
+        run: cp build/app/outputs/flutter-apk/app-release.apk "build/restyler-${GITHUB_REF_NAME}.apk"
+
+      - name: Upload to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/restyler-${{ github.ref_name }}.apk
+          name: Restyler ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
 
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1

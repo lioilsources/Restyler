@@ -83,7 +83,8 @@ v `Distribution/workflows`, ale se třemi rozdíly:
 - **Modely** stahuje `tools/fetch_models.sh` z `GET /api/models/<jméno>` na backendu
   (stejný app token), pak `make models` ověří sha256. Na JODA leží v
   `~/restyler-api/tgbot/models-restyler/`; nový export tam patří taky.
-- **Žádný GitHub Release:** repo je public a IPA/APK nese app token.
+- **GitHub Release jen s APK** (`restyler-<tag>.apk`, na něj vede tlačítko na olin.now).
+  APK nese app token a je veřejné, vlastník to tak chtěl (11/2026). IPA na release nejde.
 - **iOS manual signing** dopisuje CI do Release konfigurace Runneru až při buildu,
   v repu zůstává Automatic, aby fungoval `make run`. Android podepisuje `key.properties`,
   bez něj debug klíčem.
