@@ -34,6 +34,9 @@ String maskErrorText(HairMaskException e, [MaskStep step = MaskStep.hair]) {
 const kBusyText =
     'Běží ti jiný render. Dokud nedoběhne, nový nespustíš a nejde ani Oživit. '
     'Klip „vlasy ve větru“ může trvat kolem 20 minut.';
+const kRetiredStyleText =
+    'Některý styl v tomhle projektu jsme z appky odebrali. '
+    'Založ nový projekt s jinými styly.';
 const kServerBusyText =
     'Server je teď vytížený. Zkus to za pár minut, generace jsou vrácené.';
 const kOfflineText =

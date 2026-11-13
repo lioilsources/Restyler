@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 void main() {
-  test('catalog: 318 styles, unique ids, every one in a known section', () {
-    expect(kRestyleStyles, hasLength(318));
-    expect(kRestyleStyles.map((s) => s.id).toSet(), hasLength(318));
+  test('catalog: 300 styles, unique ids, every one in a known section', () {
+    expect(kRestyleStyles, hasLength(300));
+    expect(kRestyleStyles.map((s) => s.id).toSet(), hasLength(300));
     for (final s in kRestyleStyles) {
       expect(kRestyleGroups, contains(s.group), reason: s.id);
       expect(s.block.trim(), isNotEmpty, reason: s.id);
@@ -12,11 +12,24 @@ void main() {
     expect(restyleStylesIn(kRestyleGroupMedia), hasLength(110));
   });
 
-  test('the first 24 the picker shows without a query did not change', () {
+  test('retired styles stay out, and no block asks for a bare body', () {
+    for (final id in kRetiredRestyleStyleIds) {
+      expect(restyleStyleById(id), isNull, reason: id);
+    }
+    final risky = RegExp(
+      r'\b(nude|naked|figure study|minimal clothing|anatomical|muscular anatomy|natural anatomy|flesh\w*|pin-?up)\b',
+      caseSensitive: false,
+    );
+    for (final s in kRestyleStyles) {
+      expect(risky.hasMatch(s.block), isFalse, reason: '${s.id}: ${s.block}');
+    }
+  });
+
+  test('the first page the picker shows without a query starts with Popular', () {
     expect(kRestyleStyles.take(8).map((s) => s.group).toSet(), {
       kRestyleGroupPopular,
     });
-    expect(kRestyleStyles.take(24).map((s) => s.id), contains('botticelli'));
+    expect(kRestyleStyles.take(24).map((s) => s.id), contains('davinci'));
   });
 
   test('labels are the English names', () {

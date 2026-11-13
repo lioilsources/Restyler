@@ -146,23 +146,11 @@ abstract class AppLocalizations {
   /// **'Film noir'**
   String get styleNoir;
 
-  /// No description provided for @styleBotticelli.
-  ///
-  /// In cs, this message translates to:
-  /// **'Botticelli'**
-  String get styleBotticelli;
-
   /// No description provided for @styleDavinci.
   ///
   /// In cs, this message translates to:
   /// **'Da Vinci (sfumato)'**
   String get styleDavinci;
-
-  /// No description provided for @styleDavinciChalk.
-  ///
-  /// In cs, this message translates to:
-  /// **'Da Vinci (studie rudkou)'**
-  String get styleDavinciChalk;
 
   /// No description provided for @styleElgreco.
   ///
@@ -278,12 +266,6 @@ abstract class AppLocalizations {
   /// **'Matisse (fauvismus)'**
   String get styleMatisseFauve;
 
-  /// No description provided for @styleSchiele.
-  ///
-  /// In cs, this message translates to:
-  /// **'Schiele'**
-  String get styleSchiele;
-
   /// No description provided for @styleKubista.
   ///
   /// In cs, this message translates to:
@@ -361,12 +343,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Matisse (výstřižky)'**
   String get styleMatisseCutout;
-
-  /// No description provided for @styleBacon.
-  ///
-  /// In cs, this message translates to:
-  /// **'Francis Bacon'**
-  String get styleBacon;
 
   /// No description provided for @styleWarhol.
   ///
@@ -469,12 +445,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Římská freska'**
   String get styleRomanfresco;
-
-  /// No description provided for @styleGreek.
-  ///
-  /// In cs, this message translates to:
-  /// **'Klasické Řecko'**
-  String get styleGreek;
 
   /// No description provided for @styleMinoan.
   ///
@@ -602,12 +572,6 @@ abstract class AppLocalizations {
   /// **'Dogonové (Mali)'**
   String get styleDogon;
 
-  /// No description provided for @styleHimba.
-  ///
-  /// In cs, this message translates to:
-  /// **'Himbové (Namibie)'**
-  String get styleHimba;
-
   /// No description provided for @styleMaasai.
   ///
   /// In cs, this message translates to:
@@ -710,23 +674,11 @@ abstract class AppLocalizations {
   /// **'Jeskynní malba (Lascaux)'**
   String get styleCavePainting;
 
-  /// No description provided for @styleCycladic.
-  ///
-  /// In cs, this message translates to:
-  /// **'Kykladská idolka'**
-  String get styleCycladic;
-
   /// No description provided for @styleGreekVaseBlack.
   ///
   /// In cs, this message translates to:
   /// **'Černofigurová váza'**
   String get styleGreekVaseBlack;
-
-  /// No description provided for @styleGreekVaseRed.
-  ///
-  /// In cs, this message translates to:
-  /// **'Červenofigurová váza'**
-  String get styleGreekVaseRed;
 
   /// No description provided for @styleEtruscanTomb.
   ///
@@ -926,12 +878,6 @@ abstract class AppLocalizations {
   /// **'Precisionismus'**
   String get stylePrecisionism;
 
-  /// No description provided for @stylePinUp50s.
-  ///
-  /// In cs, this message translates to:
-  /// **'Pin-up 50. let'**
-  String get stylePinUp50s;
-
   /// No description provided for @styleInuitPrintmaking.
   ///
   /// In cs, this message translates to:
@@ -998,12 +944,6 @@ abstract class AppLocalizations {
   /// **'Dürer — mědiryty'**
   String get styleDurerEngraving;
 
-  /// No description provided for @styleTitian.
-  ///
-  /// In cs, this message translates to:
-  /// **'Tizian — benátský kolorit'**
-  String get styleTitian;
-
   /// No description provided for @styleBruegel.
   ///
   /// In cs, this message translates to:
@@ -1016,12 +956,6 @@ abstract class AppLocalizations {
   /// **'Caravaggio — modely ze tmy'**
   String get styleCaravaggio;
 
-  /// No description provided for @styleRubens.
-  ///
-  /// In cs, this message translates to:
-  /// **'Rubens — vířivá kompozice'**
-  String get styleRubens;
-
   /// No description provided for @styleVelazquez.
   ///
   /// In cs, this message translates to:
@@ -1033,12 +967,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Fragonard — hravý štětec'**
   String get styleFragonard;
-
-  /// No description provided for @styleDavidNeoclassical.
-  ///
-  /// In cs, this message translates to:
-  /// **'David — neoklasicismus'**
-  String get styleDavidNeoclassical;
 
   /// No description provided for @styleBlake.
   ///
@@ -1064,12 +992,6 @@ abstract class AppLocalizations {
   /// **'Turner — rozpuštěné světlo'**
   String get styleTurner;
 
-  /// No description provided for @styleIngres.
-  ///
-  /// In cs, this message translates to:
-  /// **'Ingres — porcelánová pleť'**
-  String get styleIngres;
-
   /// No description provided for @styleHiroshige.
   ///
   /// In cs, this message translates to:
@@ -1081,12 +1003,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Kunijoši — hrdinské listy'**
   String get styleKuniyoshi;
-
-  /// No description provided for @styleManet.
-  ///
-  /// In cs, this message translates to:
-  /// **'Manet — černá jako barva'**
-  String get styleManet;
 
   /// No description provided for @styleDore.
   ///
@@ -1105,12 +1021,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Jošitoši — poslední ukiyo-e'**
   String get styleYoshitoshi;
-
-  /// No description provided for @styleRenoir.
-  ///
-  /// In cs, this message translates to:
-  /// **'Renoir — skvrny světla'**
-  String get styleRenoir;
 
   /// No description provided for @styleCassatt.
   ///
@@ -1159,12 +1069,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Vrubel — krystalické fasety'**
   String get styleVrubel;
-
-  /// No description provided for @styleZorn.
-  ///
-  /// In cs, this message translates to:
-  /// **'Zorn — čtyřbarevná paleta'**
-  String get styleZorn;
 
   /// No description provided for @styleEnsor.
   ///
@@ -1292,12 +1196,6 @@ abstract class AppLocalizations {
   /// **'Lawrence — ploché tempery'**
   String get styleJacobLawrence;
 
-  /// No description provided for @styleFrazetta.
-  ///
-  /// In cs, this message translates to:
-  /// **'Frazetta — olejová fantasy'**
-  String get styleFrazetta;
-
   /// No description provided for @styleBeksinski.
   ///
   /// In cs, this message translates to:
@@ -1327,12 +1225,6 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Giger — biomechanika'**
   String get styleGiger;
-
-  /// No description provided for @styleSorayama.
-  ///
-  /// In cs, this message translates to:
-  /// **'Sorayama — chrom'**
-  String get styleSorayama;
 
   /// No description provided for @styleMurakami.
   ///

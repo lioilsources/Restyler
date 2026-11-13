@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -219,6 +220,21 @@ void main() {
     expect(project(id).status, RunStatus.lost);
     expect(project(id).error, kBusyText);
     expect(project(id).stepPaths, contains('beard'));
+  });
+
+  test('„Spustit znovu“ never resends a retired style from an old project', () async {
+    backend.refuseNext = 429;
+    final id = await c.read(boothProvider.notifier).start(await draft());
+    expect(project(id).status, RunStatus.rejected);
+    // The same project as saved before the style was taken out.
+    final json = jsonDecode(jsonEncode(project(id).toJson())) as Map<String, dynamic>;
+    (json['frames'] as List).first['styleId'] = 'davinci-chalk';
+    store = MemoryProjectStore([BoothProject.fromJson(json)]);
+    c = container();
+    final sent = backend.renders.length;
+    await c.read(boothProvider.notifier).retry(id, kMainRun);
+    expect(backend.renders, hasLength(sent));
+    expect(project(id).error, kRetiredStyleText);
   });
 
   test('a refused start stays as a project with its plan and the Czech reason', () async {

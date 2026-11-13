@@ -420,7 +420,22 @@ class BoothNotifier extends Notifier<BoothState> {
   }
 
   /// „Spustit znovu“.
+  ///
+  /// A saved plan carries the prompt text, so a style taken out of the catalog
+  /// (it drew nudity) would render again from an old project: such a run is
+  /// not sent, the project says why instead.
   Future<void> retry(String projectId, String runId) async {
+    final project = state.byId(projectId);
+    if (project != null &&
+        runId == kMainRun &&
+        project.frames.any((f) => restyleStyleById(f.styleId) == null)) {
+      await _put(
+        project.withRun(
+          project.runById(runId)!.copyWith(error: kRetiredStyleText),
+        ),
+      );
+      return;
+    }
     if (_posting.add(_key(projectId, runId))) await _submit(projectId, runId);
   }
 

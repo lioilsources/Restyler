@@ -27,7 +27,7 @@ final kStyleMixes = <StyleMix>[
     _f('monet'),
     _f('lautrec-poster'),
     _f('matisse-cutout'),
-    _f('schiele'),
+    _f('munch'),
   ]),
   StyleMix('komiks', 'Pop a komiks', [
     _f('popart'),

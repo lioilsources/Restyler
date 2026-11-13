@@ -33,13 +33,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleNoir => 'Film noir';
 
   @override
-  String get styleBotticelli => 'Botticelli';
-
-  @override
   String get styleDavinci => 'Da Vinci (sfumato)';
-
-  @override
-  String get styleDavinciChalk => 'Da Vinci (red chalk study)';
 
   @override
   String get styleElgreco => 'El Greco';
@@ -99,9 +93,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleMatisseFauve => 'Matisse (Fauvism)';
 
   @override
-  String get styleSchiele => 'Schiele';
-
-  @override
   String get styleKubista => 'Kubista (cubo-expressionism)';
 
   @override
@@ -139,9 +130,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get styleMatisseCutout => 'Matisse (cut-outs)';
-
-  @override
-  String get styleBacon => 'Francis Bacon';
 
   @override
   String get styleWarhol => 'Warhol (silkscreen)';
@@ -193,9 +181,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get styleRomanfresco => 'Roman fresco';
-
-  @override
-  String get styleGreek => 'Classical Greek';
 
   @override
   String get styleMinoan => 'Minoan fresco';
@@ -261,9 +246,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleDogon => 'Dogon (Mali)';
 
   @override
-  String get styleHimba => 'Himba (Namibia)';
-
-  @override
   String get styleMaasai => 'Maasai';
 
   @override
@@ -315,13 +297,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleCavePainting => 'Cave painting (Lascaux)';
 
   @override
-  String get styleCycladic => 'Cycladic figurine';
-
-  @override
   String get styleGreekVaseBlack => 'Black-figure vase';
-
-  @override
-  String get styleGreekVaseRed => 'Red-figure vase';
 
   @override
   String get styleEtruscanTomb => 'Etruscan tomb (Tarquinia)';
@@ -423,9 +399,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stylePrecisionism => 'Precisionism';
 
   @override
-  String get stylePinUp50s => '1950s pin-up';
-
-  @override
   String get styleInuitPrintmaking => 'Inuit stonecut (Kinngait)';
 
   @override
@@ -459,25 +432,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleDurerEngraving => 'Dürer — copper engravings';
 
   @override
-  String get styleTitian => 'Titian — Venetian colour';
-
-  @override
   String get styleBruegel => 'Bruegel — village from above';
 
   @override
   String get styleCaravaggio => 'Caravaggio — figures from the dark';
 
   @override
-  String get styleRubens => 'Rubens — swirling composition';
-
-  @override
   String get styleVelazquez => 'Velázquez — silvery palette';
 
   @override
   String get styleFragonard => 'Fragonard — playful brush';
-
-  @override
-  String get styleDavidNeoclassical => 'David — Neoclassicism';
 
   @override
   String get styleBlake => 'Blake — colour prints';
@@ -492,16 +456,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleTurner => 'Turner — dissolving light';
 
   @override
-  String get styleIngres => 'Ingres — porcelain skin';
-
-  @override
   String get styleHiroshige => 'Hiroshige — bokashi';
 
   @override
   String get styleKuniyoshi => 'Kuniyoshi — warrior prints';
-
-  @override
-  String get styleManet => 'Manet — black as a colour';
 
   @override
   String get styleDore => 'Doré — wood engraving';
@@ -511,9 +469,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get styleYoshitoshi => 'Yoshitoshi — last of ukiyo-e';
-
-  @override
-  String get styleRenoir => 'Renoir — dappled light';
 
   @override
   String get styleCassatt => 'Cassatt — pastel and Japanese framing';
@@ -538,9 +493,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get styleVrubel => 'Vrubel — crystalline facets';
-
-  @override
-  String get styleZorn => 'Zorn — four-colour palette';
 
   @override
   String get styleEnsor => 'Ensor — masks';
@@ -606,9 +558,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get styleJacobLawrence => 'Lawrence — flat tempera';
 
   @override
-  String get styleFrazetta => 'Frazetta — oil fantasy';
-
-  @override
   String get styleBeksinski => 'Beksiński — dystopia';
 
   @override
@@ -622,9 +571,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get styleGiger => 'Giger — biomechanics';
-
-  @override
-  String get styleSorayama => 'Sorayama — chrome';
 
   @override
   String get styleMurakami => 'Murakami — Superflat';

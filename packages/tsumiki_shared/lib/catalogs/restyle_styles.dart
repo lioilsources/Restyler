@@ -132,25 +132,11 @@ const kRestyleStyles = <RestyleStyle>[
 
   // ── Painters (Ol1nLLM style matrix, third wave, 2026-09-10) ─────────────
   RestyleStyle(
-    id: 'botticelli',
-    label: 'Botticelli',
-    group: kRestyleGroupPainters,
-    block:
-        'early renaissance tempera painting by Sandro Botticelli, graceful linear contours, long flowing golden hair, pale porcelain skin, transparent fluttering drapery, flowers and orange grove, gentle wistful expression, delicate pastel palette',
-  ),
-  RestyleStyle(
     id: 'davinci',
     label: 'Da Vinci (sfumato)',
     group: kRestyleGroupPainters,
     block:
         'portrait painting by Leonardo da Vinci, sfumato, soft smoky shadows without hard edges, enigmatic half smile, muted olive umber and dark green palette, hazy distant landscape, high renaissance oil on poplar',
-  ),
-  RestyleStyle(
-    id: 'davinci-chalk',
-    label: 'Da Vinci (red chalk study)',
-    group: kRestyleGroupPainters,
-    block:
-        'red chalk figure study by Leonardo da Vinci, sanguine on toned paper, fine parallel hatching, anatomical precision, unfinished sketch edges, faint mirror handwriting notes in the margin',
   ),
   RestyleStyle(
     id: 'elgreco',
@@ -286,13 +272,6 @@ const kRestyleStyles = <RestyleStyle>[
         'fauvist painting by Henri Matisse, wild unmixed colour, green stripe down the face, red and turquoise flat planes, loose broad brushstrokes, decorative patterned interior, joyful bold simplicity',
   ),
   RestyleStyle(
-    id: 'schiele',
-    label: 'Schiele',
-    group: kRestyleGroupPainters,
-    block:
-        'figure drawing by Egon Schiele, nervous jagged contour line, contorted angular pose, bony elongated hands, gouache and watercolour patches of orange red and sickly green on bare paper, empty white background, raw expressionist intensity',
-  ),
-  RestyleStyle(
     id: 'kubista',
     label: 'Kubista (cubo-expressionism)',
     group: kRestyleGroupPainters,
@@ -382,13 +361,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'paper cut-out by Henri Matisse, figure as a single flat cobalt blue silhouette cut from gouache-painted paper, simplified curving limbs, white background, scissors-cut edges, leaf and star shapes, jazz-like playfulness',
-  ),
-  RestyleStyle(
-    id: 'bacon',
-    label: 'Francis Bacon',
-    group: kRestyleGroupPainters,
-    block:
-        'painting by Francis Bacon, smeared distorted figure with blurred twisting face, seated inside a thin drawn cage of lines, flat orange or violet ground, raw fleshy pinks, isolated on a bare stage, visceral unease',
   ),
   RestyleStyle(
     id: 'warhol',
@@ -512,13 +484,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupEurope,
     block:
         'roman fresco style, soft pastel colors, slightly weathered texture, classical drapery, calm idealized faces, muted earth and ochre palette, wall-painting look',
-  ),
-  RestyleStyle(
-    id: 'greek',
-    label: 'Classical Greek',
-    group: kRestyleGroupEurope,
-    block:
-        'classical greek inspired painting, idealized muscular anatomy, clean marble-like skin, balanced composition, soft drapery folds, harmonious proportions, muted earth tones',
   ),
   RestyleStyle(
     id: 'minoan',
@@ -674,13 +639,6 @@ const kRestyleStyles = <RestyleStyle>[
         'dogon sculptural style, elongated stylized figures, abstract geometric forms, strong vertical lines, earthy wood-like tones, ritualistic presence',
   ),
   RestyleStyle(
-    id: 'himba',
-    label: 'Himba (Namibia)',
-    group: kRestyleGroupAfricaNearEast,
-    block:
-        'himba inspired style, rich red ochre skin tones, minimal clothing emphasis, strong natural anatomy, warm desert light, textured skin details',
-  ),
-  RestyleStyle(
     id: 'maasai',
     label: 'Maasai',
     group: kRestyleGroupAfricaNearEast,
@@ -806,25 +764,11 @@ const kRestyleStyles = <RestyleStyle>[
         'paleolithic cave painting on rough limestone wall, charcoal contour and blown red and yellow ochre, profile animal silhouettes, twisted perspective horns, cracked rock surface',
   ),
   RestyleStyle(
-    id: 'cycladic',
-    label: 'Cycladic figurine',
-    group: kRestyleGroupEurope,
-    block:
-        'cycladic marble idol, polished white stone body, folded arms across the abdomen, lyre-shaped head with only a ridge nose, flat geometric planes, plain grey background',
-  ),
-  RestyleStyle(
     id: 'greek-vase-black',
     label: 'Black-figure vase',
     group: kRestyleGroupEurope,
     block:
         'attic black-figure pottery, glossy black silhouette figures on orange terracotta, fine incised lines, added white and purple details, meander border band',
-  ),
-  RestyleStyle(
-    id: 'greek-vase-red',
-    label: 'Red-figure vase',
-    group: kRestyleGroupEurope,
-    block:
-        'attic red-figure pottery, orange terracotta figures reserved on lustrous black glaze, thin relief lines for anatomy and drapery folds, palmette and meander border',
   ),
   RestyleStyle(
     id: 'etruscan-tomb',
@@ -1059,13 +1003,6 @@ const kRestyleStyles = <RestyleStyle>[
         'american precisionist oil painting, razor-clean factory edges, smokestacks and steel ducts, flattened planes, smooth unbrushed surface, pale steel blue, rust red and cream',
   ),
   RestyleStyle(
-    id: 'pin-up-50s',
-    label: '1950s pin-up',
-    group: kRestyleGroupAmericasOceania,
-    block:
-        '1950s american pin-up calendar illustration, smooth glossy gouache and oil skin modeling, soft airbrush gradient background, candy red and cream, playful surprised pose, fine rim light',
-  ),
-  RestyleStyle(
     id: 'inuit-printmaking',
     label: 'Inuit stonecut (Kinngait)',
     group: kRestyleGroupAmericasOceania,
@@ -1145,13 +1082,6 @@ const kRestyleStyles = <RestyleStyle>[
         'copper engraving by Albrecht Dürer, black ink on cream paper, dense cross-hatching, swelling burin lines, sharp contour, fine parallel modelling, northern renaissance precision, crisp printed plate surface',
   ),
   RestyleStyle(
-    id: 'titian',
-    label: 'Titian — Venetian colour',
-    group: kRestyleGroupPainters,
-    block:
-        'venetian oil painting by Titian, warm glowing colour, deep reds and golden flesh tones, loose broken late brushwork, soft dissolving contours, layered glazes, rough visible canvas weave',
-  ),
-  RestyleStyle(
     id: 'bruegel',
     label: 'Bruegel — village from above',
     group: kRestyleGroupPainters,
@@ -1166,13 +1096,6 @@ const kRestyleStyles = <RestyleStyle>[
         'tenebrist oil painting by Caravaggio, single hard raking light from upper left, figures emerging from pure black, ordinary unidealised models, sharp shadow edge, earthy red and ochre, dark smooth canvas',
   ),
   RestyleStyle(
-    id: 'rubens',
-    label: 'Rubens — swirling composition',
-    group: kRestyleGroupPainters,
-    block:
-        'flemish baroque oil painting by Peter Paul Rubens, rosy luminous flesh with pearly blue half-tones, swirling diagonal composition, full fleshy forms, warm reds, fluid sweeping brushwork, thin glowing paint',
-  ),
-  RestyleStyle(
     id: 'velazquez',
     label: 'Velázquez — silvery palette',
     group: kRestyleGroupPainters,
@@ -1185,13 +1108,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'rococo oil painting by Jean-Honoré Fragonard, feathery playful brushwork, pastel pink, peach and sea-green, frothy foliage light, soft powdery atmosphere, swift flickering touches on canvas',
-  ),
-  RestyleStyle(
-    id: 'david-neoclassical',
-    label: 'David — Neoclassicism',
-    group: kRestyleGroupPainters,
-    block:
-        'neoclassical oil painting by Jacques-Louis David, invisible smooth brushwork, sculptural marble-like bodies, frieze-like shallow stage, hard clear outlines, stern red and white accents, plain dark background, polished canvas',
   ),
   RestyleStyle(
     id: 'blake',
@@ -1222,13 +1138,6 @@ const kRestyleStyles = <RestyleStyle>[
         'late oil painting by J. M. W. Turner, forms dissolved into blazing light, swirling vortex of yellow and white, scumbled translucent veils, barely any contour, rough scraped impasto surface',
   ),
   RestyleStyle(
-    id: 'ingres',
-    label: 'Ingres — porcelain skin',
-    group: kRestyleGroupPainters,
-    block:
-        'neoclassical oil portrait by Jean-Auguste-Dominique Ingres, porcelain smooth skin, elongated sinuous contours, pure unbroken line, cool pale tones, crisp silk surfaces, enamel-like invisible brushwork',
-  ),
-  RestyleStyle(
     id: 'hiroshige',
     label: 'Hiroshige — bokashi',
     group: kRestyleGroupPainters,
@@ -1241,13 +1150,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'ukiyo-e warrior print by Utagawa Kuniyoshi, explosive packed composition filling the sheet, bold swirling black line, dense interlocking patterns, saturated red and indigo, heavy muscular action, woodblock ink texture',
-  ),
-  RestyleStyle(
-    id: 'manet',
-    label: 'Manet — black as a colour',
-    group: kRestyleGroupPainters,
-    block:
-        'oil painting by Édouard Manet, flat frontal light, black used as a full colour, abrupt shift between light and dark, pale simplified flesh, broad summary brushwork, creamy paint on canvas',
   ),
   RestyleStyle(
     id: 'dore',
@@ -1269,13 +1171,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'meiji woodblock print by Tsukioka Yoshitoshi, dramatic twisting pose, nervous elegant line, restrained muted palette with sudden red accent, sparse gradient ground, fine woodgrain printed on paper',
-  ),
-  RestyleStyle(
-    id: 'renoir',
-    label: 'Renoir — dappled light',
-    group: kRestyleGroupPainters,
-    block:
-        'impressionist oil painting by Pierre-Auguste Renoir, dappled sunlight patches, soft feathery brushstrokes, warm rosy flesh, shimmering blue shadows, blurred contours, creamy vibrating paint surface',
   ),
   RestyleStyle(
     id: 'cassatt',
@@ -1332,13 +1227,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'symbolist oil painting by Mikhail Vrubel, crystalline faceted brush planes, mosaic of shattered strokes, deep violet and dusky blue with gleaming pearl, heavy palette-knife impasto',
-  ),
-  RestyleStyle(
-    id: 'zorn',
-    label: 'Zorn — four-colour palette',
-    group: kRestyleGroupPainters,
-    block:
-        'oil painting by Anders Zorn, limited palette of ochre, vermilion, ivory black and white, ruddy warm flesh, broad decisive slashing strokes, shimmering rippling light, creamy impasto on canvas',
   ),
   RestyleStyle(
     id: 'ensor',
@@ -1488,13 +1376,6 @@ const kRestyleStyles = <RestyleStyle>[
         'painting by Jacob Lawrence, casein tempera on hardboard, flat matte colour shapes, angular faceted figures, saturated red, yellow and blue with black, rhythmic repeated forms',
   ),
   RestyleStyle(
-    id: 'frazetta',
-    label: 'Frazetta — oil fantasy',
-    group: kRestyleGroupPainters,
-    block:
-        'fantasy oil painting by Frank Frazetta, explosive muscular anatomy, dynamic twisting action, warm umber darkness, glowing flesh against black, loose rapid brushwork, rough canvas',
-  ),
-  RestyleStyle(
     id: 'beksinski',
     label: 'Beksiński — dystopia',
     group: kRestyleGroupPainters,
@@ -1528,13 +1409,6 @@ const kRestyleStyles = <RestyleStyle>[
     group: kRestyleGroupPainters,
     block:
         'biomechanical airbrush painting by H. R. Giger, monochrome grey ink, fused organic and machine forms, ribbed tubular surfaces, smooth sprayed gradients, stencilled edges',
-  ),
-  RestyleStyle(
-    id: 'sorayama',
-    label: 'Sorayama — chrome',
-    group: kRestyleGroupPainters,
-    block:
-        'airbrush illustration by Hajime Sorayama, liquid mirror chrome surfaces, razor sharp specular reflections, smooth sprayed gradients, soft studio glow, flawless polished finish',
   ),
   RestyleStyle(
     id: 'murakami',
@@ -2322,6 +2196,34 @@ const kRestyleStyles = <RestyleStyle>[
         'pop-up book, cut paper flats standing in layered depth, visible fold tabs and creases, printed illustrated card surface',
   ),
 ];
+
+/// Styles taken out because they drew nudity or describe bodies more than
+/// clothes: `davinci-chalk` rendered a topless portrait from a clothed selfie
+/// of a young person on FLUX (2026-11-13), which reads no negative prompt, so
+/// "fully clothed" in the medium sentence did not hold. The rest went with it
+/// on their wording (anatomy, flesh, figure study, minimal clothing) or their
+/// painter's best-known work being nudes. Never add them back without a
+/// nudity check on the output.
+const kRetiredRestyleStyleIds = <String>{
+  'davinci-chalk',
+  'schiele',
+  'greek',
+  'greek-vase-red',
+  'cycladic',
+  'himba',
+  'pin-up-50s',
+  'titian',
+  'rubens',
+  'renoir',
+  'zorn',
+  'david-neoclassical',
+  'frazetta',
+  'sorayama',
+  'bacon',
+  'botticelli',
+  'manet',
+  'ingres',
+};
 
 RestyleStyle? restyleStyleById(String? id) {
   if (id == null) return null;
