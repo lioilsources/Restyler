@@ -11,6 +11,17 @@ import 'booth_screen.dart';
 
 const kFrameCounts = [4, 6, 8];
 
+/// Czech headings for the catalog groups (the catalog itself is English).
+const kRestyleGroupCs = {
+  kRestyleGroupPopular: 'Oblíbené',
+  kRestyleGroupPainters: 'Malíři',
+  kRestyleGroupAsia: 'Asie',
+  kRestyleGroupEurope: 'Evropa',
+  kRestyleGroupAmericasOceania: 'Amerika a Oceánie',
+  kRestyleGroupAfricaNearEast: 'Afrika a Blízký východ',
+  kRestyleGroupMedia: 'Média a techniky',
+};
+
 class StylesStep extends ConsumerStatefulWidget {
   const StylesStep({super.key});
 
@@ -85,7 +96,18 @@ class _StylesStepState extends ConsumerState<StylesStep> {
           (s) =>
               restyleStyleMatchesQuery(s, _query, shown: styleName(l10n, s.id)),
         )
-        .take(_query.isEmpty ? 24 : 96);
+        .take(96);
+    Widget chips(Iterable<RestyleStyle> styles) => Wrap(
+      spacing: 8,
+      children: [
+        for (final s in styles)
+          FilterChip(
+            label: Text(styleName(l10n, s.id)),
+            selected: draft.frames.any((f) => f.styleId == s.id),
+            onSelected: (_) => _toggle(s),
+          ),
+      ],
+    );
     return Scaffold(
       appBar: AppBar(title: const Text('Styly')),
       body: SafeArea(
@@ -149,17 +171,26 @@ class _StylesStepState extends ConsumerState<StylesStep> {
                     onChanged: (v) => setState(() => _query = v),
                   ),
                   const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      for (final s in matches)
-                        FilterChip(
-                          label: Text(styleName(l10n, s.id)),
-                          selected: draft.frames.any((f) => f.styleId == s.id),
-                          onSelected: (_) => _toggle(s),
+                  if (_query.isNotEmpty)
+                    chips(matches)
+                  else
+                    // Every style, one collapsible section per group, so the
+                    // whole catalog is reachable without knowing a name.
+                    for (final group in kRestyleGroups)
+                      ExpansionTile(
+                        key: PageStorageKey('style-group-$group'),
+                        tilePadding: EdgeInsets.zero,
+                        childrenPadding: const EdgeInsets.only(bottom: 8),
+                        expandedAlignment: Alignment.centerLeft,
+                        initiallyExpanded: group == kRestyleGroupPopular,
+                        title: Text(
+                          '${kRestyleGroupCs[group] ?? group} '
+                          '(${kRestyleStyles.where((s) => s.group == group).length})',
                         ),
-                    ],
-                  ),
+                        children: [
+                          chips(kRestyleStyles.where((s) => s.group == group)),
+                        ],
+                      ),
                 ],
               ),
             ),
