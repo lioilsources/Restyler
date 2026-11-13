@@ -10,6 +10,7 @@ export 'catalogs/beards.dart';
 export 'catalogs/glasses.dart';
 export 'catalogs/hairstyles.dart';
 export 'catalogs/motions.dart';
+export 'catalogs/restyle_sections.dart';
 export 'catalogs/restyle_styles.dart';
 export 'masks/beard_mask.dart';
 export 'masks/bool_mask.dart';

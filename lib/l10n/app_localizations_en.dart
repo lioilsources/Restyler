@@ -907,4 +907,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stylePopUpBook => 'Pop-up book';
+
+  @override
+  String get sectionEpoch => 'Epochs';
+
+  @override
+  String get sectionArtist => 'Artists';
+
+  @override
+  String get sectionMedium => 'Media and techniques';
 }

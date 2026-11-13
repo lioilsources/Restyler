@@ -299,5 +299,8 @@
   "stylePaperSculptureLayered": "Vrstvený papír (paper cut light box)",
   "stylePyrography": "Vypalování do dřeva",
   "styleEmbroidery": "Výšivka",
-  "stylePopUpBook": "Vystřelovací kniha"
+  "stylePopUpBook": "Vystřelovací kniha",
+  "sectionEpoch": "Epochy",
+  "sectionArtist": "Umělci",
+  "sectionMedium": "Média a techniky"
 }

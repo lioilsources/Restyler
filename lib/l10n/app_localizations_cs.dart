@@ -908,4 +908,13 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get stylePopUpBook => 'Vystřelovací kniha';
+
+  @override
+  String get sectionEpoch => 'Epochy';
+
+  @override
+  String get sectionArtist => 'Umělci';
+
+  @override
+  String get sectionMedium => 'Média a techniky';
 }

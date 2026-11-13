@@ -1897,6 +1897,24 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Vystřelovací kniha'**
   String get stylePopUpBook;
+
+  /// No description provided for @sectionEpoch.
+  ///
+  /// In cs, this message translates to:
+  /// **'Epochy'**
+  String get sectionEpoch;
+
+  /// No description provided for @sectionArtist.
+  ///
+  /// In cs, this message translates to:
+  /// **'Umělci'**
+  String get sectionArtist;
+
+  /// No description provided for @sectionMedium.
+  ///
+  /// In cs, this message translates to:
+  /// **'Média a techniky'**
+  String get sectionMedium;
 }
 
 class _AppLocalizationsDelegate

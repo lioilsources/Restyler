@@ -299,5 +299,8 @@
   "stylePaperSculptureLayered": "Layered paper (light box)",
   "stylePyrography": "Pyrography",
   "styleEmbroidery": "Embroidery",
-  "stylePopUpBook": "Pop-up book"
+  "stylePopUpBook": "Pop-up book",
+  "sectionEpoch": "Epochs",
+  "sectionArtist": "Artists",
+  "sectionMedium": "Media and techniques"
 }

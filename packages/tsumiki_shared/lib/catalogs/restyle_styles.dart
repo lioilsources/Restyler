@@ -2253,6 +2253,10 @@ bool restyleStyleMatchesQuery(
 const _accented = 'áäàâãåčćçďéěëèêíïìîľĺňñóöòôõřŕšśťúůüùûýÿžź';
 const _plain = 'aaaaaacccdeeeeeiiiillnnooooorrsstuuuuuyyzz';
 
+/// Lower case without Czech (and common Latin) diacritics, for search and
+/// sorting by name.
+String foldDiacritics(String s) => _fold(s);
+
 String _fold(String s) {
   final buf = StringBuffer();
   for (final unit in s.toLowerCase().split('')) {

@@ -11,17 +11,6 @@ import 'booth_screen.dart';
 
 const kFrameCounts = [4, 6, 8];
 
-/// Czech headings for the catalog groups (the catalog itself is English).
-const kRestyleGroupCs = {
-  kRestyleGroupPopular: 'Oblíbené',
-  kRestyleGroupPainters: 'Malíři',
-  kRestyleGroupAsia: 'Asie',
-  kRestyleGroupEurope: 'Evropa',
-  kRestyleGroupAmericasOceania: 'Amerika a Oceánie',
-  kRestyleGroupAfricaNearEast: 'Afrika a Blízký východ',
-  kRestyleGroupMedia: 'Média a techniky',
-};
-
 class StylesStep extends ConsumerStatefulWidget {
   const StylesStep({super.key});
 
@@ -97,6 +86,18 @@ class _StylesStepState extends ConsumerState<StylesStep> {
               restyleStyleMatchesQuery(s, _query, shown: styleName(l10n, s.id)),
         )
         .take(96);
+    String sectionTitle(RestyleSection section) {
+      final title = switch (section) {
+        RestyleSection.epoch => l10n.sectionEpoch,
+        RestyleSection.artist => l10n.sectionArtist,
+        RestyleSection.medium => l10n.sectionMedium,
+      };
+      final n = kRestyleStyles
+          .where((s) => restyleSectionOf(s) == section)
+          .length;
+      return '$title ($n)';
+    }
+
     Widget chips(Iterable<RestyleStyle> styles) => Wrap(
       spacing: 8,
       children: [
@@ -174,21 +175,23 @@ class _StylesStepState extends ConsumerState<StylesStep> {
                   if (_query.isNotEmpty)
                     chips(matches)
                   else
-                    // Every style, one collapsible section per group, so the
-                    // whole catalog is reachable without knowing a name.
-                    for (final group in kRestyleGroups)
+                    // Every style, in three collapsible sections: epochs and
+                    // artists by year, media by name.
+                    for (final section in RestyleSection.values)
                       ExpansionTile(
-                        key: PageStorageKey('style-group-$group'),
+                        key: PageStorageKey('style-section-${section.name}'),
                         tilePadding: EdgeInsets.zero,
                         childrenPadding: const EdgeInsets.only(bottom: 8),
                         expandedAlignment: Alignment.centerLeft,
-                        initiallyExpanded: group == kRestyleGroupPopular,
-                        title: Text(
-                          '${kRestyleGroupCs[group] ?? group} '
-                          '(${kRestyleStyles.where((s) => s.group == group).length})',
-                        ),
+                        initiallyExpanded: section == RestyleSection.epoch,
+                        title: Text(sectionTitle(section)),
                         children: [
-                          chips(kRestyleStyles.where((s) => s.group == group)),
+                          chips(
+                            restyleSectionStyles(
+                              section,
+                              (s) => styleName(l10n, s.id),
+                            ),
+                          ),
                         ],
                       ),
                 ],

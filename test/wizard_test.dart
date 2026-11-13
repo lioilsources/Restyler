@@ -12,6 +12,7 @@ import 'package:restyler/services/analysis.dart';
 import 'package:restyler/services/errors.dart';
 import 'package:restyler/services/face_parser.dart';
 import 'package:restyler/services/photo_source.dart';
+import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 import 'support/helpers.dart';
 
@@ -88,7 +89,10 @@ void main() {
   }
 
   testWidgets('empty catalogs: selfie → hair → styles, no Oživit', (t) async {
-    await boot(t, catalog: const BoothCatalog(beards: [], glasses: [], motions: []));
+    await boot(
+      t,
+      catalog: const BoothCatalog(beards: [], glasses: [], motions: []),
+    );
     await _tap(t, 'Nová fotobuňka');
     expect(backend.renders, isEmpty);
     await _tap(t, 'Vyfotit se');
@@ -117,7 +121,9 @@ void main() {
     expect(p.tiles(), hasLength(5));
   });
 
-  testWidgets('full catalogs: every step shows, edits chain, Oživit opens', (t) async {
+  testWidgets('full catalogs: every step shows, edits chain, Oživit opens', (
+    t,
+  ) async {
     await boot(t, catalog: fullCatalog);
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
@@ -149,7 +155,47 @@ void main() {
     expect(store.saved.values.single.clips, isEmpty);
   });
 
-  testWidgets('a photo with no face stops at the selfie, nothing sent', (t) async {
+  testWidgets('styles: every style reachable without searching, by section', (
+    t,
+  ) async {
+    t.platformDispatcher.localesTestValue = const [Locale('cs')];
+    addTearDown(t.platformDispatcher.clearLocalesTestValue);
+    await boot(
+      t,
+      catalog: const BoothCatalog(beards: [], glasses: [], motions: []),
+    );
+    await _tap(t, 'Nová fotobuňka');
+    await _tap(t, 'Vyfotit se');
+    await _tap(t, 'Nechat');
+
+    Future<void> see(String text) async {
+      await t.scrollUntilVisible(
+        find.text(text),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.text(text), findsOneWidget);
+    }
+
+    // Epochs open, oldest first: the cave painting (a wave-7 style) leads.
+    await see('Jeskynní malba (Lascaux)');
+    final first = t.widget<FilterChip>(find.byType(FilterChip).first);
+    expect((first.label as Text).data, 'Jeskynní malba (Lascaux)');
+
+    final artists = restyleSectionStyles(RestyleSection.artist, (s) => s.id);
+    await see('Umělci (${artists.length})');
+    await _tap(t, 'Umělci (${artists.length})');
+    await see('Hokusai — manga skici');
+
+    final media = restyleSectionStyles(RestyleSection.medium, (s) => s.id);
+    await see('Média a techniky (${media.length})');
+    await _tap(t, 'Média a techniky (${media.length})');
+    await see('Vystřelovací kniha');
+  });
+
+  testWidgets('a photo with no face stops at the selfie, nothing sent', (
+    t,
+  ) async {
     await boot(t, catalog: const BoothCatalog(), fixture: 'no-face');
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
@@ -158,7 +204,9 @@ void main() {
     expect(backend.renders, isEmpty);
   });
 
-  testWidgets('a step closed by the photo says why and offers only Nechat', (t) async {
+  testWidgets('a step closed by the photo says why and offers only Nechat', (
+    t,
+  ) async {
     await boot(t, catalog: fullCatalog, fixture: 'mouth-covered');
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
@@ -168,11 +216,16 @@ void main() {
     expect(find.text('Brýle'), findsOneWidget);
   });
 
-  testWidgets('a parser that fails: clear message on the selfie step', (t) async {
+  testWidgets('a parser that fails: clear message on the selfie step', (
+    t,
+  ) async {
     await boot(t, catalog: const BoothCatalog(), parser: _BrokenParser());
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
-    expect(find.text(analysisErrorText(StateError('model did not load'))), findsOneWidget);
+    expect(
+      find.text(analysisErrorText(StateError('model did not load'))),
+      findsOneWidget,
+    );
     expect(find.text('Vlasy'), findsNothing);
   });
 
@@ -185,7 +238,10 @@ void main() {
         'steps': {'s1': stepJson('running')},
       },
     ];
-    await boot(t, catalog: const BoothCatalog(beards: [], glasses: [], motions: []));
+    await boot(
+      t,
+      catalog: const BoothCatalog(beards: [], glasses: [], motions: []),
+    );
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
     await _tap(t, 'Nechat');
@@ -202,9 +258,14 @@ void main() {
     expect(backend.renders[1]['steps'], backend.renders[0]['steps']);
   });
 
-  testWidgets('a 429 at the start of a booth shows the Czech reason', (t) async {
+  testWidgets('a 429 at the start of a booth shows the Czech reason', (
+    t,
+  ) async {
     backend.refuseNext = 429;
-    await boot(t, catalog: const BoothCatalog(beards: [], glasses: [], motions: []));
+    await boot(
+      t,
+      catalog: const BoothCatalog(beards: [], glasses: [], motions: []),
+    );
     await _tap(t, 'Nová fotobuňka');
     await _tap(t, 'Vyfotit se');
     await _tap(t, 'Nechat');
