@@ -10,6 +10,9 @@
 /// not — both Restyle engines read prose). How they behave with an identity
 /// adapter in the graph is in `docs/restyle-flux-results.md`. The "Popular"
 /// group is contemporary looks added for this card without that measurement.
+/// Wave 7 of the Ol1nLLM registry (228 styles: cultures, artists, media) is
+/// appended at the end with its ids, Czech labels and `block` text verbatim;
+/// it was measured text-to-image only, not through the restyle graphs.
 ///
 /// The block is appended *after* the medium sentence: CLIP and T5 weight early
 /// tokens most, and the medium is the one thing that must not be argued
@@ -52,6 +55,7 @@ const kRestyleGroupAsia = 'Asia';
 const kRestyleGroupEurope = 'Europe';
 const kRestyleGroupAmericasOceania = 'Americas & Oceania';
 const kRestyleGroupAfricaNearEast = 'Africa & Near East';
+const kRestyleGroupMedia = 'Media & techniques';
 
 /// Display order of the sections.
 const kRestyleGroups = <String>[
@@ -61,6 +65,7 @@ const kRestyleGroups = <String>[
   kRestyleGroupEurope,
   kRestyleGroupAmericasOceania,
   kRestyleGroupAfricaNearEast,
+  kRestyleGroupMedia,
 ];
 
 const kRestyleStyles = <RestyleStyle>[
@@ -707,6 +712,1612 @@ const kRestyleStyles = <RestyleStyle>[
     block:
         'ancient near eastern hebrew inspired style, simple strong outlines, modest earth palette, solemn dignified figures, subtle patterned textiles, formal composition',
   ),
+
+  // ── Ol1nLLM style registry, wave 7 (2026-11-07): 228 styles measured on
+  // its 17 text-to-image models, kept by the user over the sheets. Not yet
+  // measured through the restyle graphs (identity adapter + depth).
+  // Asia
+  RestyleStyle(
+    id: 'tang-sancai',
+    label: 'Tang sancai',
+    group: kRestyleGroupAsia,
+    block:
+        'tang dynasty sancai glazed earthenware figurine, amber, cream and copper green lead glazes dripping over each other, molded robe folds, unglazed pale face, crackle sheen',
+  ),
+  RestyleStyle(
+    id: 'yamato-e',
+    label: 'Yamato-e (emaki)',
+    group: kRestyleGroupAsia,
+    block:
+        'yamato-e picture scroll, blown-off roof view from above, diagonal tatami and beams, band mist clouds of gold, tiny line-eye hook-nose court faces, heaped layered robes',
+  ),
+  RestyleStyle(
+    id: 'pattachitra',
+    label: 'Pattachitra (Urísa)',
+    group: kRestyleGroupAsia,
+    block:
+        'pattachitra painted on chalk-primed cloth, hard black outline, large elongated eyes, flat vermilion background, conch white, indigo and lamp black, lotus and floral border',
+  ),
+  RestyleStyle(
+    id: 'kano-screen',
+    label: 'Kanó paraván',
+    group: kRestyleGroupAsia,
+    block:
+        'kano school folding screen, blazing gold cloud ground, massive gnarled pine trunk in angular black ink strokes, muscular brush outline, malachite needles, panel seams',
+  ),
+  RestyleStyle(
+    id: 'nianhua',
+    label: 'Nianhua (novoroční tisk)',
+    group: kRestyleGroupAsia,
+    block:
+        'chinese new year woodblock print, black key lines, hand-stenciled magenta, emerald and yellow, plump peony and carp, gold lucky symbols, symmetrical door panel layout',
+  ),
+  RestyleStyle(
+    id: 'kamasan-bali',
+    label: 'Kamasan (Bali)',
+    group: kRestyleGroupAsia,
+    block:
+        'kamasan balinese painting on primed cotton cloth, wayang profile figures with curling hands, fine black line, ochre, indigo and brick red, cloud swirl and flame fillers',
+  ),
+  RestyleStyle(
+    id: 'enso-zen',
+    label: 'Ensō (zen)',
+    group: kRestyleGroupAsia,
+    block:
+        'zen ink painting on raw white paper, a single black enso circle of one dry brushstroke, vast empty space, splintering bristle marks, one small red seal',
+  ),
+  RestyleStyle(
+    id: 'madhubani',
+    label: 'Madhubani (Mithila)',
+    group: kRestyleGroupAsia,
+    block:
+        'madhubani painting on handmade paper, double black outlines hatched inside, every gap filled with fish and leaf patterns, flat turmeric yellow, indigo, vermilion and leaf green',
+  ),
+  RestyleStyle(
+    id: 'peking-opera-mask',
+    label: 'Pekingská opera (lianpu)',
+    group: kRestyleGroupAsia,
+    block:
+        'peking opera lianpu painted face, symmetrical bold makeup in red, black and white, sweeping brow and cheek shapes, pheasant feather headdress, embroidered silk collar',
+  ),
+  RestyleStyle(
+    id: 'nihonga',
+    label: 'Nihonga',
+    group: kRestyleGroupAsia,
+    block:
+        'nihonga painting on silk, granular crushed mineral pigments, soft outlineless modeling, pale flattened face, oyster white gofun, malachite and azurite, thin silver leaf mist',
+  ),
+  RestyleStyle(
+    id: 'warli',
+    label: 'Warli',
+    group: kRestyleGroupAsia,
+    block:
+        'warli painting, white rice paste on dark red-brown mud wall, stick figures made of two joined triangles, circular dance rows, simple dotted border',
+  ),
+  // Europe
+  RestyleStyle(
+    id: 'cave-painting',
+    label: 'Jeskynní malba (Lascaux)',
+    group: kRestyleGroupEurope,
+    block:
+        'paleolithic cave painting on rough limestone wall, charcoal contour and blown red and yellow ochre, profile animal silhouettes, twisted perspective horns, cracked rock surface',
+  ),
+  RestyleStyle(
+    id: 'cycladic',
+    label: 'Kykladská idolka',
+    group: kRestyleGroupEurope,
+    block:
+        'cycladic marble idol, polished white stone body, folded arms across the abdomen, lyre-shaped head with only a ridge nose, flat geometric planes, plain grey background',
+  ),
+  RestyleStyle(
+    id: 'greek-vase-black',
+    label: 'Černofigurová váza',
+    group: kRestyleGroupEurope,
+    block:
+        'attic black-figure pottery, glossy black silhouette figures on orange terracotta, fine incised lines, added white and purple details, meander border band',
+  ),
+  RestyleStyle(
+    id: 'greek-vase-red',
+    label: 'Červenofigurová váza',
+    group: kRestyleGroupEurope,
+    block:
+        'attic red-figure pottery, orange terracotta figures reserved on lustrous black glaze, thin relief lines for anatomy and drapery folds, palmette and meander border',
+  ),
+  RestyleStyle(
+    id: 'etruscan-tomb',
+    label: 'Etruská hrobka (Tarquinia)',
+    group: kRestyleGroupEurope,
+    block:
+        'etruscan tomb wall fresco on pale plaster, profile dancers with almond eyes and long pointed hands, red-brown male and cream female skin, black contours, striped wave and laurel bands',
+  ),
+  RestyleStyle(
+    id: 'scythian-gold',
+    label: 'Skythské zlato',
+    group: kRestyleGroupEurope,
+    block:
+        'scythian gold plaque, hammered repousse relief, animal style with coiled panther and stag folded legs, curling antlers into scrolls, solid gold on black, granulated edges',
+  ),
+  RestyleStyle(
+    id: 'roman-mosaic',
+    label: 'Římská mozaika',
+    group: kRestyleGroupEurope,
+    block:
+        'roman floor mosaic of small stone tesserae, visible grout lines, figure built from cut cubes, terracotta, ochre, black and white stones, guilloche braid border',
+  ),
+  RestyleStyle(
+    id: 'kells',
+    label: 'Kniha z Kellsu',
+    group: kRestyleGroupEurope,
+    block:
+        'insular gospel manuscript on vellum, interlace knotwork and triskele spirals, staring figure with stacked ribbon hair, orpiment yellow, verdigris, red lead and lichen purple, red dots',
+  ),
+  RestyleStyle(
+    id: 'urnes-viking',
+    label: 'Urnes (vikinský)',
+    group: kRestyleGroupEurope,
+    block:
+        'urnes style viking wood carving, weathered dark oak relief, slender ribbon beast in looping figure-eight interlace, thin and thick lines contrast, tar-black ground',
+  ),
+  RestyleStyle(
+    id: 'bayeux',
+    label: 'Bayeuxská výšivka',
+    group: kRestyleGroupEurope,
+    block:
+        'bayeux embroidery, wool stem stitch on bare linen strip, flat profile figures, terracotta, mustard and blue-green thread, horizontal frieze with narrow animal borders, stitched latin captions',
+  ),
+  RestyleStyle(
+    id: 'romanesque-fresco',
+    label: 'Románská freska (Katalánsko)',
+    group: kRestyleGroupEurope,
+    block:
+        'romanesque catalan apse fresco, hard black contours, staring frontal figure in almond mandorla, parallel fold lines, ultramarine, ochre and vermilion horizontal bands',
+  ),
+  RestyleStyle(
+    id: 'gothic-altarpiece',
+    label: 'Gotický oltář',
+    group: kRestyleGroupEurope,
+    block:
+        'gothic altarpiece panel, egg tempera on wood, tooled and punched gilt ground with halo patterns, soft rounded figures, carved tracery pinnacles, vermilion and azurite drapery',
+  ),
+  RestyleStyle(
+    id: 'pskov-icon',
+    label: 'Pskovská ikona',
+    group: kRestyleGroupEurope,
+    block:
+        'russian pskov icon, egg tempera on linden panel, cinnabar red ground, dark olive shadows with sharp white highlight strokes, faceted angular drapery, square-shouldered figure',
+  ),
+  RestyleStyle(
+    id: 'danse-macabre',
+    label: 'Danse macabre',
+    group: kRestyleGroupEurope,
+    block:
+        'late gothic woodcut, heavy black cut lines, parallel hatching, dancing skeletons leading the living by the hand, plain hand-colored ochre and red washes, gothic banner',
+  ),
+  RestyleStyle(
+    id: 'flemish-still-life',
+    label: 'Vlámské zátiší (vanitas)',
+    group: kRestyleGroupEurope,
+    block:
+        'dutch and flemish vanitas oil painting, near-black ground, tight glazes, reflections on a glass roemer, peeled lemon, tarnished silver, snuffed candle, single raking window light',
+  ),
+  RestyleStyle(
+    id: 'rococo',
+    label: 'Rokoko',
+    group: kRestyleGroupEurope,
+    block:
+        'rococo oil painting, feathery brushwork, powder pink, pale blue and pistachio, gilded rocaille shell scrolls framing the scene, floating putti, silk ruffles, swing garden',
+  ),
+  RestyleStyle(
+    id: 'neoclassicism',
+    label: 'Neoklasicismus',
+    group: kRestyleGroupEurope,
+    block:
+        'neoclassical oil painting, invisible polished brushwork, marble-smooth sculpted figure, white chiton, doric columns, shallow frieze-like stage, cool grey wall, clear even light',
+  ),
+  RestyleStyle(
+    id: 'romanticism-storm',
+    label: 'Romantická bouře',
+    group: kRestyleGroupEurope,
+    block:
+        'romantic oil painting, thick impasto sky, wrecked ship and towering waves, sulphur yellow and bruised indigo clouds, tiny figure against the sea, sweeping diagonal spray',
+  ),
+  RestyleStyle(
+    id: 'orientalism',
+    label: 'Orientalismus (19. stol.)',
+    group: kRestyleGroupEurope,
+    block:
+        'nineteenth century academic oil painting, cool blue iznik tile walls, carved mashrabiya screen light, brass lamp, silk carpet, polished detailed brushwork, warm amber interior',
+  ),
+  RestyleStyle(
+    id: 'victorian-fairy',
+    label: 'Viktoriánské víly',
+    group: kRestyleGroupEurope,
+    block:
+        'victorian fairy painting, minute oil detail, tiny winged folk among oversized foxgloves and mushrooms, moonlit dark green undergrowth, iridescent wings, sharp grass blades',
+  ),
+  RestyleStyle(
+    id: 'prerafael',
+    label: 'Prerafaelité',
+    group: kRestyleGroupEurope,
+    block:
+        'pre-raphaelite oil painting, bright jewel glazes over wet white ground, crisp botanical detail in every flower of the meadow, medieval gowns, copper red flowing hair, viridian and madder',
+  ),
+  RestyleStyle(
+    id: 'arts-and-crafts',
+    label: 'Arts and Crafts (Morris)',
+    group: kRestyleGroupEurope,
+    block:
+        'arts and crafts woodblock wallpaper, flat dense interlaced acanthus and willow leaves, no empty ground, indigo, madder and weld yellow, stylized thrush among strawberries, thick even outline',
+  ),
+  RestyleStyle(
+    id: 'symbolism',
+    label: 'Symbolismus',
+    group: kRestyleGroupEurope,
+    block:
+        'symbolist oil painting, jewel-dark ground incised with thin gold arabesque lines, pale androgynous figure, half-closed eyes, sphinx throne, lapis and garnet glazes',
+  ),
+  RestyleStyle(
+    id: 'nabis',
+    label: 'Nabis',
+    group: kRestyleGroupEurope,
+    block:
+        'nabi interior painting on cardboard, flat matte patches of oil, patterned wallpaper merging with patterned dress, mustard, plum and dull rose, dark contours, tilted floor',
+  ),
+  RestyleStyle(
+    id: 'expressionism-painting',
+    label: 'Expresionismus (malba)',
+    group: kRestyleGroupEurope,
+    block:
+        'german expressionist oil painting, slashing visible strokes, thick black contours, unnatural cobalt and vermilion skin, acid yellow background, angular mask-like face',
+  ),
+  RestyleStyle(
+    id: 'dada-collage',
+    label: 'Dada koláž',
+    group: kRestyleGroupEurope,
+    block:
+        'dada photomontage, cut black and white newspaper photographs, mismatched scale, torn paper edges, gluey magazine lettering, gears and fragments of faces, red accent shapes',
+  ),
+  RestyleStyle(
+    id: 'de-stijl',
+    label: 'De Stijl',
+    group: kRestyleGroupEurope,
+    block:
+        'de stijl neoplastic composition, thick black orthogonal grid, flat red, blue and yellow rectangles on white, no curves, no shading, figure reduced to rectangular planes',
+  ),
+  RestyleStyle(
+    id: 'bauhaus-poster',
+    label: 'Bauhaus plakát',
+    group: kRestyleGroupEurope,
+    block:
+        'bauhaus lithograph poster, circle, square and triangle construction, red, black and cream, diagonal sans-serif bars, figure built from ruled geometry, flat ink',
+  ),
+  RestyleStyle(
+    id: 'socialist-realism',
+    label: 'Socialistický realismus',
+    group: kRestyleGroupEurope,
+    block:
+        'socialist realist oil painting, broad academic brushwork, low heroic viewpoint, worker in overalls, wheat field and red banners, sunlit vermilion and cobalt, upward gaze',
+  ),
+  RestyleStyle(
+    id: 'polish-poster',
+    label: 'Polská plakátová škola',
+    group: kRestyleGroupEurope,
+    block:
+        'polish poster school gouache, rough dry-brush shapes, single surreal visual metaphor, hand-scrawled lettering, ragged paper grain, muted background with one acid accent',
+  ),
+  RestyleStyle(
+    id: 'memphis-80s',
+    label: 'Memphis',
+    group: kRestyleGroupEurope,
+    block:
+        '1980s memphis design, flat pastel mint and pink fields, black squiggle bacterio laminate, black dots, zigzag bands, terrazzo chips, primitive geometric blocks, hard shadows',
+  ),
+  // Americas & Oceania
+  RestyleStyle(
+    id: 'nazca',
+    label: 'Nazcká polychromie',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'nazca polychrome slip pottery, flat burnished colors in black outline, stylized hummingbirds and spotted cats, cream, terracotta, grey and violet-black, rounded bowl band',
+  ),
+  RestyleStyle(
+    id: 'moche',
+    label: 'Mochická keramika',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'moche fineline pottery, cream slip with red-brown painted figures, thin calligraphic line, profile warriors and runners, stirrup spout vessel curve, dotted background fillers',
+  ),
+  RestyleStyle(
+    id: 'haida-formline',
+    label: 'Haida formline',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'haida formline painting, swelling black primary lines, ovoid eyes and u-forms, red secondary lines, unpainted cream cedar ground, split symmetrical crest figure',
+  ),
+  RestyleStyle(
+    id: 'hudson-river',
+    label: 'Hudson River',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'hudson river school oil landscape, wide valley vista, tiny figure at the foreground crag, gnarled oak frame, golden hazy sunset light, glassy river, crisp distant ridges',
+  ),
+  RestyleStyle(
+    id: 'navajo-sand',
+    label: 'Navajo sandpainting',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'navajo sandpainting, fine colored sand on tan ground, tall rectangular yei figures in symmetrical rows, white, black, blue, yellow and red, encircling rainbow guardian',
+  ),
+  RestyleStyle(
+    id: 'precisionism',
+    label: 'Precisionismus',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'american precisionist oil painting, razor-clean factory edges, smokestacks and steel ducts, flattened planes, smooth unbrushed surface, pale steel blue, rust red and cream',
+  ),
+  RestyleStyle(
+    id: 'pin-up-50s',
+    label: 'Pin-up 50. let',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        '1950s american pin-up calendar illustration, smooth glossy gouache and oil skin modeling, soft airbrush gradient background, candy red and cream, playful surprised pose, fine rim light',
+  ),
+  RestyleStyle(
+    id: 'inuit-printmaking',
+    label: 'Inuitský kamenotisk (Kinngait)',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        'inuit stonecut and stencil print on white washi paper, flat silhouette figures with no shading, feathered shapes radiating outward, two or three inks of black, red and blue, wide empty ground',
+  ),
+  RestyleStyle(
+    id: 'psychedelic-poster',
+    label: 'Psychedelický plakát',
+    group: kRestyleGroupAmericasOceania,
+    block:
+        '1960s psychedelic concert poster, swelling melting letterforms, flowing hair turning into lines, vibrating complementary orange and electric blue, magenta and lime, screenprinted flat ink',
+  ),
+  // Africa & Near East
+  RestyleStyle(
+    id: 'san-rock-art',
+    label: 'Sanské skalní malby',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'san rock art on sandstone overhang, red ochre and white shaded eland, thin elongated running figures with bows, fine brush line, flaking stone surface',
+  ),
+  RestyleStyle(
+    id: 'armenian-manuscript',
+    label: 'Arménský rukopis (Kilikie)',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'cilician armenian gospel manuscript on vellum, lapis blue fields, tall canon tables, slender figures, vine and peacock marginalia, bird-shaped initial letters, carmine and gold',
+  ),
+  RestyleStyle(
+    id: 'benin-bronze',
+    label: 'Beninská plaketa',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'benin court brass plaque, lost-wax cast high relief, frontal figure with stacked coral bead collar, punched quatrefoil ground, dark green-brown patina, rosette corner studs',
+  ),
+  RestyleStyle(
+    id: 'kuba-cloth',
+    label: 'Kuba (rafie)',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'kuba raffia cut-pile velvet cloth, tufted soft surface, interrupted diamond and zigzag grids, dark brown on natural straw, deliberate irregular pattern breaks',
+  ),
+  RestyleStyle(
+    id: 'ndebele',
+    label: 'Ndebele (fasády)',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'ndebele house mural, thick black outlines on white limewash, stepped geometric architectural panels, saturated yellow, turquoise, magenta and green, razor-straight painted edges',
+  ),
+  RestyleStyle(
+    id: 'tingatinga',
+    label: 'Tingatinga',
+    group: kRestyleGroupAfricaNearEast,
+    block:
+        'tingatinga bicycle enamel paint on square board, glossy flat color, plain bright sky background, naive giraffes and birds with dotted skin, thick outline, turquoise and tangerine',
+  ),
+  // Painters and artists, by birth year
+  RestyleStyle(
+    id: 'van-eyck',
+    label: 'Van Eyck — lazurový olej',
+    group: kRestyleGroupPainters,
+    block:
+        'early netherlandish oil painting by Jan van Eyck, luminous transparent glazes, microscopic detail, jewel-like crimson and deep green, crisp textile folds, cool even light, enamel-smooth panel surface',
+  ),
+  RestyleStyle(
+    id: 'bosch',
+    label: 'Bosch — panoramatická alegorie',
+    group: kRestyleGroupPainters,
+    block:
+        'oil panel painting by Hieronymus Bosch, high panoramic viewpoint, swarming tiny figures across the surface, pale pink and sea-green palette, thin translucent paint, fantastical hybrid forms, crackled oak panel',
+  ),
+  RestyleStyle(
+    id: 'durer-engraving',
+    label: 'Dürer — mědiryty',
+    group: kRestyleGroupPainters,
+    block:
+        'copper engraving by Albrecht Dürer, black ink on cream paper, dense cross-hatching, swelling burin lines, sharp contour, fine parallel modelling, northern renaissance precision, crisp printed plate surface',
+  ),
+  RestyleStyle(
+    id: 'titian',
+    label: 'Tizian — benátský kolorit',
+    group: kRestyleGroupPainters,
+    block:
+        'venetian oil painting by Titian, warm glowing colour, deep reds and golden flesh tones, loose broken late brushwork, soft dissolving contours, layered glazes, rough visible canvas weave',
+  ),
+  RestyleStyle(
+    id: 'bruegel',
+    label: 'Bruegel — vesnice z nadhledu',
+    group: kRestyleGroupPainters,
+    block:
+        'oil panel painting by Pieter Bruegel the Elder, elevated distant viewpoint, small stocky figures, muted earthy browns with cold grey-green, flat clear daylight, deep receding landscape, thin dry paint on oak panel',
+  ),
+  RestyleStyle(
+    id: 'caravaggio',
+    label: 'Caravaggio — modely ze tmy',
+    group: kRestyleGroupPainters,
+    block:
+        'tenebrist oil painting by Caravaggio, single hard raking light from upper left, figures emerging from pure black, ordinary unidealised models, sharp shadow edge, earthy red and ochre, dark smooth canvas',
+  ),
+  RestyleStyle(
+    id: 'rubens',
+    label: 'Rubens — vířivá kompozice',
+    group: kRestyleGroupPainters,
+    block:
+        'flemish baroque oil painting by Peter Paul Rubens, rosy luminous flesh with pearly blue half-tones, swirling diagonal composition, full fleshy forms, warm reds, fluid sweeping brushwork, thin glowing paint',
+  ),
+  RestyleStyle(
+    id: 'velazquez',
+    label: 'Velázquez — stříbřitá paleta',
+    group: kRestyleGroupPainters,
+    block:
+        'court portrait painting by Diego Velázquez, silvery grey palette, restrained blacks and rose, loose shorthand brushstrokes that resolve at a distance, airy neutral background, thin fluid oil paint on canvas',
+  ),
+  RestyleStyle(
+    id: 'fragonard',
+    label: 'Fragonard — hravý štětec',
+    group: kRestyleGroupPainters,
+    block:
+        'rococo oil painting by Jean-Honoré Fragonard, feathery playful brushwork, pastel pink, peach and sea-green, frothy foliage light, soft powdery atmosphere, swift flickering touches on canvas',
+  ),
+  RestyleStyle(
+    id: 'david-neoclassical',
+    label: 'David — neoklasicismus',
+    group: kRestyleGroupPainters,
+    block:
+        'neoclassical oil painting by Jacques-Louis David, invisible smooth brushwork, sculptural marble-like bodies, frieze-like shallow stage, hard clear outlines, stern red and white accents, plain dark background, polished canvas',
+  ),
+  RestyleStyle(
+    id: 'blake',
+    label: 'Blake — barevné tisky',
+    group: kRestyleGroupPainters,
+    block:
+        'colour-printed relief etching by William Blake, elongated muscular figures, flamelike rhythmic outlines, mottled pigment, hand-tinted watercolour washes in ochre and blue, reticulated printed paper surface',
+  ),
+  RestyleStyle(
+    id: 'hokusai',
+    label: 'Hokusai — manga skici',
+    group: kRestyleGroupPainters,
+    block:
+        'woodblock sketchbook page by Katsushika Hokusai, nimble calligraphic brush line, black outline with pale grey and soft pink tone, comic candid gesture, sparse empty ground, warm washi paper',
+  ),
+  RestyleStyle(
+    id: 'friedrich',
+    label: 'Friedrich — mlžná krajina',
+    group: kRestyleGroupPainters,
+    block:
+        'german romantic oil painting by Caspar David Friedrich, vast hazy depth, cold grey-blue and violet dusk tones, silhouetted forms against pale sky, still symmetrical composition, thin smooth paint',
+  ),
+  RestyleStyle(
+    id: 'turner',
+    label: 'Turner — rozpuštěné světlo',
+    group: kRestyleGroupPainters,
+    block:
+        'late oil painting by J. M. W. Turner, forms dissolved into blazing light, swirling vortex of yellow and white, scumbled translucent veils, barely any contour, rough scraped impasto surface',
+  ),
+  RestyleStyle(
+    id: 'ingres',
+    label: 'Ingres — porcelánová pleť',
+    group: kRestyleGroupPainters,
+    block:
+        'neoclassical oil portrait by Jean-Auguste-Dominique Ingres, porcelain smooth skin, elongated sinuous contours, pure unbroken line, cool pale tones, crisp silk surfaces, enamel-like invisible brushwork',
+  ),
+  RestyleStyle(
+    id: 'hiroshige',
+    label: 'Hirošige — bokashi',
+    group: kRestyleGroupPainters,
+    block:
+        'ukiyo-e woodblock landscape print by Utagawa Hiroshige, bokashi gradient from deep indigo into pale sky, flat colour shapes, thin dark outline, slanting fine line rhythm, soft washi paper grain',
+  ),
+  RestyleStyle(
+    id: 'kuniyoshi',
+    label: 'Kunijoši — hrdinské listy',
+    group: kRestyleGroupPainters,
+    block:
+        'ukiyo-e warrior print by Utagawa Kuniyoshi, explosive packed composition filling the sheet, bold swirling black line, dense interlocking patterns, saturated red and indigo, heavy muscular action, woodblock ink texture',
+  ),
+  RestyleStyle(
+    id: 'manet',
+    label: 'Manet — černá jako barva',
+    group: kRestyleGroupPainters,
+    block:
+        'oil painting by Édouard Manet, flat frontal light, black used as a full colour, abrupt shift between light and dark, pale simplified flesh, broad summary brushwork, creamy paint on canvas',
+  ),
+  RestyleStyle(
+    id: 'dore',
+    label: 'Doré — xylografie',
+    group: kRestyleGroupPainters,
+    block:
+        'wood engraving after Gustave Doré, dense parallel hatching, dramatic theatrical light against deep black, sweeping vast depth, black ink on white book paper',
+  ),
+  RestyleStyle(
+    id: 'whistler',
+    label: 'Whistler — nokturno',
+    group: kRestyleGroupPainters,
+    block:
+        'nocturne by James McNeill Whistler, tonal harmony of blue and silver, thin liquid paint washed across canvas, vague dissolved shapes in fog, near monochrome, sparse flecks of gold, smooth veiled surface',
+  ),
+  RestyleStyle(
+    id: 'yoshitoshi',
+    label: 'Jošitoši — poslední ukiyo-e',
+    group: kRestyleGroupPainters,
+    block:
+        'meiji woodblock print by Tsukioka Yoshitoshi, dramatic twisting pose, nervous elegant line, restrained muted palette with sudden red accent, sparse gradient ground, fine woodgrain printed on paper',
+  ),
+  RestyleStyle(
+    id: 'renoir',
+    label: 'Renoir — skvrny světla',
+    group: kRestyleGroupPainters,
+    block:
+        'impressionist oil painting by Pierre-Auguste Renoir, dappled sunlight patches, soft feathery brushstrokes, warm rosy flesh, shimmering blue shadows, blurred contours, creamy vibrating paint surface',
+  ),
+  RestyleStyle(
+    id: 'cassatt',
+    label: 'Cassattová — pastel a japonský výřez',
+    group: kRestyleGroupPainters,
+    block:
+        'pastel by Mary Cassatt, asymmetric japanese-print cropping, high tilted viewpoint, soft hatched chalk strokes, tender pink and pale green, flat patterned areas, velvety toned paper surface',
+  ),
+  RestyleStyle(
+    id: 'repin',
+    label: 'Repin — ruský realismus',
+    group: kRestyleGroupPainters,
+    block:
+        'russian realist oil painting by Ilya Repin, psychological character study, weathered faces, sombre browns and grey daylight, solid vigorous brushwork, open-air naturalism, thick earthy canvas surface',
+  ),
+  RestyleStyle(
+    id: 'rousseau',
+    label: 'Rousseau — naivní džungle',
+    group: kRestyleGroupPainters,
+    block:
+        'naive oil painting by Henri Rousseau, oversized flat layered leaves, dozens of graded greens, stiff frontal figures, crisp hard-edged shapes, dense airless space, smooth enamel paint',
+  ),
+  RestyleStyle(
+    id: 'ales',
+    label: 'Aleš — národní kresba',
+    group: kRestyleGroupPainters,
+    block:
+        'czech pen drawing by Mikoláš Aleš, hard firm contour, lunette-like decorative composition, simple sparse hatching, flat folk ornament, restrained ochre tint, sgraffito-like cream surface',
+  ),
+  RestyleStyle(
+    id: 'larsson',
+    label: 'Larsson — švédský domov',
+    group: kRestyleGroupPainters,
+    block:
+        'watercolour illustration by Carl Larsson, firm flowing ink outline, clear light washes, swedish red and pale green, airy white ground, flat decorative patterning, fresh sunlit paper',
+  ),
+  RestyleStyle(
+    id: 'malczewski',
+    label: 'Malczewski — polský symbolismus',
+    group: kRestyleGroupPainters,
+    block:
+        'polish symbolist oil painting by Jacek Malczewski, hard sharp academic drawing, dry bright daylight, grassy ochre and cold blue, flat theatrical staging, enigmatic stillness, thin precise paint',
+  ),
+  RestyleStyle(
+    id: 'sargent',
+    label: 'Sargent — bravurní tah',
+    group: kRestyleGroupPainters,
+    block:
+        'portrait painting by John Singer Sargent, long bravura wet brushstrokes, glinting white satin highlights, dark tonal background, elegant loose edges, confident impasto accents on smooth canvas',
+  ),
+  RestyleStyle(
+    id: 'vrubel',
+    label: 'Vrubel — krystalické fasety',
+    group: kRestyleGroupPainters,
+    block:
+        'symbolist oil painting by Mikhail Vrubel, crystalline faceted brush planes, mosaic of shattered strokes, deep violet and dusky blue with gleaming pearl, heavy palette-knife impasto',
+  ),
+  RestyleStyle(
+    id: 'zorn',
+    label: 'Zorn — čtyřbarevná paleta',
+    group: kRestyleGroupPainters,
+    block:
+        'oil painting by Anders Zorn, limited palette of ochre, vermilion, ivory black and white, ruddy warm flesh, broad decisive slashing strokes, shimmering rippling light, creamy impasto on canvas',
+  ),
+  RestyleStyle(
+    id: 'ensor',
+    label: 'Ensor — masky',
+    group: kRestyleGroupPainters,
+    block:
+        'expressionist painting by James Ensor, grotesque masklike faces, acid reds, greens and whites, crowded shallow space, scratchy nervous line, crusted raw impasto',
+  ),
+  RestyleStyle(
+    id: 'sorolla',
+    label: 'Sorolla — středomořské slunce',
+    group: kRestyleGroupPainters,
+    block:
+        'oil painting by Joaquín Sorolla, blazing mediterranean sunlight, luminous whites with violet shadows, broad fluid wet strokes, sparkling reflections, intense warm-cool contrast, thick loose paint',
+  ),
+  RestyleStyle(
+    id: 'hammershoi',
+    label: 'Hammershøi — šedé ticho',
+    group: kRestyleGroupPainters,
+    block:
+        'oil painting by Vilhelm Hammershøi, near monochrome pearl greys, soft cool window light, empty stillness, reduced geometric composition, blurred quiet edges, muted thin dry brushwork',
+  ),
+  RestyleStyle(
+    id: 'rackham',
+    label: 'Rackham — sépiové pohádky',
+    group: kRestyleGroupPainters,
+    block:
+        'edwardian book illustration by Arthur Rackham, sinuous sepia pen line, muted transparent watercolour washes, gnarled knotty contours, dusty brown and grey-green, aged paper',
+  ),
+  RestyleStyle(
+    id: 'wyspianski',
+    label: 'Wyspiański — pastelová secese',
+    group: kRestyleGroupPainters,
+    block:
+        'polish art nouveau pastel by Stanisław Wyspiański, sensitive sweeping contour, bare toned paper left unworked, soft blue and ochre chalk strokes, decorative outline, delicate dry powdery texture',
+  ),
+  RestyleStyle(
+    id: 'kupka-early',
+    label: 'Kupka — spektrum',
+    group: kRestyleGroupPainters,
+    block:
+        'symbolist painting by František Kupka, figure modelled in vertical planes of colour, spectral rainbow shifts, thin rhythmic drawn contour, glowing violet and orange, smooth dreamlike paint',
+  ),
+  RestyleStyle(
+    id: 'preisler',
+    label: 'Preisler — secesní symbolismus',
+    group: kRestyleGroupPainters,
+    block:
+        'czech art nouveau symbolist oil painting by Jan Preisler, muted blue-green and dusky turquoise, soft decorative contours, flattened dreamy space, melancholy stillness, thin matte brushwork',
+  ),
+  RestyleStyle(
+    id: 'bilibin',
+    label: 'Bilibin — ruské pohádky',
+    group: kRestyleGroupPainters,
+    block:
+        'russian fairytale illustration by Ivan Bilibin, thick black contour lines, flat watercolour fills, decorative ornamental border, folk embroidery patterns, muted ochre and teal, printed book page surface',
+  ),
+  RestyleStyle(
+    id: 'klee',
+    label: 'Klee — mřížky barev',
+    group: kRestyleGroupPainters,
+    block:
+        'painting by Paul Klee, grid of soft glowing colour squares, childlike thin wandering line, hieroglyphic signs, muted warm watercolour washes, dry chalky textured ground',
+  ),
+  RestyleStyle(
+    id: 'kirchner',
+    label: 'Kirchner — Die Brücke',
+    group: kRestyleGroupPainters,
+    block:
+        'german expressionist oil painting by Ernst Ludwig Kirchner, sharp jagged angles, acid pink and poison green, elongated masklike faces, slashing hatched brushstrokes, raw unblended paint',
+  ),
+  RestyleStyle(
+    id: 'marc',
+    label: 'Marc — barevné prizmy',
+    group: kRestyleGroupPainters,
+    block:
+        'expressionist painting by Franz Marc, prismatic intersecting colour planes, saturated cobalt blue, crimson and yellow, curved rhythmic contours, crystalline fractured space, flat bright oil paint',
+  ),
+  RestyleStyle(
+    id: 'leger',
+    label: 'Léger — trubkové postavy',
+    group: kRestyleGroupPainters,
+    block:
+        'painting by Fernand Léger, tubular machine-like figures, thick black outline, flat red, yellow and blue, stark white ground, offset colour bands, smooth poster-flat paint',
+  ),
+  RestyleStyle(
+    id: 'de-chirico',
+    label: 'De Chirico — metafyzické náměstí',
+    group: kRestyleGroupPainters,
+    block:
+        'metaphysical painting by Giorgio de Chirico, deep empty perspective, long raking shadows, arcades, featureless mannequin forms, dark green-blue sky, hot ochre ground, flat dry paint',
+  ),
+  RestyleStyle(
+    id: 'grant-wood',
+    label: 'Grant Wood — regionalismus',
+    group: kRestyleGroupPainters,
+    block:
+        'american regionalist oil painting by Grant Wood, smooth rounded sculpted forms, hard precise detail, flemish-style polish, soft green and ochre, decorative patterned stippling, enamel-smooth panel surface',
+  ),
+  RestyleStyle(
+    id: 'miro',
+    label: 'Miró — biomorfní znaky',
+    group: kRestyleGroupPainters,
+    block:
+        'painting by Joan Miró, floating biomorphic shapes, thin black wire lines, spots of pure red, blue and yellow, scattered star signs, open washed ground, childlike flatness',
+  ),
+  RestyleStyle(
+    id: 'toyen',
+    label: 'Toyen — surrealismus',
+    group: kRestyleGroupPainters,
+    block:
+        'czech surrealist painting by Toyen, smoky diffused grey and sand tones, sprayed veiled forms, ghostly dissolving outlines, empty open space, smooth matte canvas surface',
+  ),
+  RestyleStyle(
+    id: 'burian',
+    label: 'Burian — teplý realismus',
+    group: kRestyleGroupPainters,
+    block:
+        'illustration by Zdeněk Burian, warm naturalistic realism, broad confident brushwork, rich amber and earth tones, soft atmospheric depth, matte painted book plate surface',
+  ),
+  RestyleStyle(
+    id: 'bearden',
+    label: 'Bearden — koláž',
+    group: kRestyleGroupPainters,
+    block:
+        'photomontage collage by Romare Bearden, cut magazine photographs and coloured paper, fragmented mismatched faces, abrupt scale shifts, flat torn shapes, visible glue seams',
+  ),
+  RestyleStyle(
+    id: 'trnka',
+    label: 'Trnka — loutkové pohádky',
+    group: kRestyleGroupPainters,
+    block:
+        'czech fairytale illustration by Jiří Trnka, soft rounded puppet-like figures, tender simple faces, muted warm tempera, gentle folk colour, dreamy blurred background, matte textured paper',
+  ),
+  RestyleStyle(
+    id: 'wyeth',
+    label: 'Wyeth — tempera',
+    group: kRestyleGroupPainters,
+    block:
+        'egg tempera painting by Andrew Wyeth, thousands of fine dry hatched strokes, faded straw and umber, cold pale light, sparse austere composition, chalky matte panel surface',
+  ),
+  RestyleStyle(
+    id: 'jacob-lawrence',
+    label: 'Lawrence — ploché tempery',
+    group: kRestyleGroupPainters,
+    block:
+        'painting by Jacob Lawrence, casein tempera on hardboard, flat matte colour shapes, angular faceted figures, saturated red, yellow and blue with black, rhythmic repeated forms',
+  ),
+  RestyleStyle(
+    id: 'frazetta',
+    label: 'Frazetta — olejová fantasy',
+    group: kRestyleGroupPainters,
+    block:
+        'fantasy oil painting by Frank Frazetta, explosive muscular anatomy, dynamic twisting action, warm umber darkness, glowing flesh against black, loose rapid brushwork, rough canvas',
+  ),
+  RestyleStyle(
+    id: 'beksinski',
+    label: 'Beksiński — dystopie',
+    group: kRestyleGroupPainters,
+    block:
+        'dystopian oil painting by Zdzisław Beksiński, rust brown and bone ochre haze, crumbling eroded forms, skeletal decay, dry luminous dust, meticulous fine brushwork on hardboard',
+  ),
+  RestyleStyle(
+    id: 'kusama',
+    label: 'Kusama — puntíky',
+    group: kRestyleGroupPainters,
+    block:
+        'painting by Yayoi Kusama, obsessive polka dots covering every surface, repeating infinity net loops, stark yellow and black, hypnotic all-over pattern, flat glossy acrylic',
+  ),
+  RestyleStyle(
+    id: 'born',
+    label: 'Born — karikatura',
+    group: kRestyleGroupPainters,
+    block:
+        'czech caricature illustration by Adolf Born, tall elongated figures, long noses, scratchy nervous pen line, soft pastel watercolour washes, witty flat staging, grainy paper',
+  ),
+  RestyleStyle(
+    id: 'moebius',
+    label: 'Moebius — jemná linka',
+    group: kRestyleGroupPainters,
+    block:
+        'french comic art by Moebius, fine even pen line, delicate stippling and hatching, soft pastel flat colour, spacious clean composition, airy luminous light, smooth printed paper',
+  ),
+  RestyleStyle(
+    id: 'giger',
+    label: 'Giger — biomechanika',
+    group: kRestyleGroupPainters,
+    block:
+        'biomechanical airbrush painting by H. R. Giger, monochrome grey ink, fused organic and machine forms, ribbed tubular surfaces, smooth sprayed gradients, stencilled edges',
+  ),
+  RestyleStyle(
+    id: 'sorayama',
+    label: 'Sorayama — chrom',
+    group: kRestyleGroupPainters,
+    block:
+        'airbrush illustration by Hajime Sorayama, liquid mirror chrome surfaces, razor sharp specular reflections, smooth sprayed gradients, soft studio glow, flawless polished finish',
+  ),
+  RestyleStyle(
+    id: 'murakami',
+    label: 'Murakami — superflat',
+    group: kRestyleGroupPainters,
+    block:
+        'superflat painting by Takashi Murakami, seamless flat colour, repeating grinning flower pattern, candy rainbow palette, thick clean outline, glossy lacquered surface',
+  ),
+  RestyleStyle(
+    id: 'kehinde-wiley',
+    label: 'Wiley — florální pozadí',
+    group: kRestyleGroupPainters,
+    block:
+        'portrait painting by Kehinde Wiley, photorealistic frontal figure, saturated ornamental baroque floral wallpaper behind, tendrils growing over the body, glossy oil, crisp high-contrast skin',
+  ),
+  // Media and techniques
+  RestyleStyle(
+    id: 'airbrush',
+    label: 'Airbrush',
+    group: kRestyleGroupMedia,
+    block:
+        'airbrush illustration on smooth board, no visible strokes, seamless gradients and fine spray falloff, polished chrome-like highlights, 1980s finish',
+  ),
+  RestyleStyle(
+    id: 'acrylic-pour',
+    label: 'Akryl — lití (fluid art)',
+    group: kRestyleGroupMedia,
+    block:
+        'acrylic pour on canvas, poured fluid paint without brush, marbled swirls and cell patterns, metallic pigment veins, glossy resin-like surface',
+  ),
+  RestyleStyle(
+    id: 'acrylic-flat',
+    label: 'Akryl — ploché plochy',
+    group: kRestyleGroupMedia,
+    block:
+        'flat acrylic painting on board, even opaque brushwork, saturated colors with crisp hard edges, matte smooth surface without texture',
+  ),
+  RestyleStyle(
+    id: 'watercolor-ink-line',
+    label: 'Akvarel s perokresbou',
+    group: kRestyleGroupMedia,
+    block:
+        'watercolor and ink line on sketchbook paper, thin loose pen line, light transparent wash overrunning the outlines, white paper left open',
+  ),
+  RestyleStyle(
+    id: 'watercolor-wet',
+    label: 'Akvarel — mokré do mokrého',
+    group: kRestyleGroupMedia,
+    block:
+        'wet-on-wet watercolor on cold-press paper, soft loaded brush washes, bleeding edges and pigment blooms, white of the paper preserved, granulating pigment',
+  ),
+  RestyleStyle(
+    id: 'watercolor-dry',
+    label: 'Akvarel — suchý štětec',
+    group: kRestyleGroupMedia,
+    block:
+        'dry-brush watercolor on rough paper, scratchy broken strokes, grainy skipped pigment with layered washed shadows, tooth of the paper visible',
+  ),
+  RestyleStyle(
+    id: 'calligraphy-arabic',
+    label: 'Arabská kaligrafie (thuluth)',
+    group: kRestyleGroupMedia,
+    block:
+        'arabic thuluth calligraphy on burnished paper, elongated strokes from an angled reed pen, gold illuminated ornament, deep blue ink',
+  ),
+  RestyleStyle(
+    id: 'ascii-art',
+    label: 'ASCII art',
+    group: kRestyleGroupMedia,
+    block:
+        'ascii art, monospaced text characters as tone, rows of glyphs, green phosphor on black terminal screen',
+  ),
+  RestyleStyle(
+    id: 'batik',
+    label: 'Batika',
+    group: kRestyleGroupMedia,
+    block:
+        'batik on cotton cloth, hot wax resist lines, crackled dye veins, indigo and brown dye, softly bleeding edges',
+  ),
+  RestyleStyle(
+    id: 'tie-dye',
+    label: 'Batika vázaná',
+    group: kRestyleGroupMedia,
+    block:
+        'tie-dye on cotton fabric, bound and dyed folds, spiral radiating rings, bleeding rainbow dye edges, soft cloth surface',
+  ),
+  RestyleStyle(
+    id: 'stained-concrete',
+    label: 'Beton',
+    group: kRestyleGroupMedia,
+    block:
+        'cast concrete, rough grey surface, board-formed imprint lines, air holes and stained seepage',
+  ),
+  RestyleStyle(
+    id: 'blueprint',
+    label: 'Blueprint',
+    group: kRestyleGroupMedia,
+    block:
+        'blueprint on cyanotype paper, thin white technical lines, dimension marks, fine grid, deep blue ground',
+  ),
+  RestyleStyle(
+    id: 'bronze',
+    label: 'Bronz',
+    group: kRestyleGroupMedia,
+    block:
+        'cast bronze sculpture, modelled tool marks, green-brown patina in recesses, polished highlights on raised edges, dark metal surface',
+  ),
+  RestyleStyle(
+    id: 'brush-lettering',
+    label: 'Brush lettering',
+    group: kRestyleGroupMedia,
+    block:
+        'brush lettering on paper, flexible brush pen, thick downstrokes and thin upstrokes, watercolor gradient inside strokes, dry streaked ends',
+  ),
+  RestyleStyle(
+    id: 'cel-shaded',
+    label: 'Cel shading',
+    group: kRestyleGroupMedia,
+    block:
+        'cel shaded render, two-step hard shadows, flat paint fills, thick clean black outline',
+  ),
+  RestyleStyle(
+    id: 'calligraphy-chinese',
+    label: 'Čínská kaligrafie (kchaj-šu)',
+    group: kRestyleGroupMedia,
+    block:
+        'chinese regular script calligraphy on xuan paper, angular brush strokes in black ink, vertical columns, red seal stamp, absorbent paper grain',
+  ),
+  RestyleStyle(
+    id: 'conte',
+    label: 'Conté / křída na tónovaném papíru',
+    group: kRestyleGroupMedia,
+    block:
+        'conte crayon drawing on grey toned paper, black and white chalk strokes, red-brown accents, hatched modelling, paper tone as midtone',
+  ),
+  RestyleStyle(
+    id: 'copperplate',
+    label: 'Copperplate / anglická kurzíva',
+    group: kRestyleGroupMedia,
+    block:
+        'copperplate script on cream paper, pointed nib, hairline upstrokes and swelling downstrokes, looping flourishes, crisp iron-gall ink',
+  ),
+  RestyleStyle(
+    id: 'daguerreotype',
+    label: 'Daguerrotypie',
+    group: kRestyleGroupMedia,
+    block:
+        'daguerreotype on mirrored silver plate, long exposure softness, silvery tonal sheen, tarnished edges, oval mat',
+  ),
+  RestyleStyle(
+    id: 'pinhole',
+    label: 'Dírková komora',
+    group: kRestyleGroupMedia,
+    block:
+        'pinhole camera photograph, soft edgeless focus, long exposure blur, strong corner vignette, muted film grain',
+  ),
+  RestyleStyle(
+    id: 'calligraphy-cursive',
+    label: 'Divoká kurzíva (cchao-šu)',
+    group: kRestyleGroupMedia,
+    block:
+        'chinese wild cursive calligraphy on paper, continuous sweeping brush strokes, flying dry-brush streaks, ink spatter, rhythmic linked marks',
+  ),
+  RestyleStyle(
+    id: 'wire-sculpture',
+    label: 'Drátěná socha',
+    group: kRestyleGroupMedia,
+    block:
+        'bent wire sculpture, single thin metal line drawing in space, twisted joints, open contour, crisp cast shadow',
+  ),
+  RestyleStyle(
+    id: 'block-print-textile',
+    label: 'Dřevěný razítkový tisk na látku',
+    group: kRestyleGroupMedia,
+    block:
+        'hand block print on cotton cloth, repeated carved stamp pattern, uneven pressure and ink density, indigo dye, visible woven fabric',
+  ),
+  RestyleStyle(
+    id: 'double-exposure',
+    label: 'Dvojexpozice',
+    group: kRestyleGroupMedia,
+    block:
+        'double exposure photograph, two translucent overlapping images, second image filling a dark silhouette, soft film blending',
+  ),
+  RestyleStyle(
+    id: 'cloisonne',
+    label: 'Email cloisonné',
+    group: kRestyleGroupMedia,
+    block:
+        'cloisonne enamel, thin gold wire partitions, saturated vitreous color fields, polished glassy surface',
+  ),
+  RestyleStyle(
+    id: 'encaustic',
+    label: 'Enkaustika (vosk)',
+    group: kRestyleGroupMedia,
+    block:
+        'encaustic painting on wooden panel, molten pigmented wax, scratched incised lines, depth of fused translucent layers, milky waxy sheen',
+  ),
+  RestyleStyle(
+    id: 'tintype',
+    label: 'Ferotypie',
+    group: kRestyleGroupMedia,
+    block:
+        'tintype wet collodion on dark metal plate, shallow plate focus, chemical streaks and blotches, dull grey-brown tones',
+  ),
+  RestyleStyle(
+    id: 'fineliner',
+    label: 'Fineliner — perokresba',
+    group: kRestyleGroupMedia,
+    block:
+        'fineliner pen drawing on white paper, thin uniform black lines, stippled dots for tone, no washes, crisp clean edges',
+  ),
+  RestyleStyle(
+    id: 'photogram',
+    label: 'Fotogram',
+    group: kRestyleGroupMedia,
+    block:
+        'photogram on silver gelatin paper, cameraless contact print, white shadow silhouettes on black, soft graded edges',
+  ),
+  RestyleStyle(
+    id: 'glass-blown',
+    label: 'Foukané sklo',
+    group: kRestyleGroupMedia,
+    block:
+        'blown glass, molten-formed transparent body, colored swirling veins, trapped bubbles, sharp specular reflections',
+  ),
+  RestyleStyle(
+    id: 'fresco-buon',
+    label: 'Freska',
+    group: kRestyleGroupMedia,
+    block:
+        'buon fresco on wet lime plaster, broad brushwork, matte chalky mineral pigments, visible giornata seams, cracked and flaking plaster surface',
+  ),
+  RestyleStyle(
+    id: 'tapestry-weave',
+    label: 'Gobelín',
+    group: kRestyleGroupMedia,
+    block:
+        'woven tapestry on loom, visible weft ribs, matte wool colors, stepped jagged shape edges, coarse textile surface',
+  ),
+  RestyleStyle(
+    id: 'blackletter',
+    label: 'Gotická textura (blackletter)',
+    group: kRestyleGroupMedia,
+    block:
+        'blackletter textura calligraphy on parchment, broken angular broad-nib strokes, dense black rhythm, red initial capital, slightly rough vellum surface',
+  ),
+  RestyleStyle(
+    id: 'graffiti-wildstyle',
+    label: 'Graffiti wildstyle',
+    group: kRestyleGroupMedia,
+    block:
+        'graffiti wildstyle on concrete wall, spray can lines, interlocking lettering with arrows, 3d block shadow, bold outline and fade fills',
+  ),
+  RestyleStyle(
+    id: 'gyotaku',
+    label: 'Gyotaku (otisk ryby)',
+    group: kRestyleGroupMedia,
+    block:
+        'gyotaku ink rubbing on rice paper, pressed direct impression, scale-like imprinted texture, unprinted blank eye, soft black ink and fibrous paper',
+  ),
+  RestyleStyle(
+    id: 'infrared-film',
+    label: 'Infračervený film',
+    group: kRestyleGroupMedia,
+    block:
+        'infrared film photograph, near-white glowing greens, blackened blues, soft halation around highlights, coarse grain',
+  ),
+  RestyleStyle(
+    id: 'marquetry',
+    label: 'Intarzie',
+    group: kRestyleGroupMedia,
+    block:
+        'wood marquetry, inlaid veneer pieces of different timbers, knife-cut seams, smooth polished lacquer-like surface',
+  ),
+  RestyleStyle(
+    id: 'casein',
+    label: 'Kaseinová tempera',
+    group: kRestyleGroupMedia,
+    block:
+        'casein painting on board, quick direct brush strokes, soft pastel-toned opaque color, velvety matte surface',
+  ),
+  RestyleStyle(
+    id: 'kirigami',
+    label: 'Kirigami',
+    group: kRestyleGroupMedia,
+    block:
+        'kirigami, cut and folded white paper, crisp slit edges, raised geometric planes, soft cast shadows',
+  ),
+  RestyleStyle(
+    id: 'letterpress',
+    label: 'Knihtisk',
+    group: kRestyleGroupMedia,
+    block:
+        'letterpress print on thick cotton paper, debossed impression, single ink color, slightly uneven ink density, soft fibrous surface',
+  ),
+  RestyleStyle(
+    id: 'beadwork-loom',
+    label: 'Korálková výšivka',
+    group: kRestyleGroupMedia,
+    block:
+        'loom beadwork, shiny glass seed beads in a tight grid, stepped pixel-like edges, reflective rounded surface, visible thread rows',
+  ),
+  RestyleStyle(
+    id: 'hangul-calligraphy',
+    label: 'Korejská kaligrafie',
+    group: kRestyleGroupMedia,
+    block:
+        'korean hangul calligraphy on hanji paper, round circular brush strokes, black ink, soft feathered edges, fibrous mulberry paper surface',
+  ),
+  RestyleStyle(
+    id: 'lace',
+    label: 'Krajka',
+    group: kRestyleGroupMedia,
+    block:
+        'bobbin lace, fine white openwork threads, delicate looped mesh, pierced negative shapes, on dark background',
+  ),
+  RestyleStyle(
+    id: 'chalkboard',
+    label: 'Křída na tabuli',
+    group: kRestyleGroupMedia,
+    block:
+        'chalk drawing on blackboard, white and pastel chalk strokes, dusty soft edges, smudged eraser haze, matte black surface',
+  ),
+  RestyleStyle(
+    id: 'cross-stitch',
+    label: 'Křížková výšivka',
+    group: kRestyleGroupMedia,
+    block:
+        'cross-stitch on aida cloth, tiny x-shaped stitches on a square grid, stepped pixel-like edges, cotton floss, visible cloth holes',
+  ),
+  RestyleStyle(
+    id: 'gouache',
+    label: 'Kvaš',
+    group: kRestyleGroupMedia,
+    block:
+        'gouache painting on illustration board, flat opaque brushwork, matte even color with clean poster-like shapes, slightly chalky surface',
+  ),
+  RestyleStyle(
+    id: 'cyanotype',
+    label: 'Kyanotypie',
+    group: kRestyleGroupMedia,
+    block:
+        'cyanotype print on watercolor paper, prussian blue tone, white silhouetted shapes, brushed uneven emulsion edges, soft paper grain',
+  ),
+  RestyleStyle(
+    id: 'ice-sculpture',
+    label: 'Ledová socha',
+    group: kRestyleGroupMedia,
+    block:
+        'carved ice sculpture, chainsaw and chisel cuts, clear refracting ice, trapped bubbles, cool blue wet surface',
+  ),
+  RestyleStyle(
+    id: 'cardboard',
+    label: 'Lepenka',
+    group: kRestyleGroupMedia,
+    block:
+        'corrugated cardboard craft, cut ragged edges exposing flutes, brown kraft surface, layered sheets, packing tape joints',
+  ),
+  RestyleStyle(
+    id: 'etching',
+    label: 'Lept',
+    group: kRestyleGroupMedia,
+    block:
+        'etching print on cotton paper, fine parallel bitten lines, tone from line density, plate mark border, warm black ink',
+  ),
+  RestyleStyle(
+    id: 'marker',
+    label: 'Lihové fixy (Copic)',
+    group: kRestyleGroupMedia,
+    block:
+        'alcohol marker drawing on smooth paper, flat layered tones, visible overlapping stroke bands, streaky saturated color, white gel pen highlights',
+  ),
+  RestyleStyle(
+    id: 'linocut',
+    label: 'Linoryt',
+    group: kRestyleGroupMedia,
+    block:
+        'linocut print on paper, thick white gouged grooves, solid black ink areas, chattered carving marks, slightly uneven pressed ink',
+  ),
+  RestyleStyle(
+    id: 'pressed-flowers',
+    label: 'Lisované květiny',
+    group: kRestyleGroupMedia,
+    block:
+        'pressed flower art on paper, dried translucent petals, flattened glued shapes, faded natural colors, herbarium sheet',
+  ),
+  RestyleStyle(
+    id: 'lithograph',
+    label: 'Litografie',
+    group: kRestyleGroupMedia,
+    block:
+        'lithograph print on paper, greasy crayon strokes, grain of limestone, soft tonal areas, slightly mottled ink surface',
+  ),
+  RestyleStyle(
+    id: 'lomography',
+    label: 'Lomo / cross process',
+    group: kRestyleGroupMedia,
+    block:
+        'lomography cross-processed film photograph, heavy vignette, shifted saturated color, blown highlights, light leaks',
+  ),
+  RestyleStyle(
+    id: 'low-poly',
+    label: 'Low poly',
+    group: kRestyleGroupMedia,
+    block:
+        'low poly 3d render, flat triangular facets, hard faceted shading, visible polygon edges',
+  ),
+  RestyleStyle(
+    id: 'sand-painting',
+    label: 'Malba pískem',
+    group: kRestyleGroupMedia,
+    block:
+        'colored sand painting, poured granular lines, visible mineral grains, flat geometric color fields, matte dry surface',
+  ),
+  RestyleStyle(
+    id: 'finger-paint',
+    label: 'Malba prsty',
+    group: kRestyleGroupMedia,
+    block:
+        'finger painting on paper, visible fingerprints and smeared daubs, no brush marks, saturated childlike poster paint, thick uneven smudges',
+  ),
+  RestyleStyle(
+    id: 'soapstone',
+    label: 'Mastek / hladký kámen',
+    group: kRestyleGroupMedia,
+    block:
+        'carved soapstone sculpture, rounded smooth simplified forms, faint file marks, grey-green waxy stone surface',
+  ),
+  RestyleStyle(
+    id: 'miniature-gouache',
+    label: 'Miniatura na slonovině',
+    group: kRestyleGroupMedia,
+    block:
+        'portrait miniature in watercolor on ivory, tiny stippled brush dots, smooth delicate color, glossy ivory support, oval format',
+  ),
+  RestyleStyle(
+    id: 'blue-white-porcelain',
+    label: 'Modrobílý porcelán',
+    group: kRestyleGroupMedia,
+    block:
+        'blue and white porcelain, hand-painted cobalt underglaze, white body, soft pooled brushwork, fine crackle glaze',
+  ),
+  RestyleStyle(
+    id: 'monotype',
+    label: 'Monotyp',
+    group: kRestyleGroupMedia,
+    block:
+        'monotype print on paper, single pressing from inked plate, wiped smeared areas, faint ghost image, soft mottled ink texture',
+  ),
+  RestyleStyle(
+    id: 'mosaic-tesserae',
+    label: 'Mozaika',
+    group: kRestyleGroupMedia,
+    block:
+        'mosaic of stone and glass tesserae, small hand-cut cubes, dark grout lines, gold tesserae glints, uneven reflective surface',
+  ),
+  RestyleStyle(
+    id: 'marble',
+    label: 'Mramorová socha',
+    group: kRestyleGroupMedia,
+    block:
+        'carved white marble sculpture, faint chisel marks in rough areas, smooth polished transitions, soft stone translucency',
+  ),
+  RestyleStyle(
+    id: 'neon-sign',
+    label: 'Neonová reklama',
+    group: kRestyleGroupMedia,
+    block:
+        'neon sign, bent glowing glass tubes, single continuous line, colored halo reflecting on wet dark wall',
+  ),
+  RestyleStyle(
+    id: 'halftone-newsprint',
+    label: 'Novinový rastr',
+    group: kRestyleGroupMedia,
+    block:
+        'halftone newspaper print on yellowed newsprint, coarse CMYK dots, slight misregistration, ink show-through, cheap fibrous paper',
+  ),
+  RestyleStyle(
+    id: 'oil-alla-prima',
+    label: 'Olej — alla prima',
+    group: kRestyleGroupMedia,
+    block:
+        'alla prima oil painting on canvas, broad wet-on-wet strokes, colors blending on the surface, unfinished loose edges, bare canvas showing through',
+  ),
+  RestyleStyle(
+    id: 'oil-impasto',
+    label: 'Olej — impasto',
+    group: kRestyleGroupMedia,
+    block:
+        'impasto oil painting on canvas, thick ridges of paint, palette knife marks, heavy raised strokes, glossy wet oil sheen',
+  ),
+  RestyleStyle(
+    id: 'oil-glazing',
+    label: 'Olej — lazury (staří mistři)',
+    group: kRestyleGroupMedia,
+    block:
+        'oil glazing on dark imprimatura panel, smooth invisible brushwork, translucent layered glazes, sfumato soft edges, fine craquelure varnish surface',
+  ),
+  RestyleStyle(
+    id: 'oil-pastel',
+    label: 'Olejový pastel',
+    group: kRestyleGroupMedia,
+    block:
+        'oil pastel drawing on paper, thick greasy strokes, sgraffito scratched lines, saturated smeared color, waxy glossy surface',
+  ),
+  RestyleStyle(
+    id: 'origami',
+    label: 'Origami',
+    group: kRestyleGroupMedia,
+    block:
+        'origami folded paper, crisp creases, sharp geometric facets, single sheet of matte washi',
+  ),
+  RestyleStyle(
+    id: 'quilt',
+    label: 'Patchwork / quilt',
+    group: kRestyleGroupMedia,
+    block:
+        'patchwork quilt, stitched pieces of printed fabric, visible quilting lines, seams between cloth patches, soft padded surface',
+  ),
+  RestyleStyle(
+    id: 'gingerbread',
+    label: 'Perník',
+    group: kRestyleGroupMedia,
+    block:
+        'baked gingerbread, brown spiced cookie surface, piped white royal icing lines, sugar decoration, crumbly edges',
+  ),
+  RestyleStyle(
+    id: 'sand-sculpture',
+    label: 'Pískový reliéf',
+    group: kRestyleGroupMedia,
+    block:
+        'sand sculpture relief, packed ochre grains, sharp carved edges, crumbling granular surface',
+  ),
+  RestyleStyle(
+    id: 'claymation',
+    label: 'Plastelína (claymation)',
+    group: kRestyleGroupMedia,
+    block:
+        'plasticine claymation, stop-motion puppet look, thumbprints in clay, matte saturated color, slightly lumpy hand-shaped surface',
+  ),
+  RestyleStyle(
+    id: 'knitted',
+    label: 'Pletené',
+    group: kRestyleGroupMedia,
+    block:
+        'hand knitted wool, rows of stitch loops, cable knit pattern, chunky yarn, soft fuzzy textile surface',
+  ),
+  RestyleStyle(
+    id: 'felt',
+    label: 'Plstění',
+    group: kRestyleGroupMedia,
+    block:
+        'needle felted wool, soft fuzzy fibers, rounded puffy shapes, matte heathered wool color, tiny needle dimples',
+  ),
+  RestyleStyle(
+    id: 'polaroid',
+    label: 'Polaroid',
+    group: kRestyleGroupMedia,
+    block:
+        'instant film photograph, white print border, faded washed-out color, soft on-camera flash, slight emulsion blur',
+  ),
+  RestyleStyle(
+    id: 'porcelain-figurine',
+    label: 'Porcelánová figurka',
+    group: kRestyleGroupMedia,
+    block:
+        'glazed porcelain figurine, hand-painted pastel enamel colors, gilded trim, smooth glassy glaze highlights',
+  ),
+  RestyleStyle(
+    id: 'ballpoint',
+    label: 'Propiska',
+    group: kRestyleGroupMedia,
+    block:
+        'ballpoint pen drawing on paper, blue ink, dense cross-hatching, built-up tone from fine strokes, glossy ink sheen in darks',
+  ),
+  RestyleStyle(
+    id: 'quilling',
+    label: 'Quilling',
+    group: kRestyleGroupMedia,
+    block:
+        'paper quilling, rolled coils of thin paper strips, standing on edge, spiral filled shapes, crisp shadowed relief',
+  ),
+  RestyleStyle(
+    id: 'ceramic-raku',
+    label: 'Raku keramika',
+    group: kRestyleGroupMedia,
+    block:
+        'raku ceramic, crackled white glaze, smoke-blackened carbon lines, iridescent metallic copper flashes, rough fired surface',
+  ),
+  RestyleStyle(
+    id: 'nib-ink',
+    label: 'Redispero a tuš',
+    group: kRestyleGroupMedia,
+    block:
+        'dip nib pen and india ink on paper, swelling variable line width, dense hatching, ink splatters, hard wet black edges',
+  ),
+  RestyleStyle(
+    id: 'xray',
+    label: 'Rentgen',
+    group: kRestyleGroupMedia,
+    block:
+        'x-ray radiograph on film, blue-black negative, translucent layered densities, glowing internal structure, soft edges',
+  ),
+  RestyleStyle(
+    id: 'rust-patina',
+    label: 'Rez a patina',
+    group: kRestyleGroupMedia,
+    block:
+        'rusted metal, flaking orange rust, blue-green verdigris patina, pitted corroded surface',
+  ),
+  RestyleStyle(
+    id: 'wood-carving',
+    label: 'Řezba ve dřevě',
+    group: kRestyleGroupMedia,
+    block:
+        'hand wood carving, visible gouge marks, faceted cuts, wood grain rings, warm oiled timber surface',
+  ),
+  RestyleStyle(
+    id: 'engraving-banknote',
+    label: 'Rytina (bankovka)',
+    group: kRestyleGroupMedia,
+    block:
+        'banknote intaglio engraving on security paper, guilloche rosette lines, fine cross-hatching, single-color ink, raised crisp linework',
+  ),
+  RestyleStyle(
+    id: 'sticker-collage',
+    label: 'Samolepková koláž',
+    group: kRestyleGroupMedia,
+    block:
+        'sticker collage, glossy die-cut stickers, thick white border around each shape, overlapping layers, slight peeling edges',
+  ),
+  RestyleStyle(
+    id: 'scratchboard',
+    label: 'Škrabaná technika',
+    group: kRestyleGroupMedia,
+    block:
+        'scratchboard engraving on black clay board, fine white scratched lines, dense directional hatching, stark black ground, engraved sharp surface',
+  ),
+  RestyleStyle(
+    id: 'palette-knife',
+    label: 'Špachtle',
+    group: kRestyleGroupMedia,
+    block:
+        'palette knife painting on canvas, flat scraped slabs of oil paint, no brush marks, broken planes with sharp ridged edges, thick buttery surface',
+  ),
+  RestyleStyle(
+    id: 'spray-stencil',
+    label: 'Sprej přes šablonu',
+    group: kRestyleGroupMedia,
+    block:
+        'spray paint through stencil on concrete wall, hard cut edges, fine overspray halo, paint drips, rough surface showing through',
+  ),
+  RestyleStyle(
+    id: 'brush-ink',
+    label: 'Štětec a tuš (ne sumi-e)',
+    group: kRestyleGroupMedia,
+    block:
+        'brush and black ink on paper, expressive tapered strokes, dry-brush streaks, solid spotted blacks, comic inking edges',
+  ),
+  RestyleStyle(
+    id: 'silverpoint',
+    label: 'Stříbrná tužka',
+    group: kRestyleGroupMedia,
+    block:
+        'silverpoint drawing on warm prepared ground, fine pale silver-grey line, delicate parallel hatching, no erasure or corrections, tarnished subtle surface',
+  ),
+  RestyleStyle(
+    id: 'drypoint',
+    label: 'Suchá jehla',
+    group: kRestyleGroupMedia,
+    block:
+        'drypoint print on paper, needle-scratched lines, velvety soft burr, rich fuzzy blacks, plate tone haze',
+  ),
+  RestyleStyle(
+    id: 'soft-pastel',
+    label: 'Suchý pastel',
+    group: kRestyleGroupMedia,
+    block:
+        'soft pastel drawing on toned sanded paper, powdery strokes, finger-blended transitions, velvety chalky color, loose pigment dust',
+  ),
+  RestyleStyle(
+    id: 'tattoo-flash',
+    label: 'Tattoo flash (old school)',
+    group: kRestyleGroupMedia,
+    block:
+        'old school tattoo flash on yellowed paper, thick black outline, limited red green yellow palette, whip shading dots, aged sheet',
+  ),
+  RestyleStyle(
+    id: 'repousse-metal',
+    label: 'Tepaný kov (repoussé)',
+    group: kRestyleGroupMedia,
+    block:
+        'repousse metalwork, forms hammered up from thin sheet, small chasing punch marks, burnished gold and copper sheen',
+  ),
+  RestyleStyle(
+    id: 'terracotta',
+    label: 'Terakota',
+    group: kRestyleGroupMedia,
+    block:
+        'fired terracotta sculpture, hand-modelled clay marks, brick-red matte body, fine surface cracks',
+  ),
+  RestyleStyle(
+    id: 'thermal',
+    label: 'Termokamera',
+    group: kRestyleGroupMedia,
+    block:
+        'thermal camera image, false color rainbow heat scale, blurred low-resolution blobs, glowing hot areas on cold blue-purple',
+  ),
+  RestyleStyle(
+    id: 'graphite',
+    label: 'Tužka',
+    group: kRestyleGroupMedia,
+    block:
+        'graphite pencil drawing on white paper, tonal hatching, smudged soft shadows, silver-grey sheen, fine paper grain',
+  ),
+  RestyleStyle(
+    id: 'graphite-hard',
+    label: 'Tvrdá tužka — technická',
+    group: kRestyleGroupMedia,
+    block:
+        'hard pencil technical drawing on white paper, thin even line, visible construction lines, no shading, clean precise edges',
+  ),
+  RestyleStyle(
+    id: 'charcoal',
+    label: 'Uhel',
+    group: kRestyleGroupMedia,
+    block:
+        'charcoal drawing on textured paper, velvety black strokes, smudged tonal masses, kneaded eraser highlights, loose charcoal dust',
+  ),
+  RestyleStyle(
+    id: 'egg-tempera',
+    label: 'Vaječná tempera',
+    group: kRestyleGroupMedia,
+    block:
+        'egg tempera on gessoed wooden panel, fine hatched strokes from a small brush, thin opaque layers, matte dry luminous surface',
+  ),
+  RestyleStyle(
+    id: 'vector-flat',
+    label: 'Vektor — flat design',
+    group: kRestyleGroupMedia,
+    block:
+        'flat vector illustration, clean geometric shapes, solid color fills, no gradients, no outlines',
+  ),
+  RestyleStyle(
+    id: 'wax-figure',
+    label: 'Vosková figura',
+    group: kRestyleGroupMedia,
+    block:
+        'wax museum figure, translucent waxy skin surface, soft subsurface glow, inserted glass eyes, hand-painted tint',
+  ),
+  RestyleStyle(
+    id: 'crayon',
+    label: 'Voskovky',
+    group: kRestyleGroupMedia,
+    block:
+        'wax crayon drawing on paper, rough grainy strokes, uneven childlike scribbled fill, paper showing through, waxy sheen',
+  ),
+  RestyleStyle(
+    id: 'paper-sculpture-layered',
+    label: 'Vrstvený papír (paper cut light box)',
+    group: kRestyleGroupMedia,
+    block:
+        'layered cut paper light box, stacked silhouette sheets in depth, glowing backlight between layers, soft shadow gradients',
+  ),
+  RestyleStyle(
+    id: 'pyrography',
+    label: 'Vypalování do dřeva',
+    group: kRestyleGroupMedia,
+    block:
+        'pyrography on wood, burnt brown lines, hot-tip shaded gradients, scorched darks, visible wood grain',
+  ),
+  RestyleStyle(
+    id: 'embroidery',
+    label: 'Výšivka',
+    group: kRestyleGroupMedia,
+    block:
+        'hand embroidery on linen, dense satin stitches, visible thread sheen, directional stitching following forms, woven cloth showing',
+  ),
+  RestyleStyle(
+    id: 'pop-up-book',
+    label: 'Vystřelovací kniha',
+    group: kRestyleGroupMedia,
+    block:
+        'pop-up book, cut paper flats standing in layered depth, visible fold tabs and creases, printed illustrated card surface',
+  ),
 ];
 
 RestyleStyle? restyleStyleById(String? id) {
@@ -717,12 +2328,28 @@ RestyleStyle? restyleStyleById(String? id) {
   return null;
 }
 
-/// Search box filter: label or section name, case-insensitive.
+/// Search box filter: label, section name or id, ignoring case and Czech
+/// diacritics. The wave-7 labels are Czech and the older ones English, so the
+/// id (English) lets „watercolor“ find „Akvarel“ too, and „akvarel“ finds it
+/// without the accent.
 bool restyleStyleMatchesQuery(RestyleStyle style, String query) {
-  final q = query.trim().toLowerCase();
+  final q = _fold(query.trim());
   if (q.isEmpty) return true;
-  return style.label.toLowerCase().contains(q) ||
-      style.group.toLowerCase().contains(q);
+  return _fold(style.label).contains(q) ||
+      _fold(style.group).contains(q) ||
+      style.id.contains(q.replaceAll(' ', '-'));
+}
+
+const _accented = 'áäàâãåčćçďéěëèêíïìîľĺňñóöòôõřŕšśťúůüùûýÿžź';
+const _plain = 'aaaaaacccdeeeeeiiiillnnooooorrsstuuuuuyyzz';
+
+String _fold(String s) {
+  final buf = StringBuffer();
+  for (final unit in s.toLowerCase().split('')) {
+    final i = _accented.indexOf(unit);
+    buf.write(i < 0 ? unit : _plain[i]);
+  }
+  return buf.toString();
 }
 
 /// Styles of one section, in catalog order.
@@ -755,9 +2382,9 @@ const _illustrationNegative =
 
 /// The medium sentence alone; prompts/restyle_prompt.dart adds a look to it.
 String restyleMediumHead(RestyleMedium medium) => switch (medium) {
-      RestyleMedium.photo => _photoMedium,
-      RestyleMedium.illustration => _illustrationMedium,
-    };
+  RestyleMedium.photo => _photoMedium,
+  RestyleMedium.illustration => _illustrationMedium,
+};
 
 /// Positive prompt for the backend: medium first, style block last.
 String restylePrompt(RestyleStyle style, RestyleMedium medium) =>
@@ -765,6 +2392,6 @@ String restylePrompt(RestyleStyle style, RestyleMedium medium) =>
 
 /// Negative prompt for the backend, per medium.
 String restyleNegative(RestyleMedium medium) => switch (medium) {
-      RestyleMedium.photo => _photoNegative,
-      RestyleMedium.illustration => _illustrationNegative,
-    };
+  RestyleMedium.photo => _photoNegative,
+  RestyleMedium.illustration => _illustrationNegative,
+};
