@@ -120,9 +120,10 @@ class MemoryProjectFiles implements ProjectFiles {
       files.removeWhere((k, _) => k.startsWith('projects/$projectId/'));
 }
 
-Map<String, dynamic> stepJson(String status, {String kind = 'image'}) => {
+Map<String, dynamic> stepJson(String status, {String kind = 'image', String? error}) => {
   'status': status,
   'kind': kind,
+  'error': ?error,
 };
 
 /// The server of `tgbot/render.py`, as far as the app can tell: real

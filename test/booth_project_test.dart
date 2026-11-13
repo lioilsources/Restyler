@@ -135,10 +135,10 @@ void main() {
     expect(p.withRun(main).jobId, isNull);
   });
 
-  test('only dead runs can run again', () {
+  test('only finished-short runs can run again', () {
     expect(
       RunStatus.values.where((s) => s.canRetry),
-      [RunStatus.failed, RunStatus.rejected, RunStatus.lost],
+      [RunStatus.partial, RunStatus.failed, RunStatus.rejected, RunStatus.lost],
     );
   });
 

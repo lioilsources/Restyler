@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../models/booth_project.dart';
 import '../services/analysis.dart';
 import '../services/errors.dart';
+import '../services/fill_in.dart';
 import '../services/photo.dart';
 import '../services/plan_builder.dart';
 import '../services/worker.dart';
@@ -302,10 +303,7 @@ class BoothNotifier extends Notifier<BoothState> {
     final known = state.byId(project.id) != null;
     state = BoothState(
       projects: known
-          ? [
-              for (final p in state.projects)
-                p.id == project.id ? project : p,
-            ]
+          ? [for (final p in state.projects) p.id == project.id ? project : p]
           : [project, ...state.projects],
       live: state.live,
       connection: state.connection,
@@ -326,11 +324,7 @@ class BoothNotifier extends Notifier<BoothState> {
     } else {
       conn[key] = connection;
     }
-    state = BoothState(
-      projects: state.projects,
-      live: live,
-      connection: conn,
-    );
+    state = BoothState(projects: state.projects, live: live, connection: conn);
   }
 
   /// Saves the project and posts its plan. Returns the project id.
@@ -366,26 +360,27 @@ class BoothNotifier extends Notifier<BoothState> {
   /// The saved plan on the saved source; nothing is recomputed. The old
   /// outputs go only once the server has taken the job, so a refusal (429)
   /// leaves the project as it was.
-  Future<void> _submit(String projectId, String runId) async {
+  Future<void> _submit(String projectId, String runId, [FillIn? fillIn]) async {
     try {
-      await _post(projectId, runId);
+      await _post(projectId, runId, fillIn);
     } finally {
       _posting.remove(_key(projectId, runId));
     }
   }
 
-  Future<void> _post(String projectId, String runId) async {
+  /// [fillIn] sends only the missing steps; the outputs already saved stay.
+  Future<void> _post(String projectId, String runId, [FillIn? fillIn]) async {
     final project = state.byId(projectId)!;
     final run = project.runById(runId)!;
+    final plan = fillIn?.plan ?? RenderPlan.fromJson(run.plan);
     final RenderJob job;
     try {
-      final source = await ref.read(projectFilesProvider).read(run.sourcePath);
+      final source = await ref
+          .read(projectFilesProvider)
+          .read(fillIn?.sourcePath ?? run.sourcePath);
       job = await ref
           .read(renderServiceProvider)
-          .start(
-            await _fit(ref.read(workerProvider), source),
-            RenderPlan.fromJson(run.plan),
-          );
+          .start(await _fit(ref.read(workerProvider), source), plan);
     } on Exception catch (e) {
       final current = state.byId(projectId)!;
       final latest = current.runById(runId)!;
@@ -403,7 +398,9 @@ class BoothNotifier extends Notifier<BoothState> {
     }
     final current = state.byId(projectId)!;
     final paths = {...current.stepPaths};
-    run.stepIds.forEach(paths.remove);
+    for (final s in plan.steps) {
+      paths.remove(s.id);
+    }
     await _put(
       current
           .copyWith(stepPaths: paths)
@@ -419,7 +416,8 @@ class BoothNotifier extends Notifier<BoothState> {
     unawaited(_track(projectId, runId, job.jobId));
   }
 
-  /// „Spustit znovu“.
+  /// „Spustit znovu“, or „Dodělat“ when some frames are already saved: then
+  /// only the missing steps go ([fillInPlan]) and cost only their price.
   ///
   /// A saved plan carries the prompt text, so a style taken out of the catalog
   /// (it drew nudity) would render again from an old project: such a run is
@@ -436,7 +434,12 @@ class BoothNotifier extends Notifier<BoothState> {
       );
       return;
     }
-    if (_posting.add(_key(projectId, runId))) await _submit(projectId, runId);
+    if (!_posting.add(_key(projectId, runId))) return;
+    final run = project?.runById(runId);
+    final fillIn = project == null || run == null || runId != kMainRun
+        ? null
+        : fillInPlan(project, run);
+    await _submit(projectId, runId, fillIn);
   }
 
   /// Oživit. Nothing is kept when the server refuses: returns the Czech reason
@@ -597,11 +600,14 @@ class BoothNotifier extends Notifier<BoothState> {
     final project = _alive(projectId);
     if (project == null) return;
     final run = project.runById(runId)!;
+    // After „Dodělat“ the job holds only the missing steps: what failed is
+    // every step of the run without a saved output, and outputs saved before
+    // keep the run partial even when the new job got nothing.
     final failed = [
-      for (final e in status.steps.entries)
-        if (e.value.status == 'error' || e.value.status == 'skipped') e.key,
+      for (final id in run.stepIds)
+        if (!project.stepPaths.containsKey(id)) id,
     ];
-    final next = status.status == 'error'
+    final next = failed.length == run.stepIds.length
         ? RunStatus.failed
         : failed.isEmpty
         ? RunStatus.done

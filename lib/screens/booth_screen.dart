@@ -10,6 +10,7 @@ import '../l10n/style_names.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
+import '../services/fill_in.dart';
 import '../services/strip.dart';
 import '../services/worker.dart';
 import '../theme.dart';
@@ -156,11 +157,18 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
             if (run.status.canRetry)
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
-                child: FilledButton(
-                  onPressed: () => notifier.retry(project.id, kMainRun),
-                  child: Text(
-                    'Spustit znovu (${RenderPlan.fromJson(run.plan).cost})',
-                  ),
+                child: Builder(
+                  builder: (_) {
+                    final fillIn = fillInPlan(project, run);
+                    return FilledButton(
+                      onPressed: () => notifier.retry(project.id, kMainRun),
+                      child: Text(
+                        fillIn == null
+                            ? 'Spustit znovu (${RenderPlan.fromJson(run.plan).cost})'
+                            : 'Dodělat (${fillIn.plan.cost})',
+                      ),
+                    );
+                  },
                 ),
               ),
             Container(

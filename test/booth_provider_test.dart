@@ -204,7 +204,7 @@ void main() {
     expect(project(id).error, kServerBusyText);
   });
 
-  test('404 on poll: lost, and „Spustit znovu“ sends the same plan and source', () async {
+  test('404 on poll: lost, and the rerun sends only the missing steps', () async {
     backend.nextScript = [
       _job('running', {'beard': stepJson('done'), 'hair': stepJson('running')}),
     ];
@@ -218,9 +218,39 @@ void main() {
     await c.read(boothProvider.notifier).retry(id, kMainRun);
     await _settle(() => project(id).status == RunStatus.done);
     expect(backend.renders, hasLength(2));
-    expect(backend.renders[1]['source'], backend.renders[0]['source']);
-    expect(backend.renders[1]['steps'], backend.renders[0]['steps']);
+    // The saved beard is the new source; the hair edit reads it as the source.
+    expect(backend.renders[1]['source'], base64Encode(utf8.encode('bytes of beard')));
+    final first = backend.renders[0]['steps'] as List;
+    final again = backend.renders[1]['steps'] as List;
+    expect(again.map((s) => s['id']), ['hair', 's1', 's2']);
+    expect(again.first['input'], 'source');
+    expect(again.first['mask'], first[1]['mask']);
+    expect(again.skip(1), first.skip(2));
     expect(project(id).stepPaths.keys, unorderedEquals(['beard', 'hair', 's1', 's2']));
+  });
+
+  test('a partial booth: „Dodělat“ sends only the failed frames', () async {
+    backend.nextScript = [
+      _job('done', {
+        'beard': stepJson('done'),
+        'hair': stepJson('done'),
+        's1': stepJson('done'),
+        's2': stepJson('error', error: 'busy: the render queue is full'),
+      }),
+    ];
+    final id = await c.read(boothProvider.notifier).start(await draft());
+    await _settle(() => project(id).status == RunStatus.partial);
+    expect(project(id).failed, ['s2']);
+    expect(project(id).error, kServerBusyText);
+
+    await c.read(boothProvider.notifier).retry(id, kMainRun);
+    await _settle(() => project(id).status == RunStatus.done);
+    final again = backend.renders[1]['steps'] as List;
+    expect(again.map((s) => s['id']), ['s2']);
+    expect(again.single['input'], 'source');
+    expect(backend.renders[1]['source'], base64Encode(utf8.encode('bytes of hair')));
+    expect(project(id).stepPaths.keys, unorderedEquals(['beard', 'hair', 's1', 's2']));
+    expect(project(id).error, isNull);
   });
 
   test('a refused rerun leaves the lost project intact, reason in Czech', () async {

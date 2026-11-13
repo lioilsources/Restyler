@@ -2,7 +2,8 @@ import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 /// starting → running → done | partial | failed; rejected = the server refused
 /// the POST; lost = the server no longer knows the job. Rejected, failed and
-/// lost can run again from the saved plan.
+/// lost can run again from the saved plan; partial can fill in what is
+/// missing.
 enum RunStatus {
   starting,
   running,
@@ -12,7 +13,8 @@ enum RunStatus {
   rejected,
   lost;
 
-  bool get canRetry => this == failed || this == rejected || this == lost;
+  bool get canRetry =>
+      this == partial || this == failed || this == rejected || this == lost;
   bool get active => this == starting || this == running;
 }
 
