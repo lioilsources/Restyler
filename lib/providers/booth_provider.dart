@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,6 +13,8 @@ import '../services/fill_in.dart';
 import '../services/photo.dart';
 import '../services/plan_builder.dart';
 import '../services/worker.dart';
+import '../telemetry/restyle_runs.dart';
+import '../telemetry/telemetry_dictionary.dart';
 import 'core_providers.dart';
 
 const _unset = Object();
@@ -163,6 +166,7 @@ class DraftNotifier extends Notifier<BoothDraft> {
       return true;
     } catch (e) {
       state = BoothDraft(error: analysisErrorText(e));
+      Telemetry.errorShown(analysisErrorKind(e));
     }
     return false;
   }
@@ -183,6 +187,7 @@ class DraftNotifier extends Notifier<BoothDraft> {
         beardEdit: null,
         error: maskErrorText(e, MaskStep.beard),
       );
+      Telemetry.errorShown(analysisErrorKind(e));
     }
   }
 
@@ -217,6 +222,7 @@ class DraftNotifier extends Notifier<BoothDraft> {
         glassesEdit: null,
         error: maskErrorText(e, MaskStep.glasses),
       );
+      Telemetry.errorShown(analysisErrorKind(e));
     }
   }
 
@@ -247,6 +253,7 @@ class DraftNotifier extends Notifier<BoothDraft> {
         hairEdit: null,
         error: maskErrorText(e),
       );
+      Telemetry.errorShown(analysisErrorKind(e));
     }
   }
 
@@ -286,6 +293,8 @@ class BoothNotifier extends Notifier<BoothState> {
 
   /// Runs with a POST in flight: not to be taken for ones the app died in.
   final _posting = <String>{};
+
+  final _restyles = RestyleRuns();
 
   @override
   BoothState build() =>
@@ -352,6 +361,18 @@ class BoothNotifier extends Notifier<BoothState> {
       ),
     );
     _posting.add(_key(id, kMainRun));
+    _restyles.start(
+      _key(id, kMainRun),
+      kind: 'booth',
+      plan: plan,
+      project: project,
+    );
+    for (final f in draft.frames) {
+      Telemetry.track('style_pick', {
+        'style': catalogValue(f.styleId, kTelemetryStyleIds),
+        'medium': f.medium.name,
+      });
+    }
     await _put(project);
     await _submit(id, kMainRun);
     return id;
@@ -394,8 +415,11 @@ class BoothNotifier extends Notifier<BoothState> {
           ),
         ),
       );
+      Telemetry.errorShown(backendErrorKind(e));
+      _restyles.end(_key(projectId, runId), backendRefusalResult(e));
       return;
     }
+    _restyles.accepted(_key(projectId, runId));
     final current = state.byId(projectId)!;
     final paths = {...current.stepPaths};
     for (final s in plan.steps) {
@@ -432,6 +456,7 @@ class BoothNotifier extends Notifier<BoothState> {
           project.runById(runId)!.copyWith(error: kRetiredStyleText),
         ),
       );
+      Telemetry.errorShown('retired_style');
       return;
     }
     if (!_posting.add(_key(projectId, runId))) return;
@@ -439,6 +464,20 @@ class BoothNotifier extends Notifier<BoothState> {
     final fillIn = project == null || run == null || runId != kMainRun
         ? null
         : fillInPlan(project, run);
+    if (project != null && run != null) {
+      if (fillIn != null) Telemetry.feature('fill_in');
+      _restyles.start(
+        _key(projectId, runId),
+        kind: runId != kMainRun
+            ? 'clip_retry'
+            : fillIn != null
+            ? 'fill_in'
+            : 'retry',
+        plan: fillIn?.plan ?? RenderPlan.fromJson(run.plan),
+        project: project,
+        motionId: run.motionId,
+      );
+    }
     await _submit(projectId, runId, fillIn);
   }
 
@@ -451,9 +490,20 @@ class BoothNotifier extends Notifier<BoothState> {
   ) async {
     final project = state.byId(projectId)!;
     final path = project.pathOf(frameKey);
-    if (path == null) return 'Tenhle rámeček ještě není hotový.';
+    if (path == null) {
+      Telemetry.errorShown('nothing_ready');
+      return 'Tenhle rámeček ještě není hotový.';
+    }
     final clipId = project.nextClipId();
     final plan = clipPlan(clipId, motion);
+    final flowKey = _key(projectId, clipId);
+    _restyles.start(
+      flowKey,
+      kind: 'clip',
+      plan: plan,
+      project: project,
+      motionId: motion.id,
+    );
     final RenderJob job;
     try {
       final bytes = await ref.read(projectFilesProvider).read(path);
@@ -461,8 +511,11 @@ class BoothNotifier extends Notifier<BoothState> {
           .read(renderServiceProvider)
           .start(await _fit(ref.read(workerProvider), bytes), plan);
     } on Exception catch (e) {
+      Telemetry.errorShown(backendErrorKind(e));
+      _restyles.end(flowKey, backendRefusalResult(e));
       return backendErrorText(e);
     }
+    _restyles.accepted(flowKey);
     final current = state.byId(projectId)!;
     await _put(
       current.copyWith(
@@ -508,6 +561,8 @@ class BoothNotifier extends Notifier<BoothState> {
   }
 
   Future<void> delete(String projectId) async {
+    Telemetry.feature('delete');
+    _restyles.cancelProject(projectId);
     await ref.read(projectStoreProvider).delete(projectId);
     await ref.read(projectFilesProvider).deleteProject(projectId);
     state = BoothState(
@@ -531,6 +586,7 @@ class BoothNotifier extends Notifier<BoothState> {
           await for (final status in service.status(jobId)) {
             failures = 0;
             _setLive(key, status);
+            _restyles.progress(key, status);
             if (_alive(projectId) == null) return; // deleted meanwhile
             await _absorb(projectId, jobId, status);
             if (status.finished) {
@@ -587,6 +643,7 @@ class BoothNotifier extends Notifier<BoothState> {
       await _put(
         current.copyWith(stepPaths: {...current.stepPaths, entry.key: path}),
       );
+      Telemetry.activation(); // the first saved result; once per install
     }
   }
 
@@ -614,6 +671,29 @@ class BoothNotifier extends Notifier<BoothState> {
         : RunStatus.partial;
     final busy = status.steps.values.any((s) => s.busy);
     final nude = status.steps.values.any((s) => s.discardedAsNude);
+    _restyles.end(
+      _key(projectId, runId),
+      nude
+          ? 'filtered'
+          : busy
+          ? 'queued'
+          : switch (next) {
+              RunStatus.done => 'ok',
+              RunStatus.partial => 'partial',
+              _ => 'error',
+            },
+      stage: 'done',
+      framesOk: run.stepIds.length - failed.length,
+    );
+    if (nude || busy || next == RunStatus.failed) {
+      Telemetry.errorShown(
+        nude
+            ? 'nude'
+            : busy
+            ? 'queue_full'
+            : 'render_failed',
+      );
+    }
     await _put(
       project.withRun(
         run.copyWith(
@@ -635,6 +715,8 @@ class BoothNotifier extends Notifier<BoothState> {
   Future<void> _markLost(String projectId, String runId) async {
     final project = _alive(projectId);
     if (project == null) return;
+    _restyles.end(_key(projectId, runId), 'lost');
+    Telemetry.errorShown('lost');
     await _put(
       project.withRun(
         project

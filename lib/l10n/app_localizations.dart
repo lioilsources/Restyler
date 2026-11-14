@@ -1915,6 +1915,36 @@ abstract class AppLocalizations {
   /// In cs, this message translates to:
   /// **'Média a techniky'**
   String get sectionMedium;
+
+  /// No description provided for @statsToggle.
+  ///
+  /// In cs, this message translates to:
+  /// **'Anonymní statistiky'**
+  String get statsToggle;
+
+  /// No description provided for @statsToggleHint.
+  ///
+  /// In cs, this message translates to:
+  /// **'Bez fotek, textů a identifikátorů. Vypnutím se smaže i to, co čeká na odeslání.'**
+  String get statsToggleHint;
+
+  /// No description provided for @statsTesterOn.
+  ///
+  /// In cs, this message translates to:
+  /// **'Tohle zařízení se v statistikách hlásí jako testerské.'**
+  String get statsTesterOn;
+
+  /// No description provided for @statsTesterOff.
+  ///
+  /// In cs, this message translates to:
+  /// **'Tohle zařízení už se nehlásí jako testerské.'**
+  String get statsTesterOff;
+
+  /// No description provided for @menuMore.
+  ///
+  /// In cs, this message translates to:
+  /// **'Další volby'**
+  String get menuMore;
 }
 
 class _AppLocalizationsDelegate

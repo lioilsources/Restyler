@@ -917,4 +917,21 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get sectionMedium => 'Média a techniky';
+
+  @override
+  String get statsToggle => 'Anonymní statistiky';
+
+  @override
+  String get statsToggleHint =>
+      'Bez fotek, textů a identifikátorů. Vypnutím se smaže i to, co čeká na odeslání.';
+
+  @override
+  String get statsTesterOn =>
+      'Tohle zařízení se v statistikách hlásí jako testerské.';
+
+  @override
+  String get statsTesterOff => 'Tohle zařízení už se nehlásí jako testerské.';
+
+  @override
+  String get menuMore => 'Další volby';
 }
