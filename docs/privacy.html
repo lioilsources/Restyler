@@ -30,13 +30,15 @@
 </head>
 <body>
   <h1>Ochrana soukromí</h1>
-  <p class="updated">Aktualizováno 13. listopadu 2026 · <a href="#en">English below</a></p>
+  <p class="updated">Aktualizováno 14. listopadu 2026 · <a href="#en">English below</a></p>
 
   <h2>O čem to je</h2>
   <p>
     Tyto zásady platí pro appku <em>Restyler</em> (<code>com.ol1n.restyler</code>)
     pro iOS a Android. Provozovatelem je Oldřich Vořechovský (ol1n). Restyler nemá
-    účty, reklamy, analytiku ani platby.
+    účty, reklamy, analytiku třetích stran ani platby. Aby šlo zjistit, kde
+    appka drhne a jak dlouho se čeká na render, posílá anonymní statistiky
+    používání, popsané níže. Dají se kdykoli vypnout.
   </p>
 
   <h2>Co zůstává v telefonu</h2>
@@ -59,6 +61,57 @@
     neposílá jméno, e-mail, telefonní číslo, polohu ani identifikátor zařízení.
     Každá kopie appky se serveru hlásí stejným tokenem, takže server
     jednotlivé uživatele nerozlišuje.
+  </p>
+
+  <h2>Anonymní statistiky používání</h2>
+  <p>
+    <strong>Co se posílá.</strong> Krátké záznamy o tom, co se v appce děje:
+    appka se otevřela nebo šla do pozadí, která obrazovka byla vidět a jak
+    dlouho, jestli analýza selfie prošla a jak dlouho trvala (nebo proč ne,
+    třeba „tvář nenalezena“), který vzhled a které styly z nabídky appky jsi
+    vybral, jak render dopadl a jak dlouho se na něj čekalo, a jestli jsi pás
+    uložil nebo sdílel. Ke každému záznamu patří verze appky, platforma (iOS
+    nebo Android), jazyk appky a dvě hrubá pásma: kolikrát zhruba byla appka
+    na tomto zařízení spuštěná (1, 2, 3–5, 6–10, 11+) a před kolika dny
+    zhruba začalo měření (0, 1, 2–6, 7–29, 30+). Úplný seznam je zveřejněný
+    ve zdrojovém repozitáři appky
+    (<a href="https://github.com/lioilsources/Restyler/blob/main/docs/telemetry.md"><code>docs/telemetry.md</code></a>).
+  </p>
+  <p>
+    <strong>Co se neposílá.</strong> Statistiky neobsahují žádnou fotku,
+    masku, prompt ani hotový obrázek, žádný text, jméno, e-mail, účet,
+    identifikátor zařízení ani reklamní identifikátor a ani přesný model
+    telefonu. Každé spuštění appky dostane náhodné číslo, které existuje jen
+    po dobu běhu, takže dvě spuštění nejde propojit mezi sebou ani s tebou.
+    Statistiky jdou jinou cestou než render: render server je nedostává
+    a statistiky nesou jen vlastní klíč appky, ne token render serveru.
+  </p>
+  <p>
+    <strong>Proč.</strong> Abychom viděli, kolik nových uživatelů dojde od
+    selfie k hotové fotobuňce, ve kterém kroku odcházejí, jak dlouho se čeká
+    na render a kdy to lidé vzdají, a mohli to opravit.
+  </p>
+  <p>
+    <strong>Kdo je dostává a kde.</strong> Statistiky přijímá a ukládá
+    vývojář na vlastním serveru v EU (Česko). Nikdo další je nedostane:
+    žádná analytická firma ani jiná třetí strana. Odeslání, jako každé
+    připojení k internetu, prozradí serveru tvou IP adresu. Ta se neukládá,
+    použije se jen k určení země. Země je jediný údaj o poloze, který se
+    uchovává.
+  </p>
+  <p>
+    <strong>Jak dlouho.</strong> Statistiky se uchovávají 12 měsíců, pak se
+    mažou.
+  </p>
+  <p>
+    <strong>Bez připojení.</strong> Bez připojení čeká v telefonu nejvýš 500
+    posledních záznamů a odešlou se později. Starší se zahazují.
+  </p>
+  <p>
+    <strong>Jak je vypnout.</strong> Na úvodní obrazovce otevři menu ⋮
+    a zruš zaškrtnutí <em>Anonymní statistiky</em>. Platí to hned: záznamy
+    čekající v telefonu se smažou a nic dalšího se neodešle, dokud je znovu
+    nezapneš.
   </p>
 
   <h2>Co se na serveru děje a jak dlouho to tam je</h2>
@@ -99,13 +152,15 @@
   <hr>
 
   <h1 id="en">Privacy Policy</h1>
-  <p class="updated">Last updated: November 13, 2026</p>
+  <p class="updated">Last updated: November 14, 2026</p>
 
   <h2>Overview</h2>
   <p>
     This policy covers <em>Restyler</em> (<code>com.ol1n.restyler</code>) for iOS
     and Android, operated by Oldřich Vořechovský (ol1n). Restyler has no
-    accounts, no ads, no analytics and no payments.
+    accounts, no ads, no third-party analytics and no payments. To learn where
+    the app gets in the way and how long a render takes, it sends anonymous
+    usage statistics, described below, which you can turn off at any time.
   </p>
 
   <h2>What stays on your phone</h2>
@@ -127,6 +182,59 @@
     “Animate” sends one finished frame and the chosen motion. The app sends no
     name, email, phone number, location or device identifier. Every copy of the
     app uses the same token, so the server does not tell users apart.
+  </p>
+
+  <h2>Anonymous usage statistics</h2>
+  <p>
+    <strong>What is sent.</strong> Short records of what happens in the app:
+    the app was opened or went to the background, which screen was shown and
+    for how long, whether the selfie analysis passed and how long it took (or
+    why not, for example “no face found”), which look and which styles from
+    the app's own catalog you picked, how a render ended and how long it took,
+    and whether you saved or shared the strip. Each record also carries the
+    app version, the platform (iOS or Android), the app language and two
+    coarse bands: roughly how many times the app has been opened on this
+    device (1, 2, 3–5, 6–10, 11+) and roughly how many days ago measuring
+    began (0, 1, 2–6, 7–29, 30+). The full list is published in the app's
+    source repository
+    (<a href="https://github.com/lioilsources/Restyler/blob/main/docs/telemetry.md"><code>docs/telemetry.md</code></a>).
+  </p>
+  <p>
+    <strong>What is not sent.</strong> The statistics contain no photo, mask,
+    prompt or finished image, no text, name, email, account, device or
+    advertising identifier and no exact phone model. Each launch gets a random
+    number that exists only while the app runs, so two launches cannot be
+    linked to each other or to you. The statistics travel separately from
+    rendering: the render server does not receive them, and they carry only
+    the app's own statistics key, not the render server's token.
+  </p>
+  <p>
+    <strong>Why.</strong> To see how many new users get from a selfie to a
+    finished photo booth, at which step they leave, how long the wait for a
+    render is and when people give up, so we can fix it.
+  </p>
+  <p>
+    <strong>Who receives them, and where.</strong> The statistics are received
+    and stored by the developer, on the developer's own server in the EU
+    (Czech Republic). Nobody else receives them: no analytics company or other
+    third party is involved. Sending them, like any internet connection,
+    reveals your IP address to that server; the IP address is not stored, it
+    is used only to derive your country. Your country is the only location
+    information kept.
+  </p>
+  <p>
+    <strong>How long.</strong> Statistics are kept for 12 months and then
+    deleted.
+  </p>
+  <p>
+    <strong>Offline.</strong> Without a connection, up to 500 recent records
+    wait on your phone and are sent later; older ones are discarded.
+  </p>
+  <p>
+    <strong>How to turn them off.</strong> On the home screen open the ⋮ menu
+    and untick <em>Anonymous statistics</em>. This takes effect immediately:
+    records waiting on your phone are deleted and nothing more is sent, until
+    you turn it back on.
   </p>
 
   <h2>What happens on the server, and for how long</h2>
