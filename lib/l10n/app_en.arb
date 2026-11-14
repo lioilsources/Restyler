@@ -302,5 +302,10 @@
   "stylePopUpBook": "Pop-up book",
   "sectionEpoch": "Epochs",
   "sectionArtist": "Artists",
-  "sectionMedium": "Media and techniques"
+  "sectionMedium": "Media and techniques",
+  "statsToggle": "Anonymous statistics",
+  "statsToggleHint": "No photos, text or identifiers. Turning it off also deletes what is waiting to be sent.",
+  "statsTesterOn": "This device now reports as a tester device.",
+  "statsTesterOff": "This device no longer reports as a tester device.",
+  "menuMore": "More options"
 }

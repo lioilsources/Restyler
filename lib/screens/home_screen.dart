@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/booth_project.dart';
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
@@ -28,7 +30,16 @@ class HomeScreen extends ConsumerWidget {
     final config = ref.watch(configProvider);
     final files = ref.watch(projectFilesProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Restyler')),
+      appBar: AppBar(
+        title: Telemetry.isConfigured
+            ? GestureDetector(
+                // Hidden: marks the owner's own phone as a tester device.
+                onLongPress: () => _toggleTesterDevice(context),
+                child: const Text('Restyler'),
+              )
+            : const Text('Restyler'),
+        actions: [if (Telemetry.isConfigured) const _StatsMenu()],
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,6 +96,7 @@ class HomeScreen extends ConsumerWidget {
                           ),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute<void>(
+                              settings: const RouteSettings(name: '/booth'),
                               builder: (_) => BoothScreen(projectId: p.id),
                             ),
                           ),
@@ -98,7 +110,10 @@ class HomeScreen extends ConsumerWidget {
                 onPressed: () {
                   ref.read(draftProvider.notifier).reset();
                   Navigator.of(context).push(
-                    MaterialPageRoute<void>(builder: (_) => const SelfieStep()),
+                    MaterialPageRoute<void>(
+                      settings: const RouteSettings(name: '/selfie'),
+                      builder: (_) => const SelfieStep(),
+                    ),
                   );
                 },
                 child: const Text('Nová fotobuňka'),
@@ -107,6 +122,44 @@ class HomeScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+bool _testerDevice = false;
+
+Future<void> _toggleTesterDevice(BuildContext context) async {
+  final l10n = AppLocalizations.of(context);
+  final messenger = ScaffoldMessenger.of(context);
+  _testerDevice = !_testerDevice;
+  await Telemetry.setTesterDevice(_testerDevice);
+  messenger.showSnackBar(
+    SnackBar(
+      content: Text(_testerDevice ? l10n.statsTesterOn : l10n.statsTesterOff),
+    ),
+  );
+}
+
+/// The statistics switch; only in builds that can send them.
+class _StatsMenu extends StatelessWidget {
+  const _StatsMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return PopupMenuButton<void>(
+      tooltip: l10n.menuMore,
+      itemBuilder: (_) => [
+        CheckedPopupMenuItem<void>(
+          checked: Telemetry.isEnabled,
+          onTap: () => Telemetry.setEnabled(!Telemetry.isEnabled),
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(l10n.statsToggle),
+            subtitle: Text(l10n.statsToggleHint),
+          ),
+        ),
+      ],
     );
   }
 }

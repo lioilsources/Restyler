@@ -916,4 +916,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sectionMedium => 'Media and techniques';
+
+  @override
+  String get statsToggle => 'Anonymous statistics';
+
+  @override
+  String get statsToggleHint =>
+      'No photos, text or identifiers. Turning it off also deletes what is waiting to be sent.';
+
+  @override
+  String get statsTesterOn => 'This device now reports as a tester device.';
+
+  @override
+  String get statsTesterOff =>
+      'This device no longer reports as a tester device.';
+
+  @override
+  String get menuMore => 'More options';
 }
