@@ -49,3 +49,19 @@ app.*.map.json
 
 # Parser weights: bundled at build time, too large for git (make models)
 /assets/models/*.onnx
+# devconv:start
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.jks
+key.properties
+.claude/settings.local.json
+CLAUDE.local.md
+build/
+.flutter-plugins
+lib/**/secrets.dart
+# devconv:end
+# Example for --dart-define secrets; must stay tracked despite .env.* above
+!.env.local.example

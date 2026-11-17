@@ -9,6 +9,18 @@ Tag `vX.Y.Z` na `main` spustí:
   release nejde.
 
 Verze se bere z tagu, build number z čísla běhu. `pubspec.yaml` se nemění.
+`ci.yml` dělá jen analyze a testy.
+
+## Rozdíly proti šablonám z `Distribution/workflows`
+
+- **Modely** stahuje `tools/fetch_models.sh` z `GET /api/models/<jméno>` na backendu
+  (stejný app token), pak `make models` ověří sha256. Na JODA leží v
+  `~/restyler-api/tgbot/models-restyler/`; nový export tam patří taky
+  (víc v [models.md](models.md)).
+- **GitHub Release jen s APK** (`restyler-<tag>.apk`), viz výše.
+- **iOS manual signing** dopisuje CI do Release konfigurace Runneru až při buildu,
+  v repu zůstává Automatic, aby fungoval `make run`. Android podepisuje `key.properties`,
+  bez něj debug klíčem.
 
 ## Identita
 
@@ -24,7 +36,7 @@ Verze se bere z tagu, build number z čísla běhu. `pubspec.yaml` se nemění.
 2. Firebase: Android appka `com.ol1n.restyler`, skupina testerů Alfa.
 3. Secrets: `Distribution/scripts/setup-gh-secrets.sh --repo lioilsources/Restyler
    --app Restyler --bundle-id com.ol1n.restyler`. K tomu ručně `RESTYLER_APP_TOKEN`,
-   `RESTYLER_USER` a `APPSTORE_ISSUER_ID`.
+   `RESTYLER_USER` a `APPSTORE_ISSUER_ID` (v Bitwardenu je prázdný).
 4. App Store Connect a Google Play:
    - Privacy Policy URL: `https://lioilsources.github.io/Restyler/privacy.html`
    - Support URL: `https://lioilsources.github.io/Restyler/support.html`

@@ -35,25 +35,9 @@ poll, stažení kroku a `/api/me`. Modely jsou zapečené v appce, ze serveru se
 
 ## Modely
 
-SegFormer ve fp16, nikdy int8 (pod CoreML EP dává špatný výstup):
-
-| soubor | velikost | výstup |
-|---|---|---|
-| `face_b5.fp16.<sha8>.onnx` | 170.5 MB | `logits` 1×19×128×128 |
-| `clothes_b2.fp16.<sha8>.onnx` | 95.2 MB | `logits` 1×18×128×128 |
-
-Zdroj a export: `MangaPrompts/tools/ondevice/`; export s jeho připnutými verzemi je
-reprodukovatelný na bajt. Váhy jsou assety v `assets/models/`, do gitu nepatří
-(`.gitignore`, repo je veřejné a licence vah není jasná). CI je bere z backendu
-(`tools/fetch_models.sh`, viz Release), lokální `make models` chybějící soubory
-stáhne rsyncem ze SPARKu (`~/deploy/restyler-models/`, `MODELS_REMOTE`), ověří sha256
-a každý build přes Makefile ho volá. Při běhu je plugin
-(`createSessionFromAsset`) přes `rootBundle` rozbalí do tmp a po vymazání je rozbalí
-znovu, takže na disku jsou dvakrát. Nový export znamená nový otisk i jméno
-v `lib/services/onnx_face_parser.dart`, v `Makefile` a nový soubor na SPARKu i na JODĚ.
-
-Runtime `flutter_onnxruntime` 1.9.0 si vynucuje iOS 16, statické pody
-(`use_frameworks! :linkage => :static`) a `enable-swift-package-manager: false`.
+SegFormer fp16 (nikdy int8) jako assety v `assets/models/`, v gitu nejsou; `make models`
+je stáhne a ověří sha256. Export, velikosti, runtime a co změnit při novém exportu:
+[docs/models.md](docs/models.md).
 
 ## Sdílený balíček
 
@@ -74,24 +58,13 @@ make analyze
 make test
 ```
 
-## Release (GitHub Actions)
+## Release
 
-Tag `v*` spustí `release-ios.yml` (TestFlight) a `release-android.yml` (Firebase App
-Distribution, skupina Alfa); `ci.yml` jen analyze a testy. Workflow vznikly ze šablon
-v `Distribution/workflows`, ale se třemi rozdíly:
+Tag `v*` → TestFlight + Firebase (skupina Alfa) + APK na GitHub Release; `ci.yml` jen
+analyze a testy. Rozdíly proti šablonám z Distribution, secrets a ruční kroky:
+[docs/release.md](docs/release.md).
 
-- **Modely** stahuje `tools/fetch_models.sh` z `GET /api/models/<jméno>` na backendu
-  (stejný app token), pak `make models` ověří sha256. Na JODA leží v
-  `~/restyler-api/tgbot/models-restyler/`; nový export tam patří taky.
-- **GitHub Release jen s APK** (`restyler-<tag>.apk`, na něj vede tlačítko na olin.now).
-  APK nese app token a je veřejné, vlastník to tak chtěl (11/2026). IPA na release nejde.
-- **iOS manual signing** dopisuje CI do Release konfigurace Runneru až při buildu,
-  v repu zůstává Automatic, aby fungoval `make run`. Android podepisuje `key.properties`,
-  bez něj debug klíčem.
-
-Secrets: ty z `Distribution/scripts/setup-gh-secrets.sh --repo lioilsources/Restyler
---app Restyler --bundle-id com.ol1n.restyler`, plus `RESTYLER_APP_TOKEN`, `RESTYLER_USER`
-a ručně `APPSTORE_ISSUER_ID` (Bitwarden má prázdný).
+## Pás fotobuňky
 
 Pás fotobuňky kreslí `package:image` bitmapovým fontem `assets/fonts/strip_font.zip`
 (Roboto, Apache 2.0, generuje `tools/make_strip_font.py`), protože vestavěné fonty
