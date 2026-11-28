@@ -296,6 +296,36 @@ const kHairstyles = <Hairstyle>[
     shape: HairShape(length: HairLength.medium, bangs: HairBangs.none, updo: false),
   ),
   Hairstyle(
+    id: 'm-shag',
+    label: 'Shaggy Mid-Length',
+    cs: 'rozcuchaný střední střih',
+    group: kHairGroupMen,
+    section: 'Medium',
+    block:
+        'men\'s shaggy mid-length haircut, layered messy hair down to the ears with tousled texture',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.wispy, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-curtains',
+    label: 'Curtain Hair (Middle Part)',
+    cs: 'záclona, pěšinka uprostřed',
+    group: kHairGroupMen,
+    section: 'Medium',
+    block:
+        'men\'s curtain hairstyle, medium-length hair parted in the middle with the fringe falling to both sides of the forehead',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.curtain, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-blowout',
+    label: 'Blowout Taper',
+    cs: 'blowout',
+    group: kHairGroupMen,
+    section: 'Medium',
+    block:
+        'blowout haircut, voluminous hair blown back and up on top with a low taper fade on the sides',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
     id: 'm-quiff',
     label: 'Quiff',
     cs: 'quiff',
@@ -304,6 +334,36 @@ const kHairstyles = <Hairstyle>[
     block:
         'quiff hairstyle, hair on top brushed up and back into a voluminous quiff, shorter tapered sides',
     shape: HairShape(length: HairLength.short, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-slick-back',
+    label: 'Slick Back',
+    cs: 'ulízané dozadu',
+    group: kHairGroupMen,
+    section: 'Medium',
+    block:
+        'slicked back hair, medium-length hair combed straight back with shine, neat and sleek',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-afro',
+    label: 'Textured Afro',
+    cs: 'afro',
+    group: kHairGroupMen,
+    section: 'Medium',
+    block:
+        'textured afro, natural coily hair shaped into a rounded afro with defined volume',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-flow',
+    label: 'Flow (Swept Back)',
+    cs: 'flow, delší vlasy sčesané dozadu',
+    group: kHairGroupMen,
+    section: 'Long',
+    block:
+        'men\'s flow hairstyle, longer hair swept back behind the ears with a natural wave, collar-length',
+    shape: HairShape(length: HairLength.medium, bangs: HairBangs.none, updo: false),
   ),
   Hairstyle(
     id: 'm-man-bun',
@@ -354,6 +414,46 @@ const kHairstyles = <Hairstyle>[
     block:
         'cornrows, hair braided flat to the scalp in straight neat rows running back from the hairline',
     shape: HairShape(length: HairLength.short, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-mohawk-true',
+    label: 'Spiked Mohawk',
+    cs: 'vysoká čírka',
+    group: kHairGroupMen,
+    section: 'Short',
+    block:
+        'tall spiked punk mohawk, a narrow strip of long hair standing straight up in spikes along the middle of the head, both sides shaved to bare skin',
+    shape: HairShape(length: HairLength.short, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-skin-fade-true',
+    label: 'Bald Skin Fade',
+    cs: 'skin fade do kůže',
+    group: kHairGroupMen,
+    section: 'Short',
+    block:
+        'bald skin fade, sides and back shaved to bare skin at the bottom and fading up into short hair, crisp line-up, short textured hair on top',
+    shape: HairShape(length: HairLength.short, bangs: HairBangs.none, updo: false),
+  ),
+  Hairstyle(
+    id: 'm-ponytail',
+    label: 'Men\'s Ponytail',
+    cs: 'pánský culík',
+    group: kHairGroupMen,
+    section: 'Updos',
+    block:
+        'men\'s ponytail, long hair pulled straight back from the forehead and tied into a ponytail that hangs forward over one shoulder',
+    shape: HairShape(length: HairLength.keep, bangs: HairBangs.none, updo: true),
+  ),
+  Hairstyle(
+    id: 'm-samurai',
+    label: 'Samurai Top Knot',
+    cs: 'samurajský uzel',
+    group: kHairGroupMen,
+    section: 'Updos',
+    block:
+        'samurai top knot, long hair gathered and tied into a high tight knot on the crown of the head, hair pulled back cleanly from the forehead',
+    shape: HairShape(length: HairLength.keep, bangs: HairBangs.none, updo: true),
   ),
 ];
 
