@@ -302,5 +302,10 @@
   "stylePopUpBook": "Vystřelovací kniha",
   "sectionEpoch": "Epochy",
   "sectionArtist": "Umělci",
-  "sectionMedium": "Média a techniky"
+  "sectionMedium": "Média a techniky",
+  "statsToggle": "Anonymní statistiky",
+  "statsToggleHint": "Bez fotek, textů a identifikátorů. Vypnutím se smaže i to, co čeká na odeslání.",
+  "statsTesterOn": "Tohle zařízení se v statistikách hlásí jako testerské.",
+  "statsTesterOff": "Tohle zařízení už se nehlásí jako testerské.",
+  "menuMore": "Další volby"
 }

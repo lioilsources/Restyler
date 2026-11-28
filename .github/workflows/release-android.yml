@@ -83,10 +83,14 @@ jobs:
         env:
           RESTYLER_APP_TOKEN: ${{ secrets.RESTYLER_APP_TOKEN }}
           RESTYLER_USER: ${{ secrets.RESTYLER_USER }}
+          TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+          TELEMETRY_HOST: ${{ secrets.TELEMETRY_HOST }}
         run: |
           flutter build apk --release \
             --dart-define=RESTYLER_APP_TOKEN="$RESTYLER_APP_TOKEN" \
-            --dart-define=RESTYLER_USER="$RESTYLER_USER"
+            --dart-define=RESTYLER_USER="$RESTYLER_USER" \
+            --dart-define=TELEMETRY_KEY="$TELEMETRY_KEY" \
+            --dart-define=TELEMETRY_HOST="$TELEMETRY_HOST"
 
       - name: Verify APK signing certificate
         run: |

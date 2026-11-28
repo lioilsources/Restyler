@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../providers/booth_provider.dart';
 import '../providers/core_providers.dart';
@@ -17,7 +18,9 @@ class SelfieStep extends ConsumerWidget {
   ) async {
     final raw = await ref.read(photoSourceProvider).pick(source);
     if (raw == null || !context.mounted) return;
+    final flow = Telemetry.flow('analyse', {'source': source.name});
     final ok = await ref.read(draftProvider.notifier).analyse(raw);
+    flow.end(ok ? 'ok' : 'error');
     if (ok && context.mounted) goToNextStep(context, ref, null);
   }
 

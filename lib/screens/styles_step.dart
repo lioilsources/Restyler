@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
 import '../data/mixes.dart';
@@ -64,12 +65,19 @@ class _StylesStepState extends ConsumerState<StylesStep> {
 
   Future<void> _start() async {
     setState(() => _starting = true);
+    if (_mixId != null) Telemetry.feature('mix');
     final draft = ref.read(draftProvider);
+    if (draft.frames.any((f) => f.medium == RestyleMedium.photo)) {
+      Telemetry.feature('photo_medium');
+    }
     final id = await ref.read(boothProvider.notifier).start(draft);
     if (!mounted) return;
     ref.read(draftProvider.notifier).reset();
     await Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute<void>(builder: (_) => BoothScreen(projectId: id)),
+      MaterialPageRoute<void>(
+        settings: const RouteSettings(name: '/booth'),
+        builder: (_) => BoothScreen(projectId: id),
+      ),
       (route) => route.isFirst,
     );
   }
@@ -169,7 +177,10 @@ class _StylesStepState extends ConsumerState<StylesStep> {
                       hintText: 'Hledat styl',
                       prefixIcon: Icon(Icons.search),
                     ),
-                    onChanged: (v) => setState(() => _query = v),
+                    onChanged: (v) {
+                      if (v.isNotEmpty) Telemetry.feature('search');
+                      setState(() => _query = v);
+                    },
                   ),
                   const SizedBox(height: 8),
                   if (_query.isNotEmpty)

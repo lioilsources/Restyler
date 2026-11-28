@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tsumiki_shared/tsumiki_shared.dart';
 
@@ -44,6 +45,7 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
 
   Future<void> _animate(BoothProject project, BoothTile tile) async {
     final catalog = ref.read(catalogProvider);
+    Telemetry.feature('animate');
     final motion = await MotionSheet.show(
       context,
       catalog.motions,
@@ -58,8 +60,10 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
 
   void _play(BoothRun clip, BoothProject project) {
     final path = project.stepPaths[clip.id]!;
+    Telemetry.feature('clip_play');
     Navigator.of(context).push(
       MaterialPageRoute<void>(
+        settings: const RouteSettings(name: '/clip'),
         builder: (_) => ClipScreen(
           path: ref.read(projectFilesProvider).absolute(path),
           title: motionById(clip.motionId)?.cs ?? 'Klip',
@@ -92,21 +96,33 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
     return files.absolute(out);
   }
 
+  /// [use] returns false when the user backed out of it.
   Future<void> _export(
     BoothProject project,
-    Future<void> Function(String path) use,
+    String target,
+    Future<bool> Function(String path) use,
   ) async {
     setState(() => _working = true);
+    Telemetry.feature(target == 'photos' ? 'save_photos' : 'share');
+    final flow = Telemetry.flow('export', {
+      'target': target,
+      'layout': _layout.name,
+    });
     try {
       final path = await _writeStrip(project);
       if (path == null) {
+        flow.end('empty');
+        Telemetry.errorShown('nothing_ready');
         _say('Zatím není hotový žádný rámeček.');
       } else {
-        await use(path);
+        flow.end(await use(path) ? 'ok' : 'cancel');
       }
     } on GalException {
+      flow.end('error');
+      Telemetry.errorShown('export');
       _say('Pás se nepodařilo uložit do Fotek.');
     } finally {
+      flow.end('error'); // anything else that threw; no-op once ended
       if (mounted) setState(() => _working = false);
     }
   }
@@ -193,7 +209,12 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                 ButtonSegment(value: StripLayout.strip, label: Text('Pás')),
               ],
               selected: {_layout},
-              onSelectionChanged: (s) => setState(() => _layout = s.first),
+              onSelectionChanged: (s) {
+                if (s.first == StripLayout.strip) {
+                  Telemetry.feature('strip_layout');
+                }
+                setState(() => _layout = s.first);
+              },
             ),
             const SizedBox(height: 8),
             Row(
@@ -202,9 +223,10 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                   child: OutlinedButton(
                     onPressed: _working
                         ? null
-                        : () => _export(project, (path) async {
+                        : () => _export(project, 'photos', (path) async {
                             await Gal.putImage(path);
                             _say('Pás je ve Fotkách.');
+                            return true;
                           }),
                     child: const Text('Uložit do Fotek'),
                   ),
@@ -216,9 +238,13 @@ class _BoothScreenState extends ConsumerState<BoothScreen> {
                         ? null
                         : () => _export(
                             project,
+                            'share',
                             (path) => SharePlus.instance
                                 .share(ShareParams(files: [XFile(path)]))
-                                .then((_) {}),
+                                .then(
+                                  (r) =>
+                                      r.status != ShareResultStatus.dismissed,
+                                ),
                           ),
                     child: const Text('Sdílet'),
                   ),

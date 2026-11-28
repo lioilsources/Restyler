@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import 'l10n/app_localizations.dart';
 import 'providers/booth_provider.dart';
 import 'screens/home_screen.dart';
+import 'telemetry/telemetry_dictionary.dart';
 import 'theme.dart';
 
 class RestylerApp extends ConsumerStatefulWidget {
@@ -45,6 +47,7 @@ class _RestylerAppState extends ConsumerState<RestylerApp>
     theme: boothTheme(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
+    navigatorObservers: [TelemetryNavigatorObserver(kScreenRoutes)],
     home: const HomeScreen(),
   );
 }
